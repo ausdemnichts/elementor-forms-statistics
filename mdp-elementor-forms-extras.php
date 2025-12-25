@@ -4,37 +4,37 @@ Plugin Name: Elementor Forms Statistics
 Requires Plugins: elementor/elementor.php
 Plugin URI: https://www.medienproduktion.biz/elementor-forms-extras/
 Description: This plugin allows editors to view submissions received through Elementor forms. Additionally, a separate menu provides statistical analyses of the submissions, displayed as charts and tables.
-Version: 1.0
+Version: 1.0.0.0
 Author: Nikolaos Karapanagiotidis
 Author URI: https://www.medienproduktion.biz
 Text Domain: elementor-forms-statistics
 
 === Changelog ===
 
-= Version 1.0 – 20. Dezember 2025 =
+= Version 1.0.0.0 – 20. Dezember 2025 =
 * Die automatische Bereinigung lässt sich jetzt per Dropdown (Deaktiviert | 1 Stunde | 1 Tag | 1 Monat | 1 Jahr) steuern, die Daten werden weiterhin erst nach Archivierung gelöscht.
 
-= Version 1.0 – 19. Dezember 2025 =
+= Version 1.0.0.0 – 19. Dezember 2025 =
 * Neue Bereinigungsoption für Elementor Submissions: Nur wenn die Warnung aktiviert ist, werden alte Einträge nach dem gewählten Stunden-/Tage-/Monate-Intervall gelöscht.
 
-= Version 1.0 – 19. Dezember 2025 =
+= Version 1.0.0.0 – 19. Dezember 2025 =
 * Neue Standardfarbpalette, die auf dem aktuellen Design basiert, und das Chart-Footer-Link-Layout passt sich jetzt exakt der Breite von Diagramm/Tabelle an.
 
-= Version 1.0 – 19. Dezember 2025 =
+= Version 1.0.0.0 – 19. Dezember 2025 =
 * Neue Option im E-Mail Versand: HTML-Export kann weiterhin gespeichert werden, muss aber nicht mehr zwangsläufig als Anhang versendet werden.
 
-= Version 1.0 - 26. August 2025 =
+= Version 1.0.0.0 - 26. August 2025 =
 * Filtern über Checkboxen statt Menü. So kann man einzelne Formulare aus der Statistik ausblenden. 
 
 
-= Version 1.0 - 28. April 2025 =
+= Version 1.0.0.0 - 28. April 2025 =
 * Kurve geht nur bis zum aktuellen Datum
 
 
-= Version 1.0 - 25. März 2025 =
+= Version 1.0.0.0 - 25. März 2025 =
 * Farbschema und Transparenzen im Kurvendiagramm geändert
 
-= Version 1.0 - 1. September 2024 =
+= Version 1.0.0.0 - 1. September 2024 =
 * Hinzugefügt: Grafik filter nach Formular
 */
 
