@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Elementor Forms Statistics\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-01 00:00+0000\n"
+"PO-Revision-Date: 2025-12-31 00:00+0000\n"
+"Last-Translator: Elementor Forms Statistics <info@medienproduktion.biz>\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Inquiries"
+msgstr "Anfragen"
+
+msgid "Inquiries per Month and Year"
+msgstr "Anfragen pro Monat und Jahr"
+
+msgid "Select a Form:"
+msgstr "Wählen Sie ein Formular:"
+
+msgid "All Forms"
+msgstr "Alle Formulare"
+
+msgid "No forms found"
+msgstr "Keine Formulare gefunden"
+
+msgid "Filter"
+msgstr "Filtern"
+
+msgid "Year"
+msgstr "Jahr"
+
+msgid "Form"
+msgstr "Formular"
+
+msgid "Total"
+msgstr "Summe"
+
+msgid "Form Name"
+msgstr "Formularname"
+
+msgid "Default name: %s"
+msgstr "Standardname: %s"
+
+msgid "Unnamed Form"
+msgstr "Unbenanntes Formular"
+
+msgid "ID: %s"
+msgstr "ID: %s"
+
+msgid "Additional IDs: %s"
+msgstr "Weitere IDs: %s"
+
+msgid "Entries: %s"
+msgstr "Datensätze: %s"

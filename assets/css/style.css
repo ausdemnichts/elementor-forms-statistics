@@ -1,0 +1,224 @@
+/* assets/css/style.css */
+
+body.wp-admin .wrap.mdp-stats-root,
+body.wp-admin .wrap.mdp-stats-root h1,
+body.wp-admin .wrap.mdp-stats-root h2,
+body.wp-admin .wrap.mdp-stats-root h3,
+body.wp-admin .wrap.mdp-stats-root p,
+body.wp-admin .wrap.mdp-stats-root .mdp-version,
+body.wp-admin .wrap.mdp-stats-root .mdp-table,
+body.wp-admin .wrap.mdp-stats-root .mdp-chart,
+body.wp-admin .wrap.mdp-stats-root .checkbox-container,
+body.wp-admin .wrap.mdp-stats-root label {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.mdp-table {
+	font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+    font-size: 12px;
+    border-collapse: collapse;
+    width: 1090px;
+    margin-top: 20px;
+	margin-bottom:50px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mdp-table th, .mdp-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.mdp-table th {
+    background-color: #fdfdfd;
+}
+
+.mdp-table td {
+    background-color: #ffffff;
+}
+
+.mdp-table tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+.mdp-table tr td:nth-child(1) {
+    text-align: left;
+}
+
+.mdp-version {
+	margin-bottom: 100px;
+}
+
+.mdp-year-heading {
+    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    max-width: 1090px;
+    margin: 40px auto 10px;
+    color: #1d2327;
+}
+
+body.wp-admin .mdp-year-heading {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.mdp-chart {
+	width:1090px;
+	height: 500px;
+}
+
+.mdp-chart img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.mdp-chart-footer {
+    font-size: 11px;
+    color: #7d8391;
+    text-align: center;
+    margin: 0 auto 20px;
+    letter-spacing: 0.05em;
+    text-transform: none;
+    width: 1090px;
+    display: block;
+}
+
+.checkbox-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 10px;
+    max-width: 1090px;
+    margin: 15px 0;
+}
+
+.checkbox-container label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-weight: 500;
+    width: 100%;
+    line-height: 1.4;
+    margin: 0;
+    min-width: 0;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-top: 3px;
+}
+
+.checkbox-label-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.mdp-inline-view {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    margin: 20px 0 10px;
+    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+}
+
+.mdp-inline-text {
+    font-size: 13px;
+    color: #1d2327;
+}
+
+.mdp-inline-button {
+    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+}
+
+.mdp-export-form {
+    margin: 10px 0 20px;
+}
+
+.mdp_small {
+	color: #bbb;
+}
+
+.mdp-warning-text {
+    color: #a00;
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.mdp-clean-action-text {
+    color: #a00;
+    font-weight: 600;
+}
+
+.mdp-cleanup-warning {
+    color: #a00;
+    font-weight: 600;
+    margin-top: 6px;
+}
+.mdp-color-matrix {
+    margin-top: 12px;
+    overflow-x: auto;
+}
+
+.mdp-color-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mdp-color-table td {
+    vertical-align: middle;
+    padding: 8px 12px;
+    border-top: 1px solid transparent;
+}
+
+.mdp-color-table tr + tr {
+    border-top: 1px solid #e5e8f1;
+}
+
+.mdp-color-label {
+    font-weight: 600;
+    color: #1f2a44;
+    letter-spacing: 0.02em;
+    width: 28%;
+}
+
+.mdp-color-input-cell input {
+    width: 58px;
+    height: 36px;
+    border: none;
+    padding: 0;
+    background: transparent;
+    text-align: center;
+}
+
+.mdp-color-input-cell {
+    text-align: center;
+    width: 12%;
+}
+
+.mdp-transparency-cell {
+    width: 60%;
+}
+
+.mdp-transparency-label {
+    font-size: 12px;
+    color: #5c627a;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.mdp-transparency-slider {
+    width: 100%;
+    margin: 0;
+}
+
+.mdp-transparency-value {
+    font-weight: 700;
+    color: #1f2a44;
+}
