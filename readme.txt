@@ -1,6 +1,5 @@
 === Elementor Forms Statistics ===
 Contributors: Nikolaos Karapanagiotidis
-Donate link: https://www.medienproduktion.biz
 Tags: elementor, forms, statistics, charts, submissions
 Requires at least: 5.0
 Tested up to: 6.9
@@ -34,23 +33,23 @@ Elementor Forms Statistics is a plugin that allows editors to view all submissio
 
 == Changelog ==
 
-= 1.1.0 – 02. Januar 2026 =
-* Neuer Export-Bereich mit Tabs, Rollensteuerung und konfigurierbaren Export-Spalten inkl. Drag & Drop, Spaltennamen und Reihenfolge.
-* Vorschau mit optionalen Spalten, Excel/CSV-Export, Merken des letzten Formulars und Formats sowie sofortigem Speichern per AJAX.
-* Suchen & Ersetzen-Regeln, eigene Felder, Formel-Felder (inkl. Excel-Formeln) und Datumsformatierung pro Feld.
-* Erstelldatum als auswählbare Spalte, verbesserte Export-Regeln und automatische Aktualisierung der Vorschau.
-* Neue Übersetzungen (EN, ES, FR, IT, FI, EL, SV, DA, PL) und Textdomain-Dateinamen korrigiert.
+= 1.1.0 – 02 January 2026 =
+* New export section with tabs, role control, and configurable export columns including drag & drop, column names, and order.
+* Preview with optional columns, Excel/CSV export, remember last form and format, and instant saving via AJAX.
+* Search & replace rules, custom fields, formula fields (including Excel formulas), and per-field date formatting.
+* Created date as a selectable column, improved export rules, and automatic preview refresh.
+* New translations (EN, ES, FR, IT, FI, EL, SV, DA, PL) and corrected text domain filenames.
 
-= 1.0.0.0 – 20. Dezember 2025 =
-* Neue Dropdown-Steuerung für die automatische Bereinigung (Deaktiviert / 1 Stunde / 1 Tag / 1 Monat / 1 Jahr); die Löschung greift weiterhin erst nach der Archivierung.
+= 1.0.0.0 – 20 December 2025 =
+* New dropdown control for automatic cleanup (Disabled / 1 hour / 1 day / 1 month / 1 year); deletion still happens only after archiving.
 
-= 1.0.0.0 – 19. Dezember 2025 =
+= 1.0.0.0 – 19 December 2025 =
 
-= 1.0.0.0 – 19. Dezember 2025 =
-* Neue Standardfarbpalette und präzise Ausrichtung des Chart-Footer-Links an der Breite von Diagramm und Tabellen.
+= 1.0.0.0 – 19 December 2025 =
+* New standard color palette and precise alignment of the chart footer link to the width of charts and tables.
 
-= 1.0.0.0 – 19. Dezember 2025 =
-* Neue Einstellung im E-Mail Versand: der HTML-Export kann optional angehängt werden, der Link bleibt aber immer verfügbar.
+= 1.0.0.0 – 19 December 2025 =
+* New setting in email delivery: HTML export can be attached optionally; the link remains available.
 
 == Screenshots ==
 
