@@ -3,9 +3,10 @@ Contributors: Nikolaos Karapanagiotidis
 Donate link: https://www.medienproduktion.biz
 Tags: elementor, forms, statistics, charts, submissions
 Requires at least: 5.0
-Tested up to: 6.0
+Tested up to: 6.9
 Stable tag: 1.1.0
 Requires PHP: 7.2
+Tested up to PHP: 8.4.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +14,7 @@ Elementor Forms Statistics is a plugin for analyzing form submissions in Element
 
 == Elementor Compatibility ==
 
-* Diese Version wurde mit der jeweils aktuellen Elementor-Version getestet; sobald Elementor aktualisiert wird, bleibt auch dieses Plugin kompatibel, weil es eng mit dem aktuellen Formular-Stack zusammenarbeitet.
+* Tested with Elementor 3.34.0 and Elementor Pro 3.34.0.
 
 == Description ==
 

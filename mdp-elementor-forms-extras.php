@@ -5,6 +5,9 @@ Requires Plugins: elementor/elementor.php
 Plugin URI: https://www.medienproduktion.biz/elementor-forms-extras/
 Description: This plugin allows editors to view submissions received through Elementor forms. Additionally, a separate menu provides statistical analyses of the submissions, displayed as charts and tables.
 Version: 1.1.0
+Requires at least: 5.0
+Tested up to: 6.9
+Requires PHP: 7.2
 Author: Nikolaos Karapanagiotidis
 Author URI: https://www.medienproduktion.biz
 Text Domain: elementor-forms-statistics
