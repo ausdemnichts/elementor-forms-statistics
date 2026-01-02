@@ -1,0 +1,604 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Elementor Forms Statistics\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-02 21:10+0000\n"
+"Last-Translator: Elementor Forms Statistics <info@medienproduktion.biz>\n"
+"Language-Team: fi_FI\n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Inquiries"
+msgstr "Kyselyt"
+
+msgid "Inquiries per Month and Year"
+msgstr "Kyselyt kuukausittain ja vuosittain"
+
+msgid "Select a Form:"
+msgstr "Valitse lomake:"
+
+msgid "All Forms"
+msgstr "Kaikki lomakkeet"
+
+msgid "No forms found"
+msgstr "Lomakkeita ei löytynyt"
+
+msgid "Filter"
+msgstr "Suodata"
+
+msgid "Year"
+msgstr "Vuosi"
+
+msgid "Form"
+msgstr "Lomake"
+
+msgid "Total"
+msgstr "Yhteensä"
+
+msgid "Form Name"
+msgstr "Lomakkeen nimi"
+
+msgid "Default name: %s"
+msgstr "Oletusnimi: %s"
+
+msgid "Unnamed Form"
+msgstr "Nimetön lomake"
+
+msgid "ID: %s"
+msgstr "ID: %s"
+
+msgid "Additional IDs: %s"
+msgstr "Lisä-ID:t: %s"
+
+msgid "Entries: %s"
+msgstr "Merkinnät: %s"
+
+msgid "%d Jahr"
+msgstr "%d vuosi"
+
+msgid "%s (vor %s)"
+msgstr "%s (sitten %s)"
+
+msgid "%s = Website URL"
+msgstr "%s = sivuston URL"
+
+msgid "%s wird durch den Link zur Statistik ersetzt. Fehlt der Platzhalter, hängt das System den Link am Ende an."
+msgstr "%s korvataan tilastolinkillä. Jos paikkamerkki puuttuu, järjestelmä lisää linkin loppuun."
+
+msgid "%s · 2025 · v%s"
+msgstr "%s · 2025 · v%s"
+
+msgid "1 Jahr"
+msgstr "1 vuosi"
+
+msgid "1 Monat"
+msgstr "1 kuukausi"
+
+msgid "1 Stunde"
+msgstr "1 tunti"
+
+msgid "1 Tag"
+msgstr "1 päivä"
+
+msgid "Ab dieser Differenz zum Vorjahr werden Werte in der Tabelle fett hervorgehoben. Standard: 5."
+msgstr "Tästä erosta edellisvuoteen alkaen taulukon arvot korostetaan lihavoimalla. Oletus: 5."
+
+msgid "Aktiv"
+msgstr "Aktiivinen"
+
+msgid "Aktuelles Jahr"
+msgstr "Kuluva vuosi"
+
+msgid "Als HTML exportieren"
+msgstr "Vie HTML-muodossa"
+
+msgid "Anfragen"
+msgstr "Kyselyt"
+
+msgid "Anfragen Einstellungen"
+msgstr "Kyselyasetukset"
+
+msgid "Anfragen Statistik"
+msgstr "Kyselytilastot"
+
+msgid "Anfragen Statistik – %s"
+msgstr "Kyselytilastot – %s"
+
+msgid "Anfragen pro Monat und Jahr"
+msgstr "Kyselyt kuukausittain ja vuosittain"
+
+msgid "Anzahl Anfragen"
+msgstr "Kyselyiden määrä"
+
+msgid "Anzahl unterschiedlicher Formulare"
+msgstr "Eri lomakkeiden määrä"
+
+msgid "April"
+msgstr "Huhtikuu"
+
+msgid "Archiv"
+msgstr "Arkisto"
+
+msgid "Archiv initialisieren"
+msgstr "Alusta arkisto"
+
+msgid "Archiv vollständig neu aufbauen (überschreibt bestehende Daten mit aktuellem Elementor-Stand)"
+msgstr "Rakenna arkisto kokonaan uudelleen (korvaa olemassa olevat tiedot nykyisellä Elementor-tilalla)"
+
+msgid "Archivierte Statistiken"
+msgstr "Arkistoidut tilastot"
+
+msgid "August"
+msgstr "Elokuu"
+
+msgid "Auswählen"
+msgstr "Valitse"
+
+msgid "Auswählen %s"
+msgstr "Valitse %s"
+
+msgid "Automatischer Versand"
+msgstr "Automaattinen lähetys"
+
+msgid "Bei unterschiedlichen Monatslängen wird automatisch der letzte verfügbare Tag verwendet."
+msgstr "Eri pituisissa kuukausissa käytetään automaattisesti viimeistä saatavilla olevaa päivää."
+
+msgid "Beim Deinstallieren dieses Plugins alle Daten bereinigen."
+msgstr "Puhdista kaikki tiedot tämän lisäosan poiston yhteydessä."
+
+msgid "Betreffzeile"
+msgstr "Aihe"
+
+msgid "Bitte Plugin einmalig initialisieren, damit die Statistikdaten gesichert und anschließend automatisch synchronisiert werden."
+msgstr "Alusta lisäosa kerran, jotta tilastotiedot tallennetaan ja synkronoidaan automaattisesti."
+
+msgid "Bitte mindestens eine Export-Spalte aktivieren."
+msgstr "Ota käyttöön vähintään yksi vientisarakke."
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "CSV-Ausgabe fehlgeschlagen."
+msgstr "CSV-tulostus epäonnistui."
+
+msgid "Das Archiv speichert aggregierte und anonymisierte Formulardaten. So bleiben Statistiken erhalten, auch wenn Elementor-Einträge gelöscht oder aufgeräumt werden."
+msgstr "Arkisto tallentaa koottuja ja anonymisoituja lomaketietoja. Näin tilastot säilyvät, vaikka Elementor-merkinnät poistetaan tai siivotaan."
+
+msgid "Das Archiv wurde vollständig aufgebaut."
+msgstr "Arkisto on rakennettu kokonaan."
+
+msgid "Das Diagramm konnte nicht als Bild gerendert werden."
+msgstr "Kaaviota ei voitu renderöidä kuvaksi."
+
+msgid "Datumformat"
+msgstr "Päivämäärämuoto"
+
+msgid "Deaktiviert"
+msgstr "Pois käytöstä"
+
+msgid "Der Export ist für deine Benutzerrolle nicht freigeschaltet."
+msgstr "Vienti ei ole käytössä käyttäjäroolillesi."
+
+msgid "Der komplette Text für den E-Mail-Body."
+msgstr "Sähköpostin runkoteksti kokonaisuudessaan."
+
+msgid "Dezember"
+msgstr "Joulukuu"
+
+msgid "Diagramm der Formularanfragen"
+msgstr "Lomakekyselyiden kaavio"
+
+msgid "Die Statistik konnte nicht gesendet werden. Bitte Empfänger prüfen."
+msgstr "Tilastoja ei voitu lähettää. Tarkista vastaanottajat."
+
+msgid "Die Statistik wird zur angegebenen Uhrzeit versendet."
+msgstr "Tilastot lähetetään ilmoitettuna ajankohtana."
+
+msgid "Die Statistik wurde erfolgreich versendet."
+msgstr "Tilastot lähetettiin onnistuneesti."
+
+msgid "Dienstag"
+msgstr "Tiistai"
+
+msgid "Dieser Text ersetzt „Passwortfreien Statistik-Zugang“ im Link, falls du ihn anders benennen möchtest."
+msgstr "Tämä teksti korvaa \"salasanattoman tilastopääsyn\" linkissä, jos haluat nimetä sen toisin."
+
+msgid "Donnerstag"
+msgstr "Torstai"
+
+msgid "E-Mail Ignorelist"
+msgstr "Sähköpostin poissulkulista"
+
+msgid "E-Mail Text"
+msgstr "Sähköpostiteksti"
+
+msgid "E-Mail Versand"
+msgstr "Sähköpostin lähetys"
+
+msgid "E-Mails in diesem Feld fließen nicht in die Statistik ein. Bitte je Zeile eine Adresse oder einen Teilstring eintragen; Wildcards wie * können verwendet werden."
+msgstr "Tässä kentässä olevia sähköposteja ei oteta mukaan tilastoihin. Syötä yksi osoite tai osateksti per rivi; jokerimerkkejä kuten * voi käyttää."
+
+msgid "Eigenes Feld hinzufügen"
+msgstr "Lisää oma kenttä"
+
+msgid "Eine oder mehrere E-Mail-Adressen, getrennt durch Zeilenumbrüche oder Kommas."
+msgstr "Yksi tai useampi sähköpostiosoite, erotettuna rivinvaihdoilla tai pilkuilla."
+
+msgid "Einmal im Monat"
+msgstr "Kerran kuussa"
+
+msgid "Einstellungen"
+msgstr "Asetukset"
+
+msgid "Einstellungen gespeichert."
+msgstr "Asetukset tallennettu."
+
+msgid "Einstellungen zur Statistik-Sicherung"
+msgstr "Tilastojen varmuuskopiointiasetukset"
+
+msgid "Einträge"
+msgstr "Merkinnät"
+
+msgid "Element ID"
+msgstr "Elementti-ID"
+
+msgid "Elementor Forms Statistics"
+msgstr "Elementor Forms Statistics"
+
+msgid "Elementor Forms Statistics."
+msgstr "Elementor Forms Statistics."
+
+msgid "Elementor Submissions bereinigen"
+msgstr "Puhdista Elementor-lähetykset"
+
+msgid "Empfänger der Statistik"
+msgstr "Tilastojen vastaanottajat"
+
+msgid "Ersetzen"
+msgstr "Korvaa"
+
+msgid "Erstelldatum"
+msgstr "Luontipäivä"
+
+msgid "Excel"
+msgstr "Excel"
+
+msgid "Export"
+msgstr "Vie"
+
+msgid "Export verfügbar für"
+msgstr "Vienti käytettävissä rooleille"
+
+msgid "Export-Einstellungen gespeichert."
+msgstr "Vientiasetukset tallennettu."
+
+msgid "Export-Ordner (Upload-Verzeichnis)"
+msgstr "Vientikansio (latauskansio)"
+
+msgid "Export-Spalten"
+msgstr "Vientisarakkeet"
+
+msgid "Export-Spalten & Einträge"
+msgstr "Vientisarakkeet ja merkinnät"
+
+msgid "Exportieren"
+msgstr "Vie"
+
+msgid "Farben"
+msgstr "Värit"
+
+msgid "Februar"
+msgstr "Helmikuu"
+
+msgid "Feld"
+msgstr "Kenttä"
+
+msgid "Feld löschen"
+msgstr "Poista kenttä"
+
+msgid "Felder"
+msgstr "Kentät"
+
+msgid "Felder per Drag & Drop sortieren und Spaltennamen anpassen."
+msgstr "Järjestä kentät vetämällä ja pudottamalla ja muokkaa sarakenimiä."
+
+msgid "Feldname"
+msgstr "Kentän nimi"
+
+msgid "Format"
+msgstr "Muoto"
+
+msgid "Formel"
+msgstr "Kaava"
+
+msgid "Formel erstellen"
+msgstr "Luo kaava"
+
+msgid "Formel löschen"
+msgstr "Poista kaava"
+
+msgid "Formular"
+msgstr "Lomake"
+
+msgid "Formular auswählen"
+msgstr "Valitse lomake"
+
+msgid "Formular-Daten Export"
+msgstr "Lomaketietojen vienti"
+
+msgid "Formular-Update"
+msgstr "Lomakepäivitys"
+
+msgid "Formularname"
+msgstr "Lomakkeen nimi"
+
+msgid "Formularname (Distinct)"
+msgstr "Lomakkeen nimi (erilliset)"
+
+msgid "Freitag"
+msgstr "Perjantai"
+
+msgid "Für Chartansicht im Browser ansehen"
+msgstr "Näytä selaimessa kaavion katselua varten"
+
+msgid "Gesamt"
+msgstr "Yhteensä"
+
+msgid "Gespeichert"
+msgstr "Tallennettu"
+
+msgid "Gespeicherte Monate"
+msgstr "Tallennetut kuukaudet"
+
+msgid "Hallo,\\n\\nanbei die aktuelle Übersicht der Formular-Anfragen.\\n%stats_link%\\n\\nDeine freundliche Website\\n%s\\n\\n"
+msgstr "Hei,\\n\\ntästä löydät ajantasaisen yhteenvedon lomakekyselyistä.\\n%stats_link%\\n\\nYstävällisin terveisin\\n%s\\n\\n"
+
+msgid "Hinweis ausblenden"
+msgstr "Piilota huomautus"
+
+msgid "Hinzufügen"
+msgstr "Lisää"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Im Browser anzeigen"
+msgstr "Näytä selaimessa"
+
+msgid "Januar"
+msgstr "Tammikuu"
+
+msgid "Juli"
+msgstr "Heinäkuu"
+
+msgid "Juni"
+msgstr "Kesäkuu"
+
+msgid "Kein Formular ausgewählt."
+msgstr "Lomaketta ei ole valittu."
+
+msgid "Keine Benutzerrollen gefunden."
+msgstr "Käyttäjärooleja ei löytynyt."
+
+msgid "Keine Berechtigung."
+msgstr "Ei käyttöoikeutta."
+
+msgid "Keine Daten vorhanden."
+msgstr "Tietoja ei ole."
+
+msgid "Keine Einträge gefunden."
+msgstr "Merkintöjä ei löytynyt."
+
+msgid "Keine Felder gefunden."
+msgstr "Kenttiä ei löytynyt."
+
+msgid "Keine Formulare gefunden."
+msgstr "Lomakkeita ei löytynyt."
+
+msgid "Keine Seiten gefunden."
+msgstr "Sivuja ei löytynyt."
+
+msgid "Keine Spalten ausgewählt."
+msgstr "Sarakeita ei valittu."
+
+msgid "Legt fest, wie oft die Statistik per E-Mail verschickt wird."
+msgstr "Määrittää, kuinka usein tilastot lähetetään sähköpostitse."
+
+msgid "Letzte Synchronisierung"
+msgstr "Viimeisin synkronointi"
+
+msgid "Letzter vollständiger Import"
+msgstr "Viimeisin täydellinen tuonti"
+
+msgid "Liste nach"
+msgstr "Järjestä"
+
+msgid "Mai"
+msgstr "Toukokuu"
+
+msgid "Mittwoch"
+msgstr "Keskiviikko"
+
+msgid "Monatlich"
+msgstr "Kuukausittain"
+
+msgid "Montag"
+msgstr "Maanantai"
+
+msgid "März"
+msgstr "Maaliskuu"
+
+msgid "Nach der Initialisierung synchronisiert das Plugin automatisch neue Einträge in kurzen Abständen. Bei Bedarf kann der Prozess hier jederzeit erneut gestartet werden."
+msgstr "Alustuksen jälkeen lisäosa synkronoi uudet merkinnät automaattisesti lyhyin välein. Tarvittaessa prosessin voi käynnistää uudelleen täällä."
+
+msgid "Neue Einträge sichern"
+msgstr "Tallenna uudet merkinnät"
+
+msgid "Neue Einträge wurden ins Archiv übernommen."
+msgstr "Uudet merkinnät lisättiin arkistoon."
+
+msgid "Noch kein Import durchgeführt."
+msgstr "Tuontia ei ole vielä tehty."
+
+msgid "Noch nicht initialisiert"
+msgstr "Ei vielä alustettu"
+
+msgid "Noch nie"
+msgstr "Ei koskaan"
+
+msgid "November"
+msgstr "Marraskuu"
+
+msgid "Nur aktivieren, wenn das Archiv beschädigt ist. Achtung: Gelöschte Elementor-Einträge gehen dabei verloren."
+msgstr "Aktivoi vain, jos arkisto on vaurioitunut. Huomio: Poistetut Elementor-merkinnät menetetään."
+
+msgid "Nur ausgewählte Formulare werden in Grafik und Tabellen berücksichtigt."
+msgstr "Vain valitut lomakkeet huomioidaan kaavioissa ja taulukoissa."
+
+msgid "Nur ausgewählte Rollen sehen den Export-Menüpunkt."
+msgstr "Vain valitut roolit näkevät vientivalikon."
+
+msgid "Nur sichtbar bei wöchentlichem Versand."
+msgstr "Näkyy vain viikoittaisessa lähetyksessä."
+
+msgid "Nur wenn ein Intervall ausgewählt ist, werden alte Elementor Submissions im gewählten Rhythmus gelöscht, nachdem sie ins Archiv übernommen wurden."
+msgstr "Vain kun väli on valittu, vanhat Elementor-lähetykset poistetaan valitun rytmin mukaan arkistoinnin jälkeen."
+
+msgid "Oktober"
+msgstr "Lokakuu"
+
+msgid "Ordnername unter wp-content/uploads für die gespeicherten Statistiken."
+msgstr "Kansion nimi wp-content/uploads -kansiossa tallennettuja tilastoja varten."
+
+msgid "Original"
+msgstr "Alkuperäinen"
+
+msgid "Regel hinzufügen"
+msgstr "Lisää sääntö"
+
+msgid "Regel löschen"
+msgstr "Poista sääntö"
+
+msgid "Regeln werden beim Export und in der Vorschau angewendet."
+msgstr "Säännöt ovat käytössä viennissä ja esikatselussa."
+
+msgid "Reihenfolge speichern"
+msgstr "Tallenna järjestys"
+
+msgid "Samstag"
+msgstr "Lauantai"
+
+msgid "Schwellwert für außergewöhnliche Veränderungen"
+msgstr "Poikkeuksellisten muutosten kynnys"
+
+msgid "Seiten-Referer"
+msgstr "Sivun viittaaja"
+
+msgid "Seiten-Referer (Distinct)"
+msgstr "Sivun viittaaja (erilliset)"
+
+msgid "September"
+msgstr "Syyskuu"
+
+msgid "Sichtbare Formulare in Statistik"
+msgstr "Tilastoissa näkyvät lomakkeet"
+
+msgid "Sie haben keine Berechtigung, diese Seite zu sehen."
+msgstr "Sinulla ei ole oikeuksia nähdä tätä sivua."
+
+msgid "Sonntag"
+msgstr "Sunnuntai"
+
+msgid "Spaltenname"
+msgstr "Sarakenimi"
+
+msgid "Speichern"
+msgstr "Tallenna"
+
+msgid "Statistik"
+msgstr "Tilastot"
+
+msgid "Statistik Export"
+msgstr "Tilastojen vienti"
+
+msgid "Statistik als HTML exportieren"
+msgstr "Vie tilastot HTML-muodossa"
+
+msgid "Statistik jetzt senden"
+msgstr "Lähetä tilastot nyt"
+
+msgid "Statistik sofort versenden"
+msgstr "Lähetä tilastot heti"
+
+msgid "Statistik öffnen"
+msgstr "Avaa tilastot"
+
+msgid "Statistiken %s"
+msgstr "Tilastot %s"
+
+msgid "Status"
+msgstr "Tila"
+
+msgid "Suchen"
+msgstr "Hae"
+
+msgid "Suchen & Ersetzen"
+msgstr "Hae ja korvaa"
+
+msgid "Summe"
+msgstr "Summa"
+
+msgid "Summe aller Anfragen"
+msgstr "Kyselyiden kokonaismäärä"
+
+msgid "TT.MM.JJJJ"
+msgstr "PP.KK.VVVV"
+
+msgid "Tag im Monat"
+msgstr "Kuukauden päivä"
+
+msgid "Text Link"
+msgstr "Linkkiteksti"
+
+msgid "Transparenz"
+msgstr "Läpinäkyvyys"
+
+msgid "Täglich"
+msgstr "Päivittäin"
+
+msgid "Uhrzeit für den Versand"
+msgstr "Lähetysaika"
+
+msgid "Unbenannte Seite"
+msgstr "Nimetön sivu"
+
+msgid "Ungültige Anfrage."
+msgstr "Virheellinen pyyntö."
+
+msgid "Verhalten Deinstallieren"
+msgstr "Poiston toiminta"
+
+msgid "Verschickt die aktuelle Statistik einmalig an die oben definierten Empfänger."
+msgstr "Lähettää nykyiset tilastot kerran yllä määritetyille vastaanottajille."
+
+msgid "Wenn diese Checkbox aktiviert ist, wird bei der Deinstallation alles bereinigt: Datenbank-Tabellen, archivierte Statistiken und die statischen Dateien im Upload-Ordner werden gelöscht. Elementor-Submissions bleiben unberührt."
+msgstr "Kun tämä valintaruutu on käytössä, poistettaessa siivotaan kaikki: tietokantataulut, arkistoidut tilastot ja staattiset tiedostot uploads-kansiossa poistetaan. Elementor-lähetykset säilyvät."
+
+msgid "Wochentag für den Versand"
+msgstr "Lähetyksen viikonpäivä"
+
+msgid "Wöchentlich"
+msgstr "Viikoittain"
+
+msgid "Öffne die %s, um den Vorgang manuell zu starten und die Sicherung zu prüfen."
+msgstr "Avaa %s käynnistääksesi prosessin manuaalisesti ja tarkistaaksesi varmuuskopion."
+
+msgid "Vorschau"
+msgstr "Esikatselu"
+
+msgid "Export-Spalten & Vorschau"
+msgstr "Vientisarakkeet ja esikatselu"
+

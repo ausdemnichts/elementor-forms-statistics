@@ -1,0 +1,604 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Elementor Forms Statistics\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-02 21:10+0000\n"
+"Last-Translator: Elementor Forms Statistics <info@medienproduktion.biz>\n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Inquiries"
+msgstr "Inquiries"
+
+msgid "Inquiries per Month and Year"
+msgstr "Inquiries per Month and Year"
+
+msgid "Select a Form:"
+msgstr "Select a Form:"
+
+msgid "All Forms"
+msgstr "All Forms"
+
+msgid "No forms found"
+msgstr "No forms found"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Year"
+msgstr "Year"
+
+msgid "Form"
+msgstr "Form"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Form Name"
+msgstr "Form Name"
+
+msgid "Default name: %s"
+msgstr "Default name: %s"
+
+msgid "Unnamed Form"
+msgstr "Unnamed Form"
+
+msgid "ID: %s"
+msgstr "ID: %s"
+
+msgid "Additional IDs: %s"
+msgstr "Additional IDs: %s"
+
+msgid "Entries: %s"
+msgstr "Entries: %s"
+
+msgid "%d Jahr"
+msgstr "%d year"
+
+msgid "%s (vor %s)"
+msgstr "%s (ago %s)"
+
+msgid "%s = Website URL"
+msgstr "%s = Website URL"
+
+msgid "%s wird durch den Link zur Statistik ersetzt. Fehlt der Platzhalter, hängt das System den Link am Ende an."
+msgstr "%s will be replaced by the statistics link. If the placeholder is missing, the system appends the link at the end."
+
+msgid "%s · 2025 · v%s"
+msgstr "%s · 2025 · v%s"
+
+msgid "1 Jahr"
+msgstr "1 year"
+
+msgid "1 Monat"
+msgstr "1 month"
+
+msgid "1 Stunde"
+msgstr "1 hour"
+
+msgid "1 Tag"
+msgstr "1 day"
+
+msgid "Ab dieser Differenz zum Vorjahr werden Werte in der Tabelle fett hervorgehoben. Standard: 5."
+msgstr "From this difference to the previous year, values in the table are highlighted in bold. Default: 5."
+
+msgid "Aktiv"
+msgstr "Active"
+
+msgid "Aktuelles Jahr"
+msgstr "Current year"
+
+msgid "Als HTML exportieren"
+msgstr "Export as HTML"
+
+msgid "Anfragen"
+msgstr "Inquiries"
+
+msgid "Anfragen Einstellungen"
+msgstr "Inquiries settings"
+
+msgid "Anfragen Statistik"
+msgstr "Inquiries statistics"
+
+msgid "Anfragen Statistik – %s"
+msgstr "Inquiries statistics – %s"
+
+msgid "Anfragen pro Monat und Jahr"
+msgstr "Inquiries per month and year"
+
+msgid "Anzahl Anfragen"
+msgstr "Number of inquiries"
+
+msgid "Anzahl unterschiedlicher Formulare"
+msgstr "Number of distinct forms"
+
+msgid "April"
+msgstr "April"
+
+msgid "Archiv"
+msgstr "Archive"
+
+msgid "Archiv initialisieren"
+msgstr "Initialize archive"
+
+msgid "Archiv vollständig neu aufbauen (überschreibt bestehende Daten mit aktuellem Elementor-Stand)"
+msgstr "Rebuild archive completely (overwrites existing data with current Elementor state)"
+
+msgid "Archivierte Statistiken"
+msgstr "Archived statistics"
+
+msgid "August"
+msgstr "August"
+
+msgid "Auswählen"
+msgstr "Select"
+
+msgid "Auswählen %s"
+msgstr "Select %s"
+
+msgid "Automatischer Versand"
+msgstr "Automatic sending"
+
+msgid "Bei unterschiedlichen Monatslängen wird automatisch der letzte verfügbare Tag verwendet."
+msgstr "With different month lengths, the last available day is used automatically."
+
+msgid "Beim Deinstallieren dieses Plugins alle Daten bereinigen."
+msgstr "Clean all data when uninstalling this plugin."
+
+msgid "Betreffzeile"
+msgstr "Subject line"
+
+msgid "Bitte Plugin einmalig initialisieren, damit die Statistikdaten gesichert und anschließend automatisch synchronisiert werden."
+msgstr "Please initialize the plugin once so the statistics data is secured and then synchronized automatically."
+
+msgid "Bitte mindestens eine Export-Spalte aktivieren."
+msgstr "Please enable at least one export column."
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "CSV-Ausgabe fehlgeschlagen."
+msgstr "CSV output failed."
+
+msgid "Das Archiv speichert aggregierte und anonymisierte Formulardaten. So bleiben Statistiken erhalten, auch wenn Elementor-Einträge gelöscht oder aufgeräumt werden."
+msgstr "The archive stores aggregated and anonymized form data. This keeps statistics even if Elementor entries are deleted or cleaned up."
+
+msgid "Das Archiv wurde vollständig aufgebaut."
+msgstr "The archive has been fully built."
+
+msgid "Das Diagramm konnte nicht als Bild gerendert werden."
+msgstr "The chart could not be rendered as an image."
+
+msgid "Datumformat"
+msgstr "Date format"
+
+msgid "Deaktiviert"
+msgstr "Disabled"
+
+msgid "Der Export ist für deine Benutzerrolle nicht freigeschaltet."
+msgstr "Export is not enabled for your user role."
+
+msgid "Der komplette Text für den E-Mail-Body."
+msgstr "The complete text for the email body."
+
+msgid "Dezember"
+msgstr "December"
+
+msgid "Diagramm der Formularanfragen"
+msgstr "Chart of form inquiries"
+
+msgid "Die Statistik konnte nicht gesendet werden. Bitte Empfänger prüfen."
+msgstr "The statistics could not be sent. Please check recipients."
+
+msgid "Die Statistik wird zur angegebenen Uhrzeit versendet."
+msgstr "The statistics are sent at the specified time."
+
+msgid "Die Statistik wurde erfolgreich versendet."
+msgstr "The statistics were sent successfully."
+
+msgid "Dienstag"
+msgstr "Tuesday"
+
+msgid "Dieser Text ersetzt „Passwortfreien Statistik-Zugang“ im Link, falls du ihn anders benennen möchtest."
+msgstr "This text replaces “Password-free statistics access” in the link if you want to name it differently."
+
+msgid "Donnerstag"
+msgstr "Thursday"
+
+msgid "E-Mail Ignorelist"
+msgstr "Email ignore list"
+
+msgid "E-Mail Text"
+msgstr "Email text"
+
+msgid "E-Mail Versand"
+msgstr "Email delivery"
+
+msgid "E-Mails in diesem Feld fließen nicht in die Statistik ein. Bitte je Zeile eine Adresse oder einen Teilstring eintragen; Wildcards wie * können verwendet werden."
+msgstr "Emails in this field are excluded from statistics. Enter one address or substring per line; wildcards like * can be used."
+
+msgid "Eigenes Feld hinzufügen"
+msgstr "Add custom field"
+
+msgid "Eine oder mehrere E-Mail-Adressen, getrennt durch Zeilenumbrüche oder Kommas."
+msgstr "One or more email addresses, separated by line breaks or commas."
+
+msgid "Einmal im Monat"
+msgstr "Once a month"
+
+msgid "Einstellungen"
+msgstr "Settings"
+
+msgid "Einstellungen gespeichert."
+msgstr "Settings saved."
+
+msgid "Einstellungen zur Statistik-Sicherung"
+msgstr "Settings for statistics backup"
+
+msgid "Einträge"
+msgstr "Entries"
+
+msgid "Element ID"
+msgstr "Element ID"
+
+msgid "Elementor Forms Statistics"
+msgstr "Elementor Forms Statistics"
+
+msgid "Elementor Forms Statistics."
+msgstr "Elementor Forms Statistics."
+
+msgid "Elementor Submissions bereinigen"
+msgstr "Clean Elementor submissions"
+
+msgid "Empfänger der Statistik"
+msgstr "Recipients of the statistics"
+
+msgid "Ersetzen"
+msgstr "Replace"
+
+msgid "Erstelldatum"
+msgstr "Creation date"
+
+msgid "Excel"
+msgstr "Excel"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "Export verfügbar für"
+msgstr "Export available for"
+
+msgid "Export-Einstellungen gespeichert."
+msgstr "Export settings saved."
+
+msgid "Export-Ordner (Upload-Verzeichnis)"
+msgstr "Export folder (uploads directory)"
+
+msgid "Export-Spalten"
+msgstr "Export columns"
+
+msgid "Export-Spalten & Einträge"
+msgstr "Export columns & entries"
+
+msgid "Exportieren"
+msgstr "Export"
+
+msgid "Farben"
+msgstr "Colors"
+
+msgid "Februar"
+msgstr "February"
+
+msgid "Feld"
+msgstr "Field"
+
+msgid "Feld löschen"
+msgstr "Delete field"
+
+msgid "Felder"
+msgstr "Fields"
+
+msgid "Felder per Drag & Drop sortieren und Spaltennamen anpassen."
+msgstr "Sort fields by drag & drop and adjust column names."
+
+msgid "Feldname"
+msgstr "Field name"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Formel"
+msgstr "Formula"
+
+msgid "Formel erstellen"
+msgstr "Create formula"
+
+msgid "Formel löschen"
+msgstr "Delete formula"
+
+msgid "Formular"
+msgstr "Form"
+
+msgid "Formular auswählen"
+msgstr "Select form"
+
+msgid "Formular-Daten Export"
+msgstr "Form data export"
+
+msgid "Formular-Update"
+msgstr "Form update"
+
+msgid "Formularname"
+msgstr "Form name"
+
+msgid "Formularname (Distinct)"
+msgstr "Form name (distinct)"
+
+msgid "Freitag"
+msgstr "Friday"
+
+msgid "Für Chartansicht im Browser ansehen"
+msgstr "View in browser for chart view"
+
+msgid "Gesamt"
+msgstr "Total"
+
+msgid "Gespeichert"
+msgstr "Saved"
+
+msgid "Gespeicherte Monate"
+msgstr "Stored months"
+
+msgid "Hallo,\\n\\nanbei die aktuelle Übersicht der Formular-Anfragen.\\n%stats_link%\\n\\nDeine freundliche Website\\n%s\\n\\n"
+msgstr "Hello,\\n\\nHere is the current overview of form inquiries.\\n%stats_link%\\n\\nYour friendly website\\n%s\\n\\n"
+
+msgid "Hinweis ausblenden"
+msgstr "Dismiss notice"
+
+msgid "Hinzufügen"
+msgstr "Add"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Im Browser anzeigen"
+msgstr "View in browser"
+
+msgid "Januar"
+msgstr "January"
+
+msgid "Juli"
+msgstr "July"
+
+msgid "Juni"
+msgstr "June"
+
+msgid "Kein Formular ausgewählt."
+msgstr "No form selected."
+
+msgid "Keine Benutzerrollen gefunden."
+msgstr "No user roles found."
+
+msgid "Keine Berechtigung."
+msgstr "No permission."
+
+msgid "Keine Daten vorhanden."
+msgstr "No data available."
+
+msgid "Keine Einträge gefunden."
+msgstr "No entries found."
+
+msgid "Keine Felder gefunden."
+msgstr "No fields found."
+
+msgid "Keine Formulare gefunden."
+msgstr "No forms found."
+
+msgid "Keine Seiten gefunden."
+msgstr "No pages found."
+
+msgid "Keine Spalten ausgewählt."
+msgstr "No columns selected."
+
+msgid "Legt fest, wie oft die Statistik per E-Mail verschickt wird."
+msgstr "Defines how often the statistics are sent by email."
+
+msgid "Letzte Synchronisierung"
+msgstr "Last synchronization"
+
+msgid "Letzter vollständiger Import"
+msgstr "Last full import"
+
+msgid "Liste nach"
+msgstr "List by"
+
+msgid "Mai"
+msgstr "May"
+
+msgid "Mittwoch"
+msgstr "Wednesday"
+
+msgid "Monatlich"
+msgstr "Monthly"
+
+msgid "Montag"
+msgstr "Monday"
+
+msgid "März"
+msgstr "March"
+
+msgid "Nach der Initialisierung synchronisiert das Plugin automatisch neue Einträge in kurzen Abständen. Bei Bedarf kann der Prozess hier jederzeit erneut gestartet werden."
+msgstr "After initialization, the plugin automatically synchronizes new entries at short intervals. If needed, the process can be started again here at any time."
+
+msgid "Neue Einträge sichern"
+msgstr "Save new entries"
+
+msgid "Neue Einträge wurden ins Archiv übernommen."
+msgstr "New entries were added to the archive."
+
+msgid "Noch kein Import durchgeführt."
+msgstr "No import performed yet."
+
+msgid "Noch nicht initialisiert"
+msgstr "Not initialized yet"
+
+msgid "Noch nie"
+msgstr "Never"
+
+msgid "November"
+msgstr "November"
+
+msgid "Nur aktivieren, wenn das Archiv beschädigt ist. Achtung: Gelöschte Elementor-Einträge gehen dabei verloren."
+msgstr "Only enable if the archive is damaged. Warning: Deleted Elementor entries will be lost."
+
+msgid "Nur ausgewählte Formulare werden in Grafik und Tabellen berücksichtigt."
+msgstr "Only selected forms are included in charts and tables."
+
+msgid "Nur ausgewählte Rollen sehen den Export-Menüpunkt."
+msgstr "Only selected roles see the export menu item."
+
+msgid "Nur sichtbar bei wöchentlichem Versand."
+msgstr "Visible only for weekly sending."
+
+msgid "Nur wenn ein Intervall ausgewählt ist, werden alte Elementor Submissions im gewählten Rhythmus gelöscht, nachdem sie ins Archiv übernommen wurden."
+msgstr "Only when an interval is selected, old Elementor submissions are deleted on the chosen schedule after being archived."
+
+msgid "Oktober"
+msgstr "October"
+
+msgid "Ordnername unter wp-content/uploads für die gespeicherten Statistiken."
+msgstr "Folder name under wp-content/uploads for stored statistics."
+
+msgid "Original"
+msgstr "Original"
+
+msgid "Regel hinzufügen"
+msgstr "Add rule"
+
+msgid "Regel löschen"
+msgstr "Delete rule"
+
+msgid "Regeln werden beim Export und in der Vorschau angewendet."
+msgstr "Rules are applied during export and in the preview."
+
+msgid "Reihenfolge speichern"
+msgstr "Save order"
+
+msgid "Samstag"
+msgstr "Saturday"
+
+msgid "Schwellwert für außergewöhnliche Veränderungen"
+msgstr "Threshold for exceptional changes"
+
+msgid "Seiten-Referer"
+msgstr "Page referrer"
+
+msgid "Seiten-Referer (Distinct)"
+msgstr "Page referrer (distinct)"
+
+msgid "September"
+msgstr "September"
+
+msgid "Sichtbare Formulare in Statistik"
+msgstr "Visible forms in statistics"
+
+msgid "Sie haben keine Berechtigung, diese Seite zu sehen."
+msgstr "You do not have permission to view this page."
+
+msgid "Sonntag"
+msgstr "Sunday"
+
+msgid "Spaltenname"
+msgstr "Column name"
+
+msgid "Speichern"
+msgstr "Save"
+
+msgid "Statistik"
+msgstr "Statistics"
+
+msgid "Statistik Export"
+msgstr "Statistics export"
+
+msgid "Statistik als HTML exportieren"
+msgstr "Export statistics as HTML"
+
+msgid "Statistik jetzt senden"
+msgstr "Send statistics now"
+
+msgid "Statistik sofort versenden"
+msgstr "Send statistics immediately"
+
+msgid "Statistik öffnen"
+msgstr "Open statistics"
+
+msgid "Statistiken %s"
+msgstr "Statistics %s"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Suchen"
+msgstr "Search"
+
+msgid "Suchen & Ersetzen"
+msgstr "Search & replace"
+
+msgid "Summe"
+msgstr "Sum"
+
+msgid "Summe aller Anfragen"
+msgstr "Total number of inquiries"
+
+msgid "TT.MM.JJJJ"
+msgstr "DD.MM.YYYY"
+
+msgid "Tag im Monat"
+msgstr "Day of month"
+
+msgid "Text Link"
+msgstr "Link text"
+
+msgid "Transparenz"
+msgstr "Transparency"
+
+msgid "Täglich"
+msgstr "Daily"
+
+msgid "Uhrzeit für den Versand"
+msgstr "Send time"
+
+msgid "Unbenannte Seite"
+msgstr "Unnamed page"
+
+msgid "Ungültige Anfrage."
+msgstr "Invalid request."
+
+msgid "Verhalten Deinstallieren"
+msgstr "Uninstall behavior"
+
+msgid "Verschickt die aktuelle Statistik einmalig an die oben definierten Empfänger."
+msgstr "Sends the current statistics once to the recipients defined above."
+
+msgid "Wenn diese Checkbox aktiviert ist, wird bei der Deinstallation alles bereinigt: Datenbank-Tabellen, archivierte Statistiken und die statischen Dateien im Upload-Ordner werden gelöscht. Elementor-Submissions bleiben unberührt."
+msgstr "If this checkbox is enabled, everything is cleaned on uninstall: database tables, archived statistics, and static files in the uploads folder are deleted. Elementor submissions remain untouched."
+
+msgid "Wochentag für den Versand"
+msgstr "Weekday for sending"
+
+msgid "Wöchentlich"
+msgstr "Weekly"
+
+msgid "Öffne die %s, um den Vorgang manuell zu starten und die Sicherung zu prüfen."
+msgstr "Open the %s to start the process manually and check the backup."
+
+msgid "Vorschau"
+msgstr "Preview"
+
+msgid "Export-Spalten & Vorschau"
+msgstr "Export columns & preview"
+

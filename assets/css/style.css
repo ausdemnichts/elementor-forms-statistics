@@ -13,6 +13,11 @@ body.wp-admin .wrap.mdp-stats-root label {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+body.wp-admin .wrap.mdp-stats-root {
+    max-width: 1600px;
+    width: 100%;
+}
+
 .mdp-table {
 	font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
     font-size: 12px;
@@ -159,6 +164,396 @@ body.wp-admin .mdp-year-heading {
     color: #a00;
     font-weight: 600;
     margin-top: 6px;
+}
+
+.mdp-export-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.mdp-export-tabs {
+    display: inline-flex;
+    gap: 6px;
+    border-bottom: 1px solid #dcdcde;
+    margin: 16px 0 12px;
+    position: relative;
+    z-index: 2;
+}
+
+.mdp-export-tab {
+    border: 1px solid transparent;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #50575e;
+    cursor: pointer;
+}
+
+.mdp-export-tab.is-active {
+    color: #1d2327;
+    border-color: #dcdcde;
+    border-bottom-color: #fff;
+    background: #fff;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+body.wp-admin .mdp-export-tab-panel {
+    display: none !important;
+    pointer-events: none;
+}
+
+body.wp-admin .mdp-export-tab-panel.is-active {
+    display: block !important;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.mdp-export-col {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 8px;
+    padding: 16px;
+    flex: 1 1 320px;
+}
+
+.mdp-export-col-left {
+    max-width: 360px;
+}
+
+.mdp-export-tab-panel .mdp-export-col-left {
+    max-width: 720px;
+    width: 100%;
+}
+
+.mdp-export-right-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: 16px;
+    align-items: start;
+}
+
+.mdp-export-fields-panel,
+.mdp-export-preview-panel {
+    min-width: 0;
+}
+
+.mdp-export-preview-panel h3 {
+    margin-top: 0;
+}
+
+.mdp-export-add-field {
+    margin: 10px 0 12px;
+}
+
+.mdp-export-add-field-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.mdp-export-add-field-row .button {
+    white-space: nowrap;
+}
+
+.mdp-export-rules {
+    margin-top: 16px;
+}
+
+.mdp-export-rules-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+}
+
+.mdp-export-rules-table th,
+.mdp-export-rules-table td {
+    text-align: left;
+    padding: 6px 4px;
+}
+
+.mdp-export-rules-table input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mdp-export-rule-remove {
+    color: #8c8f94;
+}
+
+.mdp-export-rule-remove:hover {
+    color: #d63638;
+}
+
+.mdp-export-formulas {
+    margin-top: 16px;
+}
+
+.mdp-formula-tags {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.mdp-formula-tags-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #50575e;
+}
+
+.mdp-formula-tags-list {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.mdp-formula-tag {
+    border: none;
+    background: #eef2f7;
+    color: #1d2327;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.mdp-formula-tag:hover {
+    background: #dbe7f5;
+}
+
+.mdp-export-formula-add {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.mdp-export-formulas-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mdp-export-formulas-table th,
+.mdp-export-formulas-table td {
+    text-align: left;
+    padding: 6px 4px;
+}
+
+.mdp-export-formulas-table input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mdp-export-formula-remove {
+    color: #8c8f94;
+}
+
+.mdp-export-formula-remove:hover {
+    color: #d63638;
+}
+
+.mdp-export-formula-label {
+    background: #f3f0ff;
+}
+.mdp-export-fields-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+
+.mdp-export-fields-table th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: #50575e;
+    padding: 0 8px 6px;
+}
+
+.mdp-export-fields-table td {
+    padding: 6px 8px;
+    vertical-align: middle;
+}
+
+.mdp-export-field-item {
+    background: #f9fafb;
+    cursor: grab;
+}
+
+.mdp-export-field-item + .mdp-export-field-item td {
+    border-top: 1px solid #e2e4e7;
+}
+
+.mdp-export-field-item:hover {
+    background: #f1f4f7;
+}
+
+.mdp-export-empty-row td {
+    color: #6c7781;
+    padding: 8px 10px;
+}
+
+.mdp-export-empty {
+    color: #6c7781;
+    padding: 8px 10px;
+}
+
+.mdp-export-field-item td {
+    cursor: grab;
+}
+
+.mdp-field-handle {
+    cursor: grab;
+    font-weight: 700;
+    color: #6c7781;
+}
+
+.mdp-export-field-item:hover .mdp-field-handle {
+    color: #1d2327;
+}
+
+.mdp-export-field-item .mdp-field-label {
+    cursor: text;
+}
+
+.mdp-export-col-handle {
+    width: 24px;
+}
+
+.mdp-export-col-include {
+    width: 70px;
+    text-align: center;
+}
+
+.mdp-field-dateformat-cell {
+    width: 140px;
+}
+
+.mdp-field-key {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12px;
+}
+
+.mdp-export-custom-label {
+    background: #eef6ff;
+    position: relative;
+    padding-right: 26px;
+}
+
+.mdp-export-formula-label {
+    background: #f3f0ff;
+}
+
+.mdp-export-delete-field {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #8c8f94;
+    cursor: pointer;
+}
+
+.mdp-export-delete-field:hover {
+    color: #d63638;
+}
+
+.mdp-export-delete-field .dashicons,
+.mdp-export-rule-remove .dashicons,
+.mdp-export-formula-remove .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+}
+
+.mdp-field-label-cell {
+    width: 35%;
+}
+
+.mdp-field-label {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mdp-field-date-format {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mdp-export-preview {
+    max-height: 520px;
+    min-height: 260px;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    border: 1px solid #e2e4e7;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.mdp-export-preview-table {
+    width: max-content;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.mdp-export-preview-table th,
+.mdp-export-preview-table td {
+    text-align: left;
+    padding: 6px 8px;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.mdp-export-preview-table th {
+    position: sticky;
+    top: 0;
+    background: #f6f7f7;
+    z-index: 1;
+}
+
+.mdp-export-toast {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background: #1f8b4c;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.mdp-export-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 782px) {
+    .mdp-export-layout {
+        flex-direction: column;
+    }
+
+    .mdp-export-col-left {
+        max-width: 100%;
+    }
+
+    .mdp-export-right-grid {
+        grid-template-columns: 1fr;
+    }
 }
 .mdp-color-matrix {
     margin-top: 12px;

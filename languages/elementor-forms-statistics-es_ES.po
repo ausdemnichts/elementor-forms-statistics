@@ -1,0 +1,604 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Elementor Forms Statistics\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-02 21:10+0000\n"
+"Last-Translator: Elementor Forms Statistics <info@medienproduktion.biz>\n"
+"Language-Team: Spanish\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Inquiries"
+msgstr "Consultas"
+
+msgid "Inquiries per Month and Year"
+msgstr "Consultas por mes y año"
+
+msgid "Select a Form:"
+msgstr "Seleccione un formulario:"
+
+msgid "All Forms"
+msgstr "Todos los formularios"
+
+msgid "No forms found"
+msgstr "No se encontraron formularios"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "Year"
+msgstr "Año"
+
+msgid "Form"
+msgstr "Formulario"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Form Name"
+msgstr "Nombre del formulario"
+
+msgid "Default name: %s"
+msgstr "Nombre predeterminado: %s"
+
+msgid "Unnamed Form"
+msgstr "Formulario sin nombre"
+
+msgid "ID: %s"
+msgstr "ID: %s"
+
+msgid "Additional IDs: %s"
+msgstr "IDs adicionales: %s"
+
+msgid "Entries: %s"
+msgstr "Registros: %s"
+
+msgid "%d Jahr"
+msgstr "%d año"
+
+msgid "%s (vor %s)"
+msgstr "%s (hace %s)"
+
+msgid "%s = Website URL"
+msgstr "%s = URL del sitio web"
+
+msgid "%s wird durch den Link zur Statistik ersetzt. Fehlt der Platzhalter, hängt das System den Link am Ende an."
+msgstr "%s se sustituye por el enlace a las estadísticas. Si falta el marcador, el sistema añade el enlace al final."
+
+msgid "%s · 2025 · v%s"
+msgstr "%s · 2025 · v%s"
+
+msgid "1 Jahr"
+msgstr "1 año"
+
+msgid "1 Monat"
+msgstr "1 mes"
+
+msgid "1 Stunde"
+msgstr "1 hora"
+
+msgid "1 Tag"
+msgstr "1 día"
+
+msgid "Ab dieser Differenz zum Vorjahr werden Werte in der Tabelle fett hervorgehoben. Standard: 5."
+msgstr "A partir de esta diferencia con respecto al año anterior, los valores de la tabla se resaltan en negrita. Predeterminado: 5."
+
+msgid "Aktiv"
+msgstr "Activo"
+
+msgid "Aktuelles Jahr"
+msgstr "Año actual"
+
+msgid "Als HTML exportieren"
+msgstr "Exportar como HTML"
+
+msgid "Anfragen"
+msgstr "Consultas"
+
+msgid "Anfragen Einstellungen"
+msgstr "Configuración de consultas"
+
+msgid "Anfragen Statistik"
+msgstr "Estadísticas de consultas"
+
+msgid "Anfragen Statistik – %s"
+msgstr "Estadísticas de consultas – %s"
+
+msgid "Anfragen pro Monat und Jahr"
+msgstr "Consultas por mes y año"
+
+msgid "Anzahl Anfragen"
+msgstr "Número de consultas"
+
+msgid "Anzahl unterschiedlicher Formulare"
+msgstr "Número de formularios distintos"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "Archiv"
+msgstr "Archivo"
+
+msgid "Archiv initialisieren"
+msgstr "Inicializar archivo"
+
+msgid "Archiv vollständig neu aufbauen (überschreibt bestehende Daten mit aktuellem Elementor-Stand)"
+msgstr "Reconstruir el archivo por completo (sobrescribe los datos existentes con el estado actual de Elementor)"
+
+msgid "Archivierte Statistiken"
+msgstr "Estadísticas archivadas"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "Auswählen"
+msgstr "Seleccionar"
+
+msgid "Auswählen %s"
+msgstr "Seleccionar %s"
+
+msgid "Automatischer Versand"
+msgstr "Envío automático"
+
+msgid "Bei unterschiedlichen Monatslängen wird automatisch der letzte verfügbare Tag verwendet."
+msgstr "Con diferentes duraciones de mes, se utiliza automáticamente el último día disponible."
+
+msgid "Beim Deinstallieren dieses Plugins alle Daten bereinigen."
+msgstr "Eliminar todos los datos al desinstalar este plugin."
+
+msgid "Betreffzeile"
+msgstr "Línea de asunto"
+
+msgid "Bitte Plugin einmalig initialisieren, damit die Statistikdaten gesichert und anschließend automatisch synchronisiert werden."
+msgstr "Por favor, inicialice el plugin una vez para que los datos de estadísticas se guarden y luego se sincronicen automáticamente."
+
+msgid "Bitte mindestens eine Export-Spalte aktivieren."
+msgstr "Active al menos una columna de exportación."
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "CSV-Ausgabe fehlgeschlagen."
+msgstr "Falló la salida CSV."
+
+msgid "Das Archiv speichert aggregierte und anonymisierte Formulardaten. So bleiben Statistiken erhalten, auch wenn Elementor-Einträge gelöscht oder aufgeräumt werden."
+msgstr "El archivo guarda datos de formularios agregados y anonimizados. Así se conservan las estadísticas aunque se eliminen o limpien entradas de Elementor."
+
+msgid "Das Archiv wurde vollständig aufgebaut."
+msgstr "El archivo se ha construido completamente."
+
+msgid "Das Diagramm konnte nicht als Bild gerendert werden."
+msgstr "No se pudo renderizar el gráfico como imagen."
+
+msgid "Datumformat"
+msgstr "Formato de fecha"
+
+msgid "Deaktiviert"
+msgstr "Desactivado"
+
+msgid "Der Export ist für deine Benutzerrolle nicht freigeschaltet."
+msgstr "La exportación no está habilitada para tu rol de usuario."
+
+msgid "Der komplette Text für den E-Mail-Body."
+msgstr "El texto completo para el cuerpo del correo."
+
+msgid "Dezember"
+msgstr "Diciembre"
+
+msgid "Diagramm der Formularanfragen"
+msgstr "Gráfico de consultas de formularios"
+
+msgid "Die Statistik konnte nicht gesendet werden. Bitte Empfänger prüfen."
+msgstr "No se pudieron enviar las estadísticas. Por favor, revise los destinatarios."
+
+msgid "Die Statistik wird zur angegebenen Uhrzeit versendet."
+msgstr "Las estadísticas se envían a la hora indicada."
+
+msgid "Die Statistik wurde erfolgreich versendet."
+msgstr "Las estadísticas se enviaron correctamente."
+
+msgid "Dienstag"
+msgstr "Martes"
+
+msgid "Dieser Text ersetzt „Passwortfreien Statistik-Zugang“ im Link, falls du ihn anders benennen möchtest."
+msgstr "Este texto sustituye “Acceso a estadísticas sin contraseña” en el enlace si quieres nombrarlo de otra forma."
+
+msgid "Donnerstag"
+msgstr "Jueves"
+
+msgid "E-Mail Ignorelist"
+msgstr "Lista de exclusión de correo"
+
+msgid "E-Mail Text"
+msgstr "Texto del correo"
+
+msgid "E-Mail Versand"
+msgstr "Envío de correo"
+
+msgid "E-Mails in diesem Feld fließen nicht in die Statistik ein. Bitte je Zeile eine Adresse oder einen Teilstring eintragen; Wildcards wie * können verwendet werden."
+msgstr "Los correos en este campo no se incluyen en las estadísticas. Introduzca una dirección o subcadena por línea; se pueden usar comodines como *."
+
+msgid "Eigenes Feld hinzufügen"
+msgstr "Añadir campo personalizado"
+
+msgid "Eine oder mehrere E-Mail-Adressen, getrennt durch Zeilenumbrüche oder Kommas."
+msgstr "Una o más direcciones de correo, separadas por saltos de línea o comas."
+
+msgid "Einmal im Monat"
+msgstr "Una vez al mes"
+
+msgid "Einstellungen"
+msgstr "Configuración"
+
+msgid "Einstellungen gespeichert."
+msgstr "Configuración guardada."
+
+msgid "Einstellungen zur Statistik-Sicherung"
+msgstr "Configuración de respaldo de estadísticas"
+
+msgid "Einträge"
+msgstr "Entradas"
+
+msgid "Element ID"
+msgstr "ID del elemento"
+
+msgid "Elementor Forms Statistics"
+msgstr "Elementor Forms Statistics"
+
+msgid "Elementor Forms Statistics."
+msgstr "Elementor Forms Statistics."
+
+msgid "Elementor Submissions bereinigen"
+msgstr "Limpiar envíos de Elementor"
+
+msgid "Empfänger der Statistik"
+msgstr "Destinatarios de las estadísticas"
+
+msgid "Ersetzen"
+msgstr "Reemplazar"
+
+msgid "Erstelldatum"
+msgstr "Fecha de creación"
+
+msgid "Excel"
+msgstr "Excel"
+
+msgid "Export"
+msgstr "Exportar"
+
+msgid "Export verfügbar für"
+msgstr "Exportación disponible para"
+
+msgid "Export-Einstellungen gespeichert."
+msgstr "Configuración de exportación guardada."
+
+msgid "Export-Ordner (Upload-Verzeichnis)"
+msgstr "Carpeta de exportación (directorio de subidas)"
+
+msgid "Export-Spalten"
+msgstr "Columnas de exportación"
+
+msgid "Export-Spalten & Einträge"
+msgstr "Columnas de exportación y entradas"
+
+msgid "Exportieren"
+msgstr "Exportar"
+
+msgid "Farben"
+msgstr "Colores"
+
+msgid "Februar"
+msgstr "Febrero"
+
+msgid "Feld"
+msgstr "Campo"
+
+msgid "Feld löschen"
+msgstr "Eliminar campo"
+
+msgid "Felder"
+msgstr "Campos"
+
+msgid "Felder per Drag & Drop sortieren und Spaltennamen anpassen."
+msgstr "Ordene campos con arrastrar y soltar y ajuste los nombres de columnas."
+
+msgid "Feldname"
+msgstr "Nombre del campo"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "Formel"
+msgstr "Fórmula"
+
+msgid "Formel erstellen"
+msgstr "Crear fórmula"
+
+msgid "Formel löschen"
+msgstr "Eliminar fórmula"
+
+msgid "Formular"
+msgstr "Formulario"
+
+msgid "Formular auswählen"
+msgstr "Seleccionar formulario"
+
+msgid "Formular-Daten Export"
+msgstr "Exportación de datos de formulario"
+
+msgid "Formular-Update"
+msgstr "Actualización de formulario"
+
+msgid "Formularname"
+msgstr "Nombre del formulario"
+
+msgid "Formularname (Distinct)"
+msgstr "Nombre del formulario (distinto)"
+
+msgid "Freitag"
+msgstr "Viernes"
+
+msgid "Für Chartansicht im Browser ansehen"
+msgstr "Ver en el navegador para la vista de gráfico"
+
+msgid "Gesamt"
+msgstr "Total"
+
+msgid "Gespeichert"
+msgstr "Guardado"
+
+msgid "Gespeicherte Monate"
+msgstr "Meses almacenados"
+
+msgid "Hallo,\\n\\nanbei die aktuelle Übersicht der Formular-Anfragen.\\n%stats_link%\\n\\nDeine freundliche Website\\n%s\\n\\n"
+msgstr "Hola,\\n\\naquí tienes la vista general actual de las consultas del formulario.\\n%stats_link%\\n\\nTu sitio web\\n%s\\n\\n"
+
+msgid "Hinweis ausblenden"
+msgstr "Ocultar aviso"
+
+msgid "Hinzufügen"
+msgstr "Añadir"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Im Browser anzeigen"
+msgstr "Ver en el navegador"
+
+msgid "Januar"
+msgstr "Enero"
+
+msgid "Juli"
+msgstr "Julio"
+
+msgid "Juni"
+msgstr "Junio"
+
+msgid "Kein Formular ausgewählt."
+msgstr "No se seleccionó ningún formulario."
+
+msgid "Keine Benutzerrollen gefunden."
+msgstr "No se encontraron roles de usuario."
+
+msgid "Keine Berechtigung."
+msgstr "Sin permisos."
+
+msgid "Keine Daten vorhanden."
+msgstr "No hay datos disponibles."
+
+msgid "Keine Einträge gefunden."
+msgstr "No se encontraron entradas."
+
+msgid "Keine Felder gefunden."
+msgstr "No se encontraron campos."
+
+msgid "Keine Formulare gefunden."
+msgstr "No se encontraron formularios."
+
+msgid "Keine Seiten gefunden."
+msgstr "No se encontraron páginas."
+
+msgid "Keine Spalten ausgewählt."
+msgstr "No se seleccionaron columnas."
+
+msgid "Legt fest, wie oft die Statistik per E-Mail verschickt wird."
+msgstr "Define con qué frecuencia se envían las estadísticas por correo."
+
+msgid "Letzte Synchronisierung"
+msgstr "Última sincronización"
+
+msgid "Letzter vollständiger Import"
+msgstr "Última importación completa"
+
+msgid "Liste nach"
+msgstr "Listar por"
+
+msgid "Mai"
+msgstr "Mayo"
+
+msgid "Mittwoch"
+msgstr "Miércoles"
+
+msgid "Monatlich"
+msgstr "Mensual"
+
+msgid "Montag"
+msgstr "Lunes"
+
+msgid "März"
+msgstr "Marzo"
+
+msgid "Nach der Initialisierung synchronisiert das Plugin automatisch neue Einträge in kurzen Abständen. Bei Bedarf kann der Prozess hier jederzeit erneut gestartet werden."
+msgstr "Después de la inicialización, el plugin sincroniza automáticamente las nuevas entradas en intervalos cortos. Si es necesario, el proceso puede iniciarse aquí en cualquier momento."
+
+msgid "Neue Einträge sichern"
+msgstr "Guardar nuevas entradas"
+
+msgid "Neue Einträge wurden ins Archiv übernommen."
+msgstr "Se añadieron nuevas entradas al archivo."
+
+msgid "Noch kein Import durchgeführt."
+msgstr "Aún no se ha realizado ninguna importación."
+
+msgid "Noch nicht initialisiert"
+msgstr "Aún no inicializado"
+
+msgid "Noch nie"
+msgstr "Nunca"
+
+msgid "November"
+msgstr "Noviembre"
+
+msgid "Nur aktivieren, wenn das Archiv beschädigt ist. Achtung: Gelöschte Elementor-Einträge gehen dabei verloren."
+msgstr "Solo activar si el archivo está dañado. Atención: Se perderán las entradas de Elementor eliminadas."
+
+msgid "Nur ausgewählte Formulare werden in Grafik und Tabellen berücksichtigt."
+msgstr "Solo los formularios seleccionados se incluyen en gráficos y tablas."
+
+msgid "Nur ausgewählte Rollen sehen den Export-Menüpunkt."
+msgstr "Solo los roles seleccionados ven el menú de exportación."
+
+msgid "Nur sichtbar bei wöchentlichem Versand."
+msgstr "Visible solo para envío semanal."
+
+msgid "Nur wenn ein Intervall ausgewählt ist, werden alte Elementor Submissions im gewählten Rhythmus gelöscht, nachdem sie ins Archiv übernommen wurden."
+msgstr "Solo cuando se selecciona un intervalo, los envíos antiguos de Elementor se eliminan según el ritmo elegido después de archivarlos."
+
+msgid "Oktober"
+msgstr "Octubre"
+
+msgid "Ordnername unter wp-content/uploads für die gespeicherten Statistiken."
+msgstr "Nombre de carpeta en wp-content/uploads para las estadísticas guardadas."
+
+msgid "Original"
+msgstr "Original"
+
+msgid "Regel hinzufügen"
+msgstr "Añadir regla"
+
+msgid "Regel löschen"
+msgstr "Eliminar regla"
+
+msgid "Regeln werden beim Export und in der Vorschau angewendet."
+msgstr "Las reglas se aplican en la exportación y en la vista previa."
+
+msgid "Reihenfolge speichern"
+msgstr "Guardar orden"
+
+msgid "Samstag"
+msgstr "Sábado"
+
+msgid "Schwellwert für außergewöhnliche Veränderungen"
+msgstr "Umbral para cambios excepcionales"
+
+msgid "Seiten-Referer"
+msgstr "Referente de página"
+
+msgid "Seiten-Referer (Distinct)"
+msgstr "Referente de página (distinto)"
+
+msgid "September"
+msgstr "Septiembre"
+
+msgid "Sichtbare Formulare in Statistik"
+msgstr "Formularios visibles en estadísticas"
+
+msgid "Sie haben keine Berechtigung, diese Seite zu sehen."
+msgstr "No tiene permiso para ver esta página."
+
+msgid "Sonntag"
+msgstr "Domingo"
+
+msgid "Spaltenname"
+msgstr "Nombre de columna"
+
+msgid "Speichern"
+msgstr "Guardar"
+
+msgid "Statistik"
+msgstr "Estadísticas"
+
+msgid "Statistik Export"
+msgstr "Exportación de estadísticas"
+
+msgid "Statistik als HTML exportieren"
+msgstr "Exportar estadísticas como HTML"
+
+msgid "Statistik jetzt senden"
+msgstr "Enviar estadísticas ahora"
+
+msgid "Statistik sofort versenden"
+msgstr "Enviar estadísticas inmediatamente"
+
+msgid "Statistik öffnen"
+msgstr "Abrir estadísticas"
+
+msgid "Statistiken %s"
+msgstr "Estadísticas %s"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Suchen"
+msgstr "Buscar"
+
+msgid "Suchen & Ersetzen"
+msgstr "Buscar y reemplazar"
+
+msgid "Summe"
+msgstr "Suma"
+
+msgid "Summe aller Anfragen"
+msgstr "Total de consultas"
+
+msgid "TT.MM.JJJJ"
+msgstr "DD.MM.AAAA"
+
+msgid "Tag im Monat"
+msgstr "Día del mes"
+
+msgid "Text Link"
+msgstr "Texto del enlace"
+
+msgid "Transparenz"
+msgstr "Transparencia"
+
+msgid "Täglich"
+msgstr "Diario"
+
+msgid "Uhrzeit für den Versand"
+msgstr "Hora de envío"
+
+msgid "Unbenannte Seite"
+msgstr "Página sin nombre"
+
+msgid "Ungültige Anfrage."
+msgstr "Solicitud no válida."
+
+msgid "Verhalten Deinstallieren"
+msgstr "Comportamiento de desinstalación"
+
+msgid "Verschickt die aktuelle Statistik einmalig an die oben definierten Empfänger."
+msgstr "Envía las estadísticas actuales una sola vez a los destinatarios definidos arriba."
+
+msgid "Wenn diese Checkbox aktiviert ist, wird bei der Deinstallation alles bereinigt: Datenbank-Tabellen, archivierte Statistiken und die statischen Dateien im Upload-Ordner werden gelöscht. Elementor-Submissions bleiben unberührt."
+msgstr "Si esta casilla está activada, al desinstalar se limpia todo: tablas de base de datos, estadísticas archivadas y archivos estáticos en la carpeta de subidas. Los envíos de Elementor permanecen intactos."
+
+msgid "Wochentag für den Versand"
+msgstr "Día de la semana para el envío"
+
+msgid "Wöchentlich"
+msgstr "Semanal"
+
+msgid "Öffne die %s, um den Vorgang manuell zu starten und die Sicherung zu prüfen."
+msgstr "Abre %s para iniciar el proceso manualmente y comprobar la copia de seguridad."
+
+msgid "Vorschau"
+msgstr "Vista previa"
+
+msgid "Export-Spalten & Vorschau"
+msgstr "Columnas de exportación y vista previa"
+

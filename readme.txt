@@ -4,7 +4,7 @@ Donate link: https://www.medienproduktion.biz
 Tags: elementor, forms, statistics, charts, submissions
 Requires at least: 5.0
 Tested up to: 6.0
-Stable tag: 1.0.0.0
+Stable tag: 1.1.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -32,6 +32,13 @@ Elementor Forms Statistics is a plugin that allows editors to view all submissio
 3. Enjoy
 
 == Changelog ==
+
+= 1.1.0 – 02. Januar 2026 =
+* Neuer Export-Bereich mit Tabs, Rollensteuerung und konfigurierbaren Export-Spalten inkl. Drag & Drop, Spaltennamen und Reihenfolge.
+* Vorschau mit optionalen Spalten, Excel/CSV-Export, Merken des letzten Formulars und Formats sowie sofortigem Speichern per AJAX.
+* Suchen & Ersetzen-Regeln, eigene Felder, Formel-Felder (inkl. Excel-Formeln) und Datumsformatierung pro Feld.
+* Erstelldatum als auswählbare Spalte, verbesserte Export-Regeln und automatische Aktualisierung der Vorschau.
+* Neue Übersetzungen (EN, ES, FR, IT, FI, EL, SV, DA, PL) und Textdomain-Dateinamen korrigiert.
 
 = 1.0.0.0 – 20. Dezember 2025 =
 * Neue Dropdown-Steuerung für die automatische Bereinigung (Deaktiviert / 1 Stunde / 1 Tag / 1 Monat / 1 Jahr); die Löschung greift weiterhin erst nach der Archivierung.

@@ -1,0 +1,604 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Elementor Forms Statistics\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-02 21:10+0000\n"
+"Last-Translator: Elementor Forms Statistics <info@medienproduktion.biz>\n"
+"Language-Team: da_DK\n"
+"Language: da_DK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Inquiries"
+msgstr "Forespørgsler"
+
+msgid "Inquiries per Month and Year"
+msgstr "Forespørgsler pr. måned og år"
+
+msgid "Select a Form:"
+msgstr "Vælg en formular:"
+
+msgid "All Forms"
+msgstr "Alle formularer"
+
+msgid "No forms found"
+msgstr "Ingen formularer fundet"
+
+msgid "Filter"
+msgstr "Filtrer"
+
+msgid "Year"
+msgstr "År"
+
+msgid "Form"
+msgstr "Formular"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Form Name"
+msgstr "Formularnavn"
+
+msgid "Default name: %s"
+msgstr "Standardnavn: %s"
+
+msgid "Unnamed Form"
+msgstr "Unavngivet formular"
+
+msgid "ID: %s"
+msgstr "ID: %s"
+
+msgid "Additional IDs: %s"
+msgstr "Yderligere ID'er: %s"
+
+msgid "Entries: %s"
+msgstr "Poster: %s"
+
+msgid "%d Jahr"
+msgstr "%d år"
+
+msgid "%s (vor %s)"
+msgstr "%s (for %s siden)"
+
+msgid "%s = Website URL"
+msgstr "%s = websteds‑URL"
+
+msgid "%s wird durch den Link zur Statistik ersetzt. Fehlt der Platzhalter, hängt das System den Link am Ende an."
+msgstr "%s erstattes af linket til statistikken. Hvis pladsholderen mangler, tilføjer systemet linket til sidst."
+
+msgid "%s · 2025 · v%s"
+msgstr "%s · 2025 · v%s"
+
+msgid "1 Jahr"
+msgstr "1 år"
+
+msgid "1 Monat"
+msgstr "1 måned"
+
+msgid "1 Stunde"
+msgstr "1 time"
+
+msgid "1 Tag"
+msgstr "1 dag"
+
+msgid "Ab dieser Differenz zum Vorjahr werden Werte in der Tabelle fett hervorgehoben. Standard: 5."
+msgstr "Fra denne forskel i forhold til sidste år fremhæves værdier i tabellen med fed. Standard: 5."
+
+msgid "Aktiv"
+msgstr "Aktiv"
+
+msgid "Aktuelles Jahr"
+msgstr "Aktuelt år"
+
+msgid "Als HTML exportieren"
+msgstr "Eksporter som HTML"
+
+msgid "Anfragen"
+msgstr "Forespørgsler"
+
+msgid "Anfragen Einstellungen"
+msgstr "Indstillinger for forespørgsler"
+
+msgid "Anfragen Statistik"
+msgstr "Forespørgselsstatistik"
+
+msgid "Anfragen Statistik – %s"
+msgstr "Forespørgselsstatistik – %s"
+
+msgid "Anfragen pro Monat und Jahr"
+msgstr "Forespørgsler pr. måned og år"
+
+msgid "Anzahl Anfragen"
+msgstr "Antal forespørgsler"
+
+msgid "Anzahl unterschiedlicher Formulare"
+msgstr "Antal forskellige formularer"
+
+msgid "April"
+msgstr "April"
+
+msgid "Archiv"
+msgstr "Arkiv"
+
+msgid "Archiv initialisieren"
+msgstr "Initialiser arkiv"
+
+msgid "Archiv vollständig neu aufbauen (überschreibt bestehende Daten mit aktuellem Elementor-Stand)"
+msgstr "Genopbyg arkivet helt (overskriver eksisterende data med den aktuelle Elementor‑tilstand)"
+
+msgid "Archivierte Statistiken"
+msgstr "Arkiveret statistik"
+
+msgid "August"
+msgstr "August"
+
+msgid "Auswählen"
+msgstr "Vælg"
+
+msgid "Auswählen %s"
+msgstr "Vælg %s"
+
+msgid "Automatischer Versand"
+msgstr "Automatisk afsendelse"
+
+msgid "Bei unterschiedlichen Monatslängen wird automatisch der letzte verfügbare Tag verwendet."
+msgstr "Ved forskellige månedslængder bruges automatisk den sidste tilgængelige dag."
+
+msgid "Beim Deinstallieren dieses Plugins alle Daten bereinigen."
+msgstr "Ryd alle data ved afinstallation af dette plugin."
+
+msgid "Betreffzeile"
+msgstr "Emnelinje"
+
+msgid "Bitte Plugin einmalig initialisieren, damit die Statistikdaten gesichert und anschließend automatisch synchronisiert werden."
+msgstr "Initialiser pluginet én gang, så statistikdataene gemmes og derefter synkroniseres automatisk."
+
+msgid "Bitte mindestens eine Export-Spalte aktivieren."
+msgstr "Aktivér mindst én eksportkolonne."
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "CSV-Ausgabe fehlgeschlagen."
+msgstr "CSV‑output mislykkedes."
+
+msgid "Das Archiv speichert aggregierte und anonymisierte Formulardaten. So bleiben Statistiken erhalten, auch wenn Elementor-Einträge gelöscht oder aufgeräumt werden."
+msgstr "Arkivet gemmer aggregerede og anonymiserede formulardata. Så bevares statistikker, selv hvis Elementor‑poster slettes eller ryddes op."
+
+msgid "Das Archiv wurde vollständig aufgebaut."
+msgstr "Arkivet er bygget helt op."
+
+msgid "Das Diagramm konnte nicht als Bild gerendert werden."
+msgstr "Diagrammet kunne ikke gengives som billede."
+
+msgid "Datumformat"
+msgstr "Datoformat"
+
+msgid "Deaktiviert"
+msgstr "Deaktiveret"
+
+msgid "Der Export ist für deine Benutzerrolle nicht freigeschaltet."
+msgstr "Eksport er ikke aktiveret for din brugerrolle."
+
+msgid "Der komplette Text für den E-Mail-Body."
+msgstr "Den fulde tekst til e‑mail‑brødteksten."
+
+msgid "Dezember"
+msgstr "December"
+
+msgid "Diagramm der Formularanfragen"
+msgstr "Diagram over formularforespørgsler"
+
+msgid "Die Statistik konnte nicht gesendet werden. Bitte Empfänger prüfen."
+msgstr "Statistikken kunne ikke sendes. Tjek modtagerne."
+
+msgid "Die Statistik wird zur angegebenen Uhrzeit versendet."
+msgstr "Statistikken sendes på det angivne tidspunkt."
+
+msgid "Die Statistik wurde erfolgreich versendet."
+msgstr "Statistikken blev sendt."
+
+msgid "Dienstag"
+msgstr "Tirsdag"
+
+msgid "Dieser Text ersetzt „Passwortfreien Statistik-Zugang“ im Link, falls du ihn anders benennen möchtest."
+msgstr "Denne tekst erstatter “Adgang til statistik uden adgangskode” i linket, hvis du vil kalde det noget andet."
+
+msgid "Donnerstag"
+msgstr "Torsdag"
+
+msgid "E-Mail Ignorelist"
+msgstr "E‑mail‑udelukkelsesliste"
+
+msgid "E-Mail Text"
+msgstr "E‑mail‑tekst"
+
+msgid "E-Mail Versand"
+msgstr "E‑mail‑afsendelse"
+
+msgid "E-Mails in diesem Feld fließen nicht in die Statistik ein. Bitte je Zeile eine Adresse oder einen Teilstring eintragen; Wildcards wie * können verwendet werden."
+msgstr "E‑mails i dette felt indgår ikke i statistikken. Indtast én adresse eller delstreng pr. linje; jokere som * kan bruges."
+
+msgid "Eigenes Feld hinzufügen"
+msgstr "Tilføj eget felt"
+
+msgid "Eine oder mehrere E-Mail-Adressen, getrennt durch Zeilenumbrüche oder Kommas."
+msgstr "En eller flere e‑mailadresser, adskilt af linjeskift eller kommaer."
+
+msgid "Einmal im Monat"
+msgstr "En gang om måneden"
+
+msgid "Einstellungen"
+msgstr "Indstillinger"
+
+msgid "Einstellungen gespeichert."
+msgstr "Indstillinger gemt."
+
+msgid "Einstellungen zur Statistik-Sicherung"
+msgstr "Indstillinger for statistikbackup"
+
+msgid "Einträge"
+msgstr "Poster"
+
+msgid "Element ID"
+msgstr "Element‑ID"
+
+msgid "Elementor Forms Statistics"
+msgstr "Elementor Forms Statistics"
+
+msgid "Elementor Forms Statistics."
+msgstr "Elementor Forms Statistics."
+
+msgid "Elementor Submissions bereinigen"
+msgstr "Rens Elementor‑indsendelser"
+
+msgid "Empfänger der Statistik"
+msgstr "Modtagere af statistik"
+
+msgid "Ersetzen"
+msgstr "Erstat"
+
+msgid "Erstelldatum"
+msgstr "Oprettelsesdato"
+
+msgid "Excel"
+msgstr "Excel"
+
+msgid "Export"
+msgstr "Eksport"
+
+msgid "Export verfügbar für"
+msgstr "Eksport tilgængelig for"
+
+msgid "Export-Einstellungen gespeichert."
+msgstr "Eksportindstillinger gemt."
+
+msgid "Export-Ordner (Upload-Verzeichnis)"
+msgstr "Eksportmappe (upload‑mappe)"
+
+msgid "Export-Spalten"
+msgstr "Eksportkolonner"
+
+msgid "Export-Spalten & Einträge"
+msgstr "Eksportkolonner og poster"
+
+msgid "Exportieren"
+msgstr "Eksportér"
+
+msgid "Farben"
+msgstr "Farver"
+
+msgid "Februar"
+msgstr "Februar"
+
+msgid "Feld"
+msgstr "Felt"
+
+msgid "Feld löschen"
+msgstr "Slet felt"
+
+msgid "Felder"
+msgstr "Felter"
+
+msgid "Felder per Drag & Drop sortieren und Spaltennamen anpassen."
+msgstr "Sortér felter med træk & slip og tilpas kolonnenavne."
+
+msgid "Feldname"
+msgstr "Feltnavn"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Formel"
+msgstr "Formel"
+
+msgid "Formel erstellen"
+msgstr "Opret formel"
+
+msgid "Formel löschen"
+msgstr "Slet formel"
+
+msgid "Formular"
+msgstr "Formular"
+
+msgid "Formular auswählen"
+msgstr "Vælg formular"
+
+msgid "Formular-Daten Export"
+msgstr "Eksport af formulardata"
+
+msgid "Formular-Update"
+msgstr "Formularopdatering"
+
+msgid "Formularname"
+msgstr "Formularnavn"
+
+msgid "Formularname (Distinct)"
+msgstr "Formularnavn (distinkt)"
+
+msgid "Freitag"
+msgstr "Fredag"
+
+msgid "Für Chartansicht im Browser ansehen"
+msgstr "Vis i browseren for grafvisning"
+
+msgid "Gesamt"
+msgstr "I alt"
+
+msgid "Gespeichert"
+msgstr "Gemt"
+
+msgid "Gespeicherte Monate"
+msgstr "Gemte måneder"
+
+msgid "Hallo,\\n\\nanbei die aktuelle Übersicht der Formular-Anfragen.\\n%stats_link%\\n\\nDeine freundliche Website\\n%s\\n\\n"
+msgstr "Hej,\\n\\nher er den aktuelle oversigt over formularforespørgsler.\\n%stats_link%\\n\\nDin hjemmeside\\n%s\\n\\n"
+
+msgid "Hinweis ausblenden"
+msgstr "Skjul besked"
+
+msgid "Hinzufügen"
+msgstr "Tilføj"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Im Browser anzeigen"
+msgstr "Vis i browseren"
+
+msgid "Januar"
+msgstr "Januar"
+
+msgid "Juli"
+msgstr "Juli"
+
+msgid "Juni"
+msgstr "Juni"
+
+msgid "Kein Formular ausgewählt."
+msgstr "Ingen formular valgt."
+
+msgid "Keine Benutzerrollen gefunden."
+msgstr "Ingen brugerroller fundet."
+
+msgid "Keine Berechtigung."
+msgstr "Ingen tilladelse."
+
+msgid "Keine Daten vorhanden."
+msgstr "Ingen data tilgængelige."
+
+msgid "Keine Einträge gefunden."
+msgstr "Ingen poster fundet."
+
+msgid "Keine Felder gefunden."
+msgstr "Ingen felter fundet."
+
+msgid "Keine Formulare gefunden."
+msgstr "Ingen formularer fundet."
+
+msgid "Keine Seiten gefunden."
+msgstr "Ingen sider fundet."
+
+msgid "Keine Spalten ausgewählt."
+msgstr "Ingen kolonner valgt."
+
+msgid "Legt fest, wie oft die Statistik per E-Mail verschickt wird."
+msgstr "Angiver hvor ofte statistikken sendes via e‑mail."
+
+msgid "Letzte Synchronisierung"
+msgstr "Seneste synkronisering"
+
+msgid "Letzter vollständiger Import"
+msgstr "Seneste fulde import"
+
+msgid "Liste nach"
+msgstr "List efter"
+
+msgid "Mai"
+msgstr "Maj"
+
+msgid "Mittwoch"
+msgstr "Onsdag"
+
+msgid "Monatlich"
+msgstr "Månedligt"
+
+msgid "Montag"
+msgstr "Mandag"
+
+msgid "März"
+msgstr "Marts"
+
+msgid "Nach der Initialisierung synchronisiert das Plugin automatisch neue Einträge in kurzen Abständen. Bei Bedarf kann der Prozess hier jederzeit erneut gestartet werden."
+msgstr "Efter initialisering synkroniserer pluginet automatisk nye poster med korte intervaller. Ved behov kan processen startes igen her når som helst."
+
+msgid "Neue Einträge sichern"
+msgstr "Gem nye poster"
+
+msgid "Neue Einträge wurden ins Archiv übernommen."
+msgstr "Nye poster er tilføjet til arkivet."
+
+msgid "Noch kein Import durchgeführt."
+msgstr "Ingen import gennemført endnu."
+
+msgid "Noch nicht initialisiert"
+msgstr "Ikke initialiseret endnu"
+
+msgid "Noch nie"
+msgstr "Aldrig"
+
+msgid "November"
+msgstr "November"
+
+msgid "Nur aktivieren, wenn das Archiv beschädigt ist. Achtung: Gelöschte Elementor-Einträge gehen dabei verloren."
+msgstr "Aktivér kun hvis arkivet er beskadiget. Bemærk: Slettede Elementor‑poster går tabt."
+
+msgid "Nur ausgewählte Formulare werden in Grafik und Tabellen berücksichtigt."
+msgstr "Kun valgte formularer medtages i grafer og tabeller."
+
+msgid "Nur ausgewählte Rollen sehen den Export-Menüpunkt."
+msgstr "Kun valgte roller ser eksportmenuen."
+
+msgid "Nur sichtbar bei wöchentlichem Versand."
+msgstr "Kun synlig ved ugentlig afsendelse."
+
+msgid "Nur wenn ein Intervall ausgewählt ist, werden alte Elementor Submissions im gewählten Rhythmus gelöscht, nachdem sie ins Archiv übernommen wurden."
+msgstr "Kun når et interval er valgt, slettes gamle Elementor‑indsendelser i den valgte rytme efter arkivering."
+
+msgid "Oktober"
+msgstr "Oktober"
+
+msgid "Ordnername unter wp-content/uploads für die gespeicherten Statistiken."
+msgstr "Mappenavn under wp-content/uploads til gemt statistik."
+
+msgid "Original"
+msgstr "Original"
+
+msgid "Regel hinzufügen"
+msgstr "Tilføj regel"
+
+msgid "Regel löschen"
+msgstr "Slet regel"
+
+msgid "Regeln werden beim Export und in der Vorschau angewendet."
+msgstr "Regler anvendes ved eksport og i forhåndsvisningen."
+
+msgid "Reihenfolge speichern"
+msgstr "Gem rækkefølge"
+
+msgid "Samstag"
+msgstr "Lørdag"
+
+msgid "Schwellwert für außergewöhnliche Veränderungen"
+msgstr "Tærskel for usædvanlige ændringer"
+
+msgid "Seiten-Referer"
+msgstr "Sidehenviser"
+
+msgid "Seiten-Referer (Distinct)"
+msgstr "Sidehenviser (distinkt)"
+
+msgid "September"
+msgstr "September"
+
+msgid "Sichtbare Formulare in Statistik"
+msgstr "Synlige formularer i statistik"
+
+msgid "Sie haben keine Berechtigung, diese Seite zu sehen."
+msgstr "Du har ikke tilladelse til at se denne side."
+
+msgid "Sonntag"
+msgstr "Søndag"
+
+msgid "Spaltenname"
+msgstr "Kolonnenavn"
+
+msgid "Speichern"
+msgstr "Gem"
+
+msgid "Statistik"
+msgstr "Statistik"
+
+msgid "Statistik Export"
+msgstr "Statistik‑eksport"
+
+msgid "Statistik als HTML exportieren"
+msgstr "Eksporter statistik som HTML"
+
+msgid "Statistik jetzt senden"
+msgstr "Send statistik nu"
+
+msgid "Statistik sofort versenden"
+msgstr "Send statistik med det samme"
+
+msgid "Statistik öffnen"
+msgstr "Åbn statistik"
+
+msgid "Statistiken %s"
+msgstr "Statistik %s"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Suchen"
+msgstr "Søg"
+
+msgid "Suchen & Ersetzen"
+msgstr "Søg og erstat"
+
+msgid "Summe"
+msgstr "Sum"
+
+msgid "Summe aller Anfragen"
+msgstr "Samlet antal forespørgsler"
+
+msgid "TT.MM.JJJJ"
+msgstr "DD.MM.ÅÅÅÅ"
+
+msgid "Tag im Monat"
+msgstr "Dag i måneden"
+
+msgid "Text Link"
+msgstr "Linktekst"
+
+msgid "Transparenz"
+msgstr "Gennemsigtighed"
+
+msgid "Täglich"
+msgstr "Dagligt"
+
+msgid "Uhrzeit für den Versand"
+msgstr "Afsendelsestidspunkt"
+
+msgid "Unbenannte Seite"
+msgstr "Unavngivet side"
+
+msgid "Ungültige Anfrage."
+msgstr "Ugyldig anmodning."
+
+msgid "Verhalten Deinstallieren"
+msgstr "Afinstallationsadfærd"
+
+msgid "Verschickt die aktuelle Statistik einmalig an die oben definierten Empfänger."
+msgstr "Sender den aktuelle statistik én gang til de ovenfor angivne modtagere."
+
+msgid "Wenn diese Checkbox aktiviert ist, wird bei der Deinstallation alles bereinigt: Datenbank-Tabellen, archivierte Statistiken und die statischen Dateien im Upload-Ordner werden gelöscht. Elementor-Submissions bleiben unberührt."
+msgstr "Hvis denne afkrydsningsfelt er aktiveret, ryddes alt ved afinstallation: database-tabeller, arkiveret statistik og statiske filer i upload-mappen slettes. Elementor‑indsendelser berøres ikke."
+
+msgid "Wochentag für den Versand"
+msgstr "Ugedag for afsendelse"
+
+msgid "Wöchentlich"
+msgstr "Ugentligt"
+
+msgid "Öffne die %s, um den Vorgang manuell zu starten und die Sicherung zu prüfen."
+msgstr "Åbn %s for at starte processen manuelt og kontrollere sikkerhedskopien."
+
+msgid "Vorschau"
+msgstr "Forhåndsvisning"
+
+msgid "Export-Spalten & Vorschau"
+msgstr "Eksportkolonner og forhåndsvisning"
+

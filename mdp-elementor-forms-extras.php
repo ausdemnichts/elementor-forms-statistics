@@ -4,7 +4,7 @@ Plugin Name: Elementor Forms Statistics
 Requires Plugins: elementor/elementor.php
 Plugin URI: https://www.medienproduktion.biz/elementor-forms-extras/
 Description: This plugin allows editors to view submissions received through Elementor forms. Additionally, a separate menu provides statistical analyses of the submissions, displayed as charts and tables.
-Version: 1.0.1
+Version: 1.1.0
 Author: Nikolaos Karapanagiotidis
 Author URI: https://www.medienproduktion.biz
 Text Domain: elementor-forms-statistics
@@ -13,6 +13,13 @@ Text Domain: elementor-forms-statistics
 
 = Version 1.0.1 – 20. Dezember 2025 =
 * Die automatische Bereinigung lässt sich jetzt per Dropdown (Deaktiviert | 1 Stunde | 1 Tag | 1 Monat | 1 Jahr) steuern, die Daten werden weiterhin erst nach Archivierung gelöscht.
+
+= Version 1.1.0 – 02. Januar 2026 =
+* Neuer Export-Bereich mit Tabs, Rollensteuerung und konfigurierbaren Export-Spalten inkl. Drag & Drop, Spaltennamen und Reihenfolge.
+* Vorschau mit optionalen Spalten, Excel/CSV-Export, Merken des letzten Formulars und Formats sowie sofortigem Speichern per AJAX.
+* Suchen & Ersetzen-Regeln, eigene Felder, Formel-Felder (inkl. Excel-Formeln) und Datumsformatierung pro Feld.
+* Erstelldatum als auswählbare Spalte, verbesserte Export-Regeln und automatische Aktualisierung der Vorschau.
+* Neue Übersetzungen (EN, ES, FR, IT, FI, EL, SV, DA, PL) und Textdomain-Dateinamen korrigiert.
 
 = Version 1.0.1 – 19. Dezember 2025 =
 * Neue Bereinigungsoption für Elementor Submissions: Nur wenn die Warnung aktiviert ist, werden alte Einträge nach dem gewählten Stunden-/Tage-/Monate-Intervall gelöscht.
@@ -308,6 +315,560 @@ function enqueue_custom_plugin_styles() {
 }
 add_action('admin_enqueue_scripts', 'enqueue_custom_plugin_styles');
 
+function mdp_get_export_role_choices() {
+    $wp_roles = wp_roles();
+    if (!$wp_roles || empty($wp_roles->roles)) {
+        return array();
+    }
+    $choices = array();
+    foreach ($wp_roles->roles as $role_slug => $role_data) {
+        $choices[$role_slug] = isset($role_data['name']) ? $role_data['name'] : $role_slug;
+    }
+    return $choices;
+}
+
+function mdp_get_export_allowed_roles() {
+    $stored = get_option('mdp_efs_export_roles', null);
+    if ($stored === null) {
+        $stored = array('administrator');
+    }
+    if (!is_array($stored)) {
+        $stored = array();
+    }
+    $valid_roles = array_keys(mdp_get_export_role_choices());
+    $allowed = array();
+    foreach ($stored as $role) {
+        $role = sanitize_key($role);
+        if ($role !== '' && in_array($role, $valid_roles, true)) {
+            $allowed[] = $role;
+        }
+    }
+    return array_values(array_unique($allowed));
+}
+
+function mdp_user_can_access_export_menu($user = null) {
+    if (!is_user_logged_in()) {
+        return false;
+    }
+    $allowed_roles = mdp_get_export_allowed_roles();
+    if (empty($allowed_roles)) {
+        return false;
+    }
+    $user = $user instanceof WP_User ? $user : wp_get_current_user();
+    if (!$user || empty($user->roles)) {
+        return false;
+    }
+    foreach ($user->roles as $role) {
+        if (in_array($role, $allowed_roles, true)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function mdp_get_export_fields_option() {
+    $stored = get_option('mdp_efs_export_fields', []);
+    return is_array($stored) ? $stored : [];
+}
+
+function mdp_get_export_replace_rules_option() {
+    $stored = get_option('mdp_efs_export_replace_rules', []);
+    return is_array($stored) ? $stored : [];
+}
+
+function mdp_get_export_date_candidate_keys($form_id) {
+    $form_id = sanitize_text_field($form_id);
+    if ($form_id === '') {
+        return [];
+    }
+    global $wpdb;
+    $values_table = $wpdb->prefix . 'e_submissions_values';
+    $submissions_table = $wpdb->prefix . 'e_submissions';
+    $regex = '^[0-9]{4}-[0-9]{2}-[0-9]{2}';
+    $rows = $wpdb->get_results(
+        $wpdb->prepare(
+            "SELECT DISTINCT ev.`key`
+             FROM {$values_table} ev
+             INNER JOIN {$submissions_table} s ON s.ID = ev.submission_id
+             WHERE s.element_id = %s
+               AND s.status NOT LIKE %s
+               AND ev.`value` REGEXP %s
+             LIMIT 100",
+            $form_id,
+            '%trash%',
+            $regex
+        ),
+        ARRAY_A
+    );
+    $keys = [];
+    foreach ($rows as $row) {
+        $key = isset($row['key']) ? sanitize_text_field($row['key']) : '';
+        if ($key !== '') {
+            $keys[] = $key;
+        }
+    }
+    if (!in_array('created_at', $keys, true)) {
+        $keys[] = 'created_at';
+    }
+    return $keys;
+}
+
+function mdp_get_export_date_format_choices() {
+    return array(
+        '' => __('Original', 'elementor-forms-statistics'),
+        'd.m.Y' => __('TT.MM.JJJJ', 'elementor-forms-statistics'),
+    );
+}
+
+function mdp_get_export_formula_fields_option() {
+    $stored = get_option('mdp_efs_export_formula_fields', []);
+    return is_array($stored) ? $stored : [];
+}
+
+function mdp_get_export_formula_fields($form_id) {
+    $form_id = sanitize_text_field($form_id);
+    if ($form_id === '') {
+        return [];
+    }
+    $stored = mdp_get_export_formula_fields_option();
+    $fields = isset($stored[$form_id]) && is_array($stored[$form_id]) ? $stored[$form_id] : [];
+    $clean = [];
+    foreach ($fields as $field) {
+        if (!is_array($field)) {
+            continue;
+        }
+        $key = isset($field['key']) ? sanitize_text_field($field['key']) : '';
+        $label = isset($field['label']) ? sanitize_text_field($field['label']) : '';
+        $formula = isset($field['formula']) ? sanitize_text_field($field['formula']) : '';
+        if ($key === '' || $formula === '') {
+            continue;
+        }
+        if ($label === '') {
+            $label = $key;
+        }
+        $clean[] = array(
+            'key' => $key,
+            'label' => $label,
+            'formula' => $formula,
+        );
+    }
+    return $clean;
+}
+
+function mdp_get_export_replace_rules($form_id) {
+    $form_id = sanitize_text_field($form_id);
+    if ($form_id === '') {
+        return [];
+    }
+    $stored = mdp_get_export_replace_rules_option();
+    $rules = isset($stored[$form_id]) && is_array($stored[$form_id]) ? $stored[$form_id] : [];
+    $clean = [];
+    foreach ($rules as $rule) {
+        if (!is_array($rule)) {
+            continue;
+        }
+        $find = isset($rule['find']) ? (string) $rule['find'] : '';
+        $replace = isset($rule['replace']) ? (string) $rule['replace'] : '';
+        if ($find === '') {
+            continue;
+        }
+        $clean[] = array(
+            'find' => $find,
+            'replace' => $replace,
+        );
+    }
+    return $clean;
+}
+
+function mdp_apply_export_replace_rules($form_id, $value) {
+    $rules = mdp_get_export_replace_rules($form_id);
+    if (empty($rules)) {
+        return $value;
+    }
+    foreach ($rules as $rule) {
+        $find = isset($rule['find']) ? $rule['find'] : '';
+        if ($find === '') {
+            continue;
+        }
+        $replace = isset($rule['replace']) ? $rule['replace'] : '';
+        $value = str_replace($find, $replace, $value);
+    }
+    return $value;
+}
+
+function mdp_apply_export_date_format($value, $format) {
+    if (!is_string($format) || $format === '') {
+        return $value;
+    }
+    if (!is_string($value)) {
+        return $value;
+    }
+    $value = trim($value);
+    if ($value === '' || $value[0] === '=') {
+        return $value;
+    }
+    $parts = explode(' | ', $value);
+    $formatted = [];
+    foreach ($parts as $part) {
+        $part = trim($part);
+        if ($part === '') {
+            $formatted[] = $part;
+            continue;
+        }
+        if (preg_match('/^(\\d{4})-(\\d{2})-(\\d{2})/', $part, $matches)) {
+            $timestamp = strtotime($matches[1] . '-' . $matches[2] . '-' . $matches[3] . ' UTC');
+            if ($timestamp) {
+                $formatted[] = wp_date($format, $timestamp);
+                continue;
+            }
+        }
+        $formatted[] = $part;
+    }
+    return implode(' | ', $formatted);
+}
+
+function mdp_split_export_formula_tokens($formula) {
+    $tokens = [];
+    $current = '';
+    $in_quote = false;
+    $quote_char = '';
+    $length = strlen($formula);
+    for ($i = 0; $i < $length; $i++) {
+        $char = $formula[$i];
+        if ($in_quote) {
+            if ($char === $quote_char) {
+                $in_quote = false;
+            }
+            $current .= $char;
+            continue;
+        }
+        if ($char === '"' || $char === "'") {
+            $in_quote = true;
+            $quote_char = $char;
+            $current .= $char;
+            continue;
+        }
+        if ($char === '&') {
+            $tokens[] = $current;
+            $current = '';
+            continue;
+        }
+        $current .= $char;
+    }
+    if ($current !== '') {
+        $tokens[] = $current;
+    }
+    return $tokens;
+}
+
+function mdp_normalize_formula_key($key) {
+    $key = (string) $key;
+    $key = strtolower($key);
+    $key = str_replace('ß', 'ss', $key);
+    $key = preg_replace('/[^a-z0-9_]/', '', $key);
+    return $key;
+}
+
+function mdp_evaluate_export_formula($formula, $value_map) {
+    $formula = is_string($formula) ? trim($formula) : '';
+    if ($formula !== '' && $formula[0] === '=') {
+        return $formula;
+    }
+    $tokens = mdp_split_export_formula_tokens($formula);
+    if (count($tokens) === 1) {
+        $single = trim($tokens[0]);
+        if ($single !== '') {
+            $first = substr($single, 0, 1);
+            $last = substr($single, -1);
+            if (!(($first === '"' && $last === '"') || ($first === "'" && $last === "'"))) {
+                $tokens = array($single);
+            }
+        }
+    }
+    $output = '';
+    $normalized_map = [];
+    foreach ($value_map as $map_key => $map_value) {
+        $normalized_map[mdp_normalize_formula_key($map_key)] = $map_value;
+    }
+    foreach ($tokens as $token) {
+        $token = trim($token);
+        if ($token === '') {
+            continue;
+        }
+        $first = substr($token, 0, 1);
+        $last = substr($token, -1);
+        if (($first === '"' && $last === '"') || ($first === "'" && $last === "'")) {
+            $output .= substr($token, 1, -1);
+            continue;
+        }
+        $key = $token;
+        if (preg_match('/^[a-zA-Z0-9_]+$/', $key) === 1 && isset($value_map[$key])) {
+            $output .= $value_map[$key];
+            continue;
+        }
+        if (isset($value_map[$key])) {
+            $output .= $value_map[$key];
+            continue;
+        }
+        $lower = strtolower($key);
+        if (isset($value_map[$lower])) {
+            $output .= $value_map[$lower];
+            continue;
+        }
+        $normalized = mdp_normalize_formula_key($key);
+        $output .= isset($normalized_map[$normalized]) ? $normalized_map[$normalized] : '';
+    }
+    return $output;
+}
+
+function mdp_get_submission_value_map($values_by_submission, $submission_id, $form_id) {
+    $map = [];
+    if (!isset($values_by_submission[$submission_id])) {
+        return $map;
+    }
+    foreach ($values_by_submission[$submission_id] as $key => $values) {
+        if (empty($values)) {
+            $map[$key] = '';
+            continue;
+        }
+        $map[$key] = implode(' | ', $values);
+    }
+    return $map;
+}
+function mdp_get_last_export_form_id($user_id) {
+    $user_id = (int) $user_id;
+    if ($user_id <= 0) {
+        return '';
+    }
+    $value = get_user_meta($user_id, 'mdp_efs_last_export_form_id', true);
+    return is_string($value) ? sanitize_text_field($value) : '';
+}
+
+function mdp_get_last_export_format($user_id) {
+    $user_id = (int) $user_id;
+    if ($user_id <= 0) {
+        return 'csv';
+    }
+    $value = get_user_meta($user_id, 'mdp_efs_last_export_format', true);
+    $value = is_string($value) ? sanitize_text_field($value) : '';
+    return in_array($value, array('csv', 'excel'), true) ? $value : 'csv';
+}
+
+function mdp_set_last_export_format($user_id, $format) {
+    $user_id = (int) $user_id;
+    if ($user_id <= 0) {
+        return;
+    }
+    $format = is_string($format) ? sanitize_text_field($format) : '';
+    if (!in_array($format, array('csv', 'excel'), true)) {
+        $format = 'csv';
+    }
+    update_user_meta($user_id, 'mdp_efs_last_export_format', $format);
+}
+
+function mdp_format_submission_created_at($created_at_gmt) {
+    $created_at_gmt = is_string($created_at_gmt) ? trim($created_at_gmt) : '';
+    if ($created_at_gmt === '') {
+        return '';
+    }
+    $timestamp = strtotime($created_at_gmt . ' UTC');
+    if (!$timestamp) {
+        return $created_at_gmt;
+    }
+    return wp_date('d.m.Y', $timestamp);
+}
+
+function mdp_set_last_export_form_id($user_id, $form_id) {
+    $user_id = (int) $user_id;
+    if ($user_id <= 0) {
+        return;
+    }
+    $form_id = sanitize_text_field($form_id);
+    if ($form_id === '') {
+        return;
+    }
+    update_user_meta($user_id, 'mdp_efs_last_export_form_id', $form_id);
+}
+
+function mdp_get_form_field_keys($form_id) {
+    $form_id = sanitize_text_field($form_id);
+    if ($form_id === '') {
+        return [];
+    }
+    if (class_exists('ElementorPro\\Modules\\Forms\\Submissions\\Database\\Repositories\\Form_Snapshot_Repository')) {
+        try {
+            $repository = ElementorPro\Modules\Forms\Submissions\Database\Repositories\Form_Snapshot_Repository::instance();
+        } catch (Throwable $e) {
+            $repository = null;
+        }
+        if ($repository) {
+            global $wpdb;
+            $submissions_table = $wpdb->prefix . 'e_submissions';
+            $post_id = (int) $wpdb->get_var($wpdb->prepare(
+                "SELECT post_id FROM {$submissions_table}
+                 WHERE element_id = %s
+                 ORDER BY created_at_gmt DESC
+                 LIMIT 1",
+                $form_id
+            ));
+            if ($post_id > 0) {
+                $snapshot = $repository->find($post_id, $form_id);
+                if ($snapshot && !empty($snapshot->fields) && is_array($snapshot->fields)) {
+                    $keys = [];
+                    foreach ($snapshot->fields as $field) {
+                        if (!is_array($field)) {
+                            continue;
+                        }
+                        $key = isset($field['id']) ? sanitize_text_field($field['id']) : '';
+                        if ($key !== '') {
+                            $keys[] = $key;
+                        }
+                    }
+                    $keys = array_values(array_unique($keys));
+                    if (!empty($keys)) {
+                        if (!in_array('created_at', $keys, true)) {
+                            $keys[] = 'created_at';
+                        }
+                        return $keys;
+                    }
+                }
+            }
+            $snapshots = $repository->all();
+            foreach ($snapshots as $snapshot) {
+                if (empty($snapshot->id) || (string) $snapshot->id !== (string) $form_id) {
+                    continue;
+                }
+                $keys = [];
+                if (!empty($snapshot->fields) && is_array($snapshot->fields)) {
+                    foreach ($snapshot->fields as $field) {
+                        if (!is_array($field)) {
+                            continue;
+                        }
+                        $key = isset($field['id']) ? sanitize_text_field($field['id']) : '';
+                        if ($key !== '') {
+                            $keys[] = $key;
+                        }
+                    }
+                }
+                $keys = array_values(array_unique($keys));
+                if (!empty($keys)) {
+                    if (!in_array('created_at', $keys, true)) {
+                        $keys[] = 'created_at';
+                    }
+                    return $keys;
+                }
+                break;
+            }
+        }
+    }
+    global $wpdb;
+    $values_table = $wpdb->prefix . 'e_submissions_values';
+    $submissions_table = $wpdb->prefix . 'e_submissions';
+    $rows = $wpdb->get_results($wpdb->prepare(
+        "SELECT DISTINCT ev.`key`
+         FROM {$values_table} ev
+         INNER JOIN {$submissions_table} s ON s.ID = ev.submission_id
+         WHERE s.element_id = %s
+           AND s.status NOT LIKE %s
+         ORDER BY ev.`key`",
+        $form_id,
+        '%trash%'
+    ), ARRAY_A);
+    $keys = [];
+    foreach ($rows as $row) {
+        $key = isset($row['key']) ? sanitize_text_field($row['key']) : '';
+        if ($key !== '') {
+            $keys[] = $key;
+        }
+    }
+    if (!in_array('created_at', $keys, true)) {
+        $keys[] = 'created_at';
+    }
+    return $keys;
+}
+
+function mdp_get_export_fields_for_form($form_id) {
+    $available_keys = mdp_get_form_field_keys($form_id);
+    $formula_fields = mdp_get_export_formula_fields($form_id);
+    $formula_map = [];
+    foreach ($formula_fields as $formula_entry) {
+        if (!empty($formula_entry['key'])) {
+            $formula_map[$formula_entry['key']] = $formula_entry;
+        }
+    }
+    $stored_all = mdp_get_export_fields_option();
+    $stored = isset($stored_all[$form_id]) && is_array($stored_all[$form_id]) ? $stored_all[$form_id] : [];
+    $date_format_choices = mdp_get_export_date_format_choices();
+    $allowed_date_formats = array_keys($date_format_choices);
+    $ordered = [];
+    $seen = [];
+    foreach ($stored as $entry) {
+        if (!is_array($entry)) {
+            continue;
+        }
+        $key = isset($entry['key']) ? sanitize_text_field($entry['key']) : '';
+        $is_custom = !empty($entry['custom']);
+        $is_formula = isset($formula_map[$key]);
+        if ($key === '' || (!$is_custom && !$is_formula && !in_array($key, $available_keys, true))) {
+            continue;
+        }
+        $label = isset($entry['label']) && $entry['label'] !== '' ? sanitize_text_field($entry['label']) : $key;
+        $date_format = isset($entry['date_format']) ? sanitize_text_field($entry['date_format']) : '';
+        if (!in_array($date_format, $allowed_date_formats, true)) {
+            $date_format = '';
+        }
+        $include = true;
+        if (isset($entry['include'])) {
+            $include = (bool) $entry['include'];
+        }
+        $ordered[] = array(
+            'key' => $key,
+            'label' => $label,
+            'include' => $include,
+            'custom' => $is_custom,
+            'formula' => $is_formula,
+            'date_format' => $date_format,
+        );
+        $seen[$key] = true;
+    }
+    if (!empty($available_keys)) {
+        foreach ($available_keys as $key) {
+            if (isset($seen[$key])) {
+                continue;
+            }
+            $label = $key;
+            if ($key === 'created_at') {
+                $label = __('Erstelldatum', 'elementor-forms-statistics');
+            }
+            $ordered[] = array(
+                'key' => $key,
+                'label' => $label,
+                'include' => true,
+                'custom' => false,
+                'formula' => false,
+                'date_format' => '',
+            );
+        }
+    }
+    if (!empty($formula_fields)) {
+        foreach ($formula_fields as $formula_entry) {
+            $key = $formula_entry['key'];
+            if ($key === '' || isset($seen[$key])) {
+                continue;
+            }
+            $ordered[] = array(
+                'key' => $key,
+                'label' => $formula_entry['label'],
+                'include' => true,
+                'custom' => false,
+                'formula' => true,
+                'date_format' => '',
+            );
+            $seen[$key] = true;
+        }
+    }
+    return $ordered;
+}
 
 function custom_menu_item() {
     add_menu_page(
@@ -346,6 +907,17 @@ function custom_menu_item() {
         'statistiken-archiv',
         'mdp_archive_page_callback'
     );
+
+    if (mdp_user_can_access_export_menu()) {
+        add_submenu_page(
+            'statistiken',
+            __('Export', 'elementor-forms-statistics'),
+            __('Export', 'elementor-forms-statistics'),
+            'edit_posts',
+            'statistiken-export',
+            'mdp_export_page_callback'
+        );
+    }
 }
 
 function mdp_archive_setup_notice() {
@@ -389,6 +961,17 @@ add_action('admin_notices', 'mdp_archive_setup_notice');
 add_action('admin_init', 'mdp_handle_archive_notice_dismiss');
 add_action('admin_menu', 'custom_menu_item');
 add_action('admin_post_mdp_export_stats_html', 'mdp_export_stats_html');
+add_action('admin_post_mdp_export_csv', 'mdp_export_csv');
+add_action('admin_post_mdp_save_export_fields', 'mdp_save_export_fields');
+add_action('wp_ajax_mdp_get_export_fields', 'mdp_get_export_fields_ajax');
+add_action('wp_ajax_mdp_save_export_fields_ajax', 'mdp_save_export_fields_ajax');
+add_action('wp_ajax_mdp_save_export_rules_ajax', 'mdp_save_export_rules_ajax');
+add_action('wp_ajax_mdp_get_export_rules', 'mdp_get_export_rules_ajax');
+add_action('wp_ajax_mdp_save_export_formulas_ajax', 'mdp_save_export_formulas_ajax');
+add_action('wp_ajax_mdp_get_export_formulas', 'mdp_get_export_formulas_ajax');
+add_action('wp_ajax_mdp_get_export_preview', 'mdp_get_export_preview_ajax');
+add_action('wp_ajax_mdp_save_export_last_form', 'mdp_save_export_last_form_ajax');
+add_action('wp_ajax_mdp_save_export_last_format', 'mdp_save_export_last_format_ajax');
 add_action('init', 'mdp_schedule_submission_cleanup');
 add_action('admin_post_mdp_send_stats_now', 'mdp_send_stats_now_handler');
 add_filter('cron_schedules', 'mdp_add_custom_cron_schedules');
@@ -396,7 +979,7 @@ add_action('init', 'mdp_maybe_schedule_stats_email');
 add_action('mdp_send_stats_email', 'mdp_send_stats_email_callback');
 
 function mdp_export_stats_html() {
-    if (!current_user_can('edit_posts')) {
+    if (!mdp_user_can_access_export_menu()) {
         wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
     }
 
@@ -429,6 +1012,555 @@ function mdp_export_stats_html() {
     exit;
 }
 
+function mdp_normalize_export_value($value) {
+    $value = maybe_unserialize($value);
+    if (is_array($value)) {
+        $flat = [];
+        foreach ($value as $item) {
+            if (is_scalar($item) || $item === null) {
+                $flat[] = (string) $item;
+            } else {
+                $flat[] = wp_json_encode($item);
+            }
+        }
+        $value = implode(', ', $flat);
+    } elseif (is_object($value)) {
+        $value = wp_json_encode($value);
+    } else {
+        $value = (string) $value;
+    }
+    $value = str_replace(["\r", "\n"], ' ', $value);
+    return trim($value);
+}
+
+function mdp_export_csv() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
+    }
+    if (!isset($_POST['mdp_export_csv_nonce']) || !wp_verify_nonce($_POST['mdp_export_csv_nonce'], 'mdp_export_csv')) {
+        wp_die(__('Ungültige Anfrage.', 'elementor-forms-statistics'));
+    }
+    $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+    $format = isset($_POST['export_format']) ? sanitize_text_field(wp_unslash($_POST['export_format'])) : 'csv';
+    if (!in_array($format, array('csv', 'excel'), true)) {
+        $format = 'csv';
+    }
+    mdp_set_last_export_format(get_current_user_id(), $format);
+    if ($form_id === '') {
+        wp_die(__('Kein Formular ausgewählt.', 'elementor-forms-statistics'));
+    }
+
+    $fields = array_values(array_filter(mdp_get_export_fields_for_form($form_id), function($field) {
+        return !empty($field['include']);
+    }));
+    $formula_fields = mdp_get_export_formula_fields($form_id);
+    $formula_map = [];
+    foreach ($formula_fields as $formula_entry) {
+        if (!empty($formula_entry['key'])) {
+            $formula_map[$formula_entry['key']] = $formula_entry['formula'];
+        }
+    }
+    $headers = [];
+    foreach ($fields as $field) {
+        $headers[] = isset($field['label']) && $field['label'] !== '' ? $field['label'] : $field['key'];
+    }
+
+    $extension = $format === 'excel' ? 'xls' : 'csv';
+    $filename = 'elementor-form-' . sanitize_file_name($form_id) . '-' . gmdate('Y-m-d') . '.' . $extension;
+    header('Content-Type: ' . ($format === 'excel' ? 'application/vnd.ms-excel' : 'text/csv') . '; charset=utf-8');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+
+    $out = fopen('php://output', 'w');
+    if ($out === false) {
+        wp_die(__('CSV-Ausgabe fehlgeschlagen.', 'elementor-forms-statistics'));
+    }
+    if ($format === 'excel') {
+        fwrite($out, "\xEF\xBB\xBF");
+    }
+    fputcsv($out, $headers, ';');
+
+    if (empty($fields)) {
+        fclose($out);
+        exit;
+    }
+
+    global $wpdb;
+    $submissions_table = $wpdb->prefix . 'e_submissions';
+    $values_table = $wpdb->prefix . 'e_submissions_values';
+    $submission_rows = $wpdb->get_results($wpdb->prepare(
+        "SELECT ID, created_at_gmt
+         FROM {$submissions_table}
+         WHERE element_id = %s
+           AND status NOT LIKE %s
+         ORDER BY created_at_gmt DESC",
+        $form_id,
+        '%trash%'
+    ), ARRAY_A);
+
+    if (empty($submission_rows)) {
+        fclose($out);
+        exit;
+    }
+
+    $submission_ids = array_map('intval', wp_list_pluck($submission_rows, 'ID'));
+    $created_at_map = [];
+    foreach ($submission_rows as $submission_row) {
+        $submission_id = isset($submission_row['ID']) ? (int) $submission_row['ID'] : 0;
+        if ($submission_id <= 0) {
+            continue;
+        }
+        $created_at_map[$submission_id] = mdp_format_submission_created_at($submission_row['created_at_gmt'] ?? '');
+    }
+    $values_by_submission = [];
+    $chunk_size = 500;
+    $field_keys = wp_list_pluck($fields, 'key');
+    $allowed_keys = array_unique(array_merge($field_keys, (array) mdp_get_form_field_keys($form_id)));
+    foreach (array_chunk($submission_ids, $chunk_size) as $chunk) {
+        $placeholders = implode(',', array_fill(0, count($chunk), '%d'));
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT submission_id, `key`, `value`
+                 FROM {$values_table}
+                 WHERE submission_id IN ({$placeholders})",
+                $chunk
+            ),
+            ARRAY_A
+        );
+        foreach ($rows as $row) {
+            $submission_id = isset($row['submission_id']) ? (int) $row['submission_id'] : 0;
+            $key = isset($row['key']) ? sanitize_text_field($row['key']) : '';
+            if ($submission_id <= 0 || $key === '' || !in_array($key, $allowed_keys, true)) {
+                continue;
+            }
+            $value = mdp_normalize_export_value($row['value']);
+            if (!isset($values_by_submission[$submission_id])) {
+                $values_by_submission[$submission_id] = [];
+            }
+            if (!isset($values_by_submission[$submission_id][$key])) {
+                $values_by_submission[$submission_id][$key] = [];
+            }
+            if ($value !== '') {
+                $values_by_submission[$submission_id][$key][] = $value;
+            }
+        }
+    }
+
+    foreach ($submission_ids as $submission_id) {
+        if (!isset($values_by_submission[$submission_id])) {
+            $values_by_submission[$submission_id] = [];
+        }
+        if (!isset($values_by_submission[$submission_id]['created_at']) && isset($created_at_map[$submission_id])) {
+            $values_by_submission[$submission_id]['created_at'] = array($created_at_map[$submission_id]);
+        }
+        $value_map = mdp_get_submission_value_map($values_by_submission, $submission_id, $form_id);
+        $row = [];
+        foreach ($fields as $field) {
+            $key = $field['key'];
+            if (!empty($field['formula']) && isset($formula_map[$key])) {
+                $row[] = mdp_apply_export_replace_rules($form_id, mdp_evaluate_export_formula($formula_map[$key], $value_map));
+                continue;
+            }
+            $value = isset($value_map[$key]) ? $value_map[$key] : '';
+            if (!empty($field['date_format'])) {
+                $value = mdp_apply_export_date_format($value, $field['date_format']);
+            }
+            $row[] = mdp_apply_export_replace_rules($form_id, $value);
+        }
+        fputcsv($out, $row, ';');
+    }
+    fclose($out);
+    exit;
+}
+
+function mdp_save_export_fields() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
+    }
+    if (!isset($_POST['mdp_export_fields_nonce']) || !wp_verify_nonce($_POST['mdp_export_fields_nonce'], 'mdp_save_export_fields')) {
+        wp_die(__('Ungültige Anfrage.', 'elementor-forms-statistics'));
+    }
+    $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+    $payload_raw = isset($_POST['fields_payload']) ? wp_unslash($_POST['fields_payload']) : '';
+    if ($form_id === '') {
+        wp_die(__('Kein Formular ausgewählt.', 'elementor-forms-statistics'));
+    }
+    $payload = json_decode($payload_raw, true);
+    $payload = is_array($payload) ? $payload : [];
+    $available_keys = mdp_get_form_field_keys($form_id);
+    $formula_fields = mdp_get_export_formula_fields($form_id);
+    $formula_keys = array_values(array_filter(array_map(function($entry) {
+        return !empty($entry['key']) ? sanitize_text_field($entry['key']) : '';
+    }, $formula_fields)));
+    $date_format_choices = mdp_get_export_date_format_choices();
+    $allowed_date_formats = array_keys($date_format_choices);
+    $valid = [];
+    foreach ($payload as $entry) {
+        if (!is_array($entry)) {
+            continue;
+        }
+        $key = isset($entry['key']) ? sanitize_text_field($entry['key']) : '';
+        $is_custom = !empty($entry['custom']);
+        $is_formula = !empty($entry['formula']) && in_array($key, $formula_keys, true);
+        if ($key === '' || (!$is_custom && !$is_formula && !in_array($key, $available_keys, true))) {
+            continue;
+        }
+        $label = isset($entry['label']) && $entry['label'] !== '' ? sanitize_text_field($entry['label']) : $key;
+        $include = isset($entry['include']) ? (bool) $entry['include'] : true;
+        $date_format = isset($entry['date_format']) ? sanitize_text_field($entry['date_format']) : '';
+        if (!in_array($date_format, $allowed_date_formats, true)) {
+            $date_format = '';
+        }
+        $valid[] = array(
+            'key' => $key,
+            'label' => $label,
+            'include' => $include,
+            'custom' => $is_custom,
+            'formula' => $is_formula,
+            'date_format' => $date_format,
+        );
+    }
+    $stored = mdp_get_export_fields_option();
+    $stored[$form_id] = $valid;
+    update_option('mdp_efs_export_fields', $stored);
+
+    $redirect = add_query_arg(
+        array(
+            'page' => 'statistiken-export',
+            'form_id' => rawurlencode($form_id),
+            'mdp_export_saved' => 1,
+        ),
+        admin_url('admin.php')
+    );
+    wp_safe_redirect($redirect);
+    exit;
+}
+
+function mdp_get_export_fields_ajax() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_send_json_error(array('message' => __('Keine Berechtigung.', 'elementor-forms-statistics')));
+    }
+    check_ajax_referer('mdp_export_fields', 'nonce');
+    $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+    if ($form_id === '') {
+        wp_send_json_error(array('message' => __('Kein Formular ausgewählt.', 'elementor-forms-statistics')));
+    }
+    $fields = mdp_get_export_fields_for_form($form_id);
+    $date_candidates = mdp_get_export_date_candidate_keys($form_id);
+    wp_send_json_success(array(
+        'fields' => $fields,
+        'date_candidates' => $date_candidates,
+    ));
+}
+
+function mdp_save_export_fields_ajax() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_send_json_error(array('message' => __('Keine Berechtigung.', 'elementor-forms-statistics')));
+    }
+    check_ajax_referer('mdp_export_fields', 'nonce');
+    $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+    $payload_raw = isset($_POST['fields_payload']) ? wp_unslash($_POST['fields_payload']) : '';
+    if ($form_id === '') {
+        wp_send_json_error(array('message' => __('Kein Formular ausgewählt.', 'elementor-forms-statistics')));
+    }
+    $payload = json_decode($payload_raw, true);
+    $payload = is_array($payload) ? $payload : [];
+    $available_keys = mdp_get_form_field_keys($form_id);
+    $formula_fields = mdp_get_export_formula_fields($form_id);
+    $formula_keys = array_values(array_filter(array_map(function($entry) {
+        return !empty($entry['key']) ? sanitize_text_field($entry['key']) : '';
+    }, $formula_fields)));
+    $date_format_choices = mdp_get_export_date_format_choices();
+    $allowed_date_formats = array_keys($date_format_choices);
+    $valid = [];
+    foreach ($payload as $entry) {
+        if (!is_array($entry)) {
+            continue;
+        }
+        $key = isset($entry['key']) ? sanitize_text_field($entry['key']) : '';
+        $is_custom = !empty($entry['custom']);
+        $is_formula = !empty($entry['formula']) && in_array($key, $formula_keys, true);
+        if ($key === '' || (!$is_custom && !$is_formula && !in_array($key, $available_keys, true))) {
+            continue;
+        }
+        $label = isset($entry['label']) && $entry['label'] !== '' ? sanitize_text_field($entry['label']) : $key;
+        $include = isset($entry['include']) ? (bool) $entry['include'] : true;
+        $date_format = isset($entry['date_format']) ? sanitize_text_field($entry['date_format']) : '';
+        if (!in_array($date_format, $allowed_date_formats, true)) {
+            $date_format = '';
+        }
+        $valid[] = array(
+            'key' => $key,
+            'label' => $label,
+            'include' => $include,
+            'custom' => $is_custom,
+            'formula' => $is_formula,
+            'date_format' => $date_format,
+        );
+    }
+    $stored = mdp_get_export_fields_option();
+    $stored[$form_id] = $valid;
+    update_option('mdp_efs_export_fields', $stored);
+    wp_send_json_success();
+}
+
+function mdp_save_export_rules_ajax() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_send_json_error(array('message' => __('Keine Berechtigung.', 'elementor-forms-statistics')));
+    }
+    check_ajax_referer('mdp_export_fields', 'nonce');
+    $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+    $payload_raw = isset($_POST['rules_payload']) ? wp_unslash($_POST['rules_payload']) : '';
+    if ($form_id === '') {
+        wp_send_json_error(array('message' => __('Kein Formular ausgewählt.', 'elementor-forms-statistics')));
+    }
+    $payload = json_decode($payload_raw, true);
+    $payload = is_array($payload) ? $payload : [];
+    $valid = [];
+    foreach ($payload as $entry) {
+        if (!is_array($entry)) {
+            continue;
+        }
+        $find = isset($entry['find']) ? (string) $entry['find'] : '';
+        $replace = isset($entry['replace']) ? (string) $entry['replace'] : '';
+        if ($find === '') {
+            continue;
+        }
+        $valid[] = array(
+            'find' => $find,
+            'replace' => $replace,
+        );
+    }
+    $stored = mdp_get_export_replace_rules_option();
+    $stored[$form_id] = $valid;
+    update_option('mdp_efs_export_replace_rules', $stored);
+    wp_send_json_success();
+}
+
+function mdp_save_export_formulas_ajax() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_send_json_error(array('message' => __('Keine Berechtigung.', 'elementor-forms-statistics')));
+    }
+    check_ajax_referer('mdp_export_fields', 'nonce');
+    $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+    $payload_raw = isset($_POST['formulas_payload']) ? wp_unslash($_POST['formulas_payload']) : '';
+    if ($form_id === '') {
+        wp_send_json_error(array('message' => __('Kein Formular ausgewählt.', 'elementor-forms-statistics')));
+    }
+    $payload = json_decode($payload_raw, true);
+    $payload = is_array($payload) ? $payload : [];
+    $valid = [];
+    foreach ($payload as $entry) {
+        if (!is_array($entry)) {
+            continue;
+        }
+        $key = isset($entry['key']) ? sanitize_text_field($entry['key']) : '';
+        $label = isset($entry['label']) ? sanitize_text_field($entry['label']) : '';
+        $formula = isset($entry['formula']) ? sanitize_text_field($entry['formula']) : '';
+        if ($key === '' || $formula === '') {
+            continue;
+        }
+        if ($label === '') {
+            $label = $key;
+        }
+        $valid[] = array(
+            'key' => $key,
+            'label' => $label,
+            'formula' => $formula,
+        );
+    }
+    $stored = mdp_get_export_formula_fields_option();
+    $stored[$form_id] = $valid;
+    update_option('mdp_efs_export_formula_fields', $stored);
+    wp_send_json_success();
+}
+
+function mdp_get_export_formulas_ajax() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_send_json_error(array('message' => __('Keine Berechtigung.', 'elementor-forms-statistics')));
+    }
+    check_ajax_referer('mdp_export_fields', 'nonce');
+    $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+    if ($form_id === '') {
+        wp_send_json_error(array('message' => __('Kein Formular ausgewählt.', 'elementor-forms-statistics')));
+    }
+    $formulas = mdp_get_export_formula_fields($form_id);
+    wp_send_json_success(array('formulas' => $formulas));
+}
+
+function mdp_get_export_rules_ajax() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_send_json_error(array('message' => __('Keine Berechtigung.', 'elementor-forms-statistics')));
+    }
+    check_ajax_referer('mdp_export_fields', 'nonce');
+    $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+    if ($form_id === '') {
+        wp_send_json_error(array('message' => __('Kein Formular ausgewählt.', 'elementor-forms-statistics')));
+    }
+    $rules = mdp_get_export_replace_rules($form_id);
+    wp_send_json_success(array('rules' => $rules));
+}
+
+function mdp_get_export_preview_ajax() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_send_json_error(array('message' => __('Keine Berechtigung.', 'elementor-forms-statistics')));
+    }
+    check_ajax_referer('mdp_export_fields', 'nonce');
+    $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+    if ($form_id === '') {
+        wp_send_json_error(array('message' => __('Kein Formular ausgewählt.', 'elementor-forms-statistics')));
+    }
+    $preview_data = mdp_get_export_preview_data($form_id);
+    wp_send_json_success($preview_data);
+}
+
+function mdp_save_export_last_form_ajax() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_send_json_error(array('message' => __('Keine Berechtigung.', 'elementor-forms-statistics')));
+    }
+    check_ajax_referer('mdp_export_fields', 'nonce');
+    $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+    if ($form_id === '') {
+        wp_send_json_error(array('message' => __('Kein Formular ausgewählt.', 'elementor-forms-statistics')));
+    }
+    mdp_set_last_export_form_id(get_current_user_id(), $form_id);
+    wp_send_json_success();
+}
+
+function mdp_save_export_last_format_ajax() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_send_json_error(array('message' => __('Keine Berechtigung.', 'elementor-forms-statistics')));
+    }
+    check_ajax_referer('mdp_export_fields', 'nonce');
+    $format = isset($_POST['format']) ? sanitize_text_field(wp_unslash($_POST['format'])) : '';
+    mdp_set_last_export_format(get_current_user_id(), $format);
+    wp_send_json_success();
+}
+
+function mdp_get_export_preview_data($form_id) {
+    $form_id = sanitize_text_field($form_id);
+    if ($form_id === '') {
+        return array(
+            'headers' => [],
+            'rows' => [],
+        );
+    }
+    $fields = array_values(array_filter(mdp_get_export_fields_for_form($form_id), function($field) {
+        return !empty($field['include']);
+    }));
+    $formula_fields = mdp_get_export_formula_fields($form_id);
+    $formula_map = [];
+    foreach ($formula_fields as $formula_entry) {
+        if (!empty($formula_entry['key'])) {
+            $formula_map[$formula_entry['key']] = $formula_entry['formula'];
+        }
+    }
+    $headers = [];
+    foreach ($fields as $field) {
+        $headers[] = isset($field['label']) && $field['label'] !== '' ? $field['label'] : $field['key'];
+    }
+
+    if (empty($fields)) {
+        return array(
+            'headers' => [],
+            'rows' => [],
+        );
+    }
+
+    global $wpdb;
+    $submissions_table = $wpdb->prefix . 'e_submissions';
+    $values_table = $wpdb->prefix . 'e_submissions_values';
+    $submission_rows = $wpdb->get_results($wpdb->prepare(
+        "SELECT ID, created_at_gmt
+         FROM {$submissions_table}
+         WHERE element_id = %s
+           AND status NOT LIKE %s
+         ORDER BY created_at_gmt DESC",
+        $form_id,
+        '%trash%'
+    ), ARRAY_A);
+    if (empty($submission_rows)) {
+        return array(
+            'headers' => $headers,
+            'rows' => [],
+        );
+    }
+
+    $submission_ids = array_map('intval', wp_list_pluck($submission_rows, 'ID'));
+    $created_at_map = [];
+    foreach ($submission_rows as $submission_row) {
+        $submission_id = isset($submission_row['ID']) ? (int) $submission_row['ID'] : 0;
+        if ($submission_id <= 0) {
+            continue;
+        }
+        $created_at_map[$submission_id] = mdp_format_submission_created_at($submission_row['created_at_gmt'] ?? '');
+    }
+    $values_by_submission = [];
+    $chunk_size = 500;
+    $field_keys = wp_list_pluck($fields, 'key');
+    $allowed_keys = array_unique(array_merge($field_keys, (array) mdp_get_form_field_keys($form_id)));
+    foreach (array_chunk($submission_ids, $chunk_size) as $chunk) {
+        $placeholders = implode(',', array_fill(0, count($chunk), '%d'));
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT submission_id, `key`, `value`
+                 FROM {$values_table}
+                 WHERE submission_id IN ({$placeholders})",
+                $chunk
+            ),
+            ARRAY_A
+        );
+        foreach ($rows as $row) {
+            $submission_id = isset($row['submission_id']) ? (int) $row['submission_id'] : 0;
+            $key = isset($row['key']) ? sanitize_text_field($row['key']) : '';
+            if ($submission_id <= 0 || $key === '' || !in_array($key, $allowed_keys, true)) {
+                continue;
+            }
+            $value = mdp_normalize_export_value($row['value']);
+            if (!isset($values_by_submission[$submission_id])) {
+                $values_by_submission[$submission_id] = [];
+            }
+            if (!isset($values_by_submission[$submission_id][$key])) {
+                $values_by_submission[$submission_id][$key] = [];
+            }
+            if ($value !== '') {
+                $values_by_submission[$submission_id][$key][] = $value;
+            }
+        }
+    }
+
+    $rows = [];
+    foreach ($submission_ids as $submission_id) {
+        if (!isset($values_by_submission[$submission_id])) {
+            $values_by_submission[$submission_id] = [];
+        }
+        if (!isset($values_by_submission[$submission_id]['created_at']) && isset($created_at_map[$submission_id])) {
+            $values_by_submission[$submission_id]['created_at'] = array($created_at_map[$submission_id]);
+        }
+        $value_map = mdp_get_submission_value_map($values_by_submission, $submission_id, $form_id);
+        $row = [];
+        foreach ($fields as $field) {
+            $key = $field['key'];
+            if (!empty($field['formula']) && isset($formula_map[$key])) {
+                $row[] = mdp_apply_export_replace_rules($form_id, mdp_evaluate_export_formula($formula_map[$key], $value_map));
+                continue;
+            }
+            $value = isset($value_map[$key]) ? $value_map[$key] : '';
+            if (!empty($field['date_format'])) {
+                $value = mdp_apply_export_date_format($value, $field['date_format']);
+            }
+            $row[] = mdp_apply_export_replace_rules($form_id, $value);
+        }
+        $rows[] = $row;
+    }
+
+    return array(
+        'headers' => $headers,
+        'rows' => $rows,
+    );
+}
+
 // JS einfügen
 function mdp_enqueue_chartjs($hook_suffix) {
     if ($hook_suffix !== 'toplevel_page_statistiken') {
@@ -443,6 +1575,14 @@ function mdp_enqueue_chartjs($hook_suffix) {
     );
 }
 add_action('admin_enqueue_scripts', 'mdp_enqueue_chartjs');
+
+function mdp_enqueue_export_assets($hook_suffix) {
+    if ($hook_suffix !== 'statistiken_page_statistiken-export') {
+        return;
+    }
+    wp_enqueue_script('jquery-ui-sortable');
+}
+add_action('admin_enqueue_scripts', 'mdp_enqueue_export_assets');
 
 function mdp_get_plugin_version_string() {
     static $cached = null;
@@ -2095,13 +3235,14 @@ function mdp_clear_elementor_submissions_callback() {
         wp_clear_scheduled_hook('mdp_clear_elementor_submissions');
         return;
     }
-    $threshold = date('Y-m-d H:i:s', current_time('timestamp') - $seconds);
+    $threshold = gmdate('Y-m-d H:i:s', current_time('timestamp', true) - $seconds);
     $status_like = '%trash%';
-    $condition = $wpdb->prepare('s.status NOT LIKE %s AND s.created_at_gmt <= %s', $status_like, $threshold);
+    $condition_with_alias = $wpdb->prepare('s.status NOT LIKE %s AND s.created_at_gmt <= %s', $status_like, $threshold);
+    $condition_plain = $wpdb->prepare('status NOT LIKE %s AND created_at_gmt <= %s', $status_like, $threshold);
     $values_table = $wpdb->prefix . 'e_submissions_values';
     $submissions_table = $wpdb->prefix . 'e_submissions';
-    $wpdb->query("DELETE ev FROM {$values_table} ev INNER JOIN {$submissions_table} s ON ev.submission_id = s.ID WHERE {$condition}");
-    $wpdb->query("DELETE FROM {$submissions_table} s WHERE {$condition}");
+    $wpdb->query("DELETE ev FROM {$values_table} ev INNER JOIN {$submissions_table} s ON ev.submission_id = s.ID WHERE {$condition_with_alias}");
+    $wpdb->query("DELETE FROM {$submissions_table} WHERE {$condition_plain}");
     mdp_schedule_submission_cleanup(true);
 }
 
@@ -2619,6 +3760,17 @@ function mdp_settings_page_callback() {
             $cleanup_interval = 'disabled';
         }
 
+        $export_roles = array();
+        $valid_roles = array_keys(mdp_get_export_role_choices());
+        if (isset($_POST['export_roles']) && is_array($_POST['export_roles'])) {
+            foreach ($_POST['export_roles'] as $role) {
+                $role = sanitize_key($role);
+                if ($role !== '' && in_array($role, $valid_roles, true)) {
+                    $export_roles[] = $role;
+                }
+            }
+        }
+
         $curve_color_slots = array();
         $default_curve_slots = mdp_get_default_curve_color_slots();
         for ($i = 0; $i < 10; $i++) {
@@ -2675,6 +3827,7 @@ function mdp_settings_page_callback() {
         update_option('mdp_efs_curve_color_slots', $curve_color_slots);
         update_option('mdp_efs_clean_on_uninstall', $clean_on_uninstall);
         update_option('mdp_efs_submission_cleanup_interval', $cleanup_interval);
+        update_option('mdp_efs_export_roles', array_values(array_unique($export_roles)));
         mdp_ensure_stats_export_dir();
         $message = __('Einstellungen gespeichert.', 'elementor-forms-statistics');
         mdp_schedule_submission_cleanup(true);
@@ -2697,8 +3850,10 @@ function mdp_settings_page_callback() {
     $curve_color_slots = mdp_get_curve_color_slots();
     $clean_on_uninstall = get_option('mdp_efs_clean_on_uninstall', '0');
     $cleanup_interval = mdp_get_submission_cleanup_interval();
+    $export_roles = mdp_get_export_allowed_roles();
+    $export_role_choices = mdp_get_export_role_choices();
     ?>
-    <div class="wrap">
+    <div class="wrap mdp-stats-root">
         <h1><?php _e('Anfragen Einstellungen', 'elementor-forms-statistics'); ?></h1>
         <?php if ($message) : ?>
             <div class="notice notice-success"><p><?php echo esc_html($message); ?></p></div>
@@ -2793,6 +3948,24 @@ function mdp_settings_page_callback() {
                     <td>
                         <input type="text" name="export_folder" id="export_folder" value="<?php echo esc_attr($export_folder_slug); ?>" class="regular-text">
                         <p class="description"><?php _e('Ordnername unter wp-content/uploads für die gespeicherten Statistiken.', 'elementor-forms-statistics'); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label><?php _e('Export verfügbar für', 'elementor-forms-statistics'); ?></label>
+                    </th>
+                    <td>
+                        <?php if (empty($export_role_choices)) : ?>
+                            <p><?php _e('Keine Benutzerrollen gefunden.', 'elementor-forms-statistics'); ?></p>
+                        <?php else : ?>
+                            <?php foreach ($export_role_choices as $role_slug => $role_label) : ?>
+                                <label>
+                                    <input type="checkbox" name="export_roles[]" value="<?php echo esc_attr($role_slug); ?>" <?php checked(in_array($role_slug, $export_roles, true)); ?>>
+                                    <?php echo esc_html($role_label); ?>
+                                </label><br>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <p class="description"><?php _e('Nur ausgewählte Rollen sehen den Export-Menüpunkt.', 'elementor-forms-statistics'); ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -2919,7 +4092,7 @@ function mdp_archive_page_callback() {
         ? __('Neue Einträge sichern', 'elementor-forms-statistics')
         : __('Archiv initialisieren', 'elementor-forms-statistics');
     ?>
-    <div class="wrap">
+    <div class="wrap mdp-stats-root">
         <h1><?php _e('Archivierte Statistiken', 'elementor-forms-statistics'); ?></h1>
         <?php if ($status === 'initialized') : ?>
             <div class="notice notice-success"><p><?php _e('Das Archiv wurde vollständig aufgebaut.', 'elementor-forms-statistics'); ?></p></div>
@@ -2975,6 +4148,247 @@ function mdp_archive_page_callback() {
             <?php submit_button($button_label); ?>
         </form>
     </div>
+    <?php
+}
+
+function mdp_export_page_callback() {
+    if (!mdp_user_can_access_export_menu()) {
+        wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
+    }
+    $forms_indexed = mdp_get_forms_indexed();
+    $form_ids = array_keys($forms_indexed);
+    sort($form_ids, SORT_STRING);
+    $selected_form_id = isset($_GET['form_id']) ? sanitize_text_field(wp_unslash($_GET['form_id'])) : '';
+    if ($selected_form_id === '') {
+        $selected_form_id = mdp_get_last_export_form_id(get_current_user_id());
+    }
+    if ($selected_form_id === '' && !empty($form_ids)) {
+        $selected_form_id = $form_ids[0];
+    }
+    if ($selected_form_id !== '' && !isset($forms_indexed[$selected_form_id]) && !empty($form_ids)) {
+        $selected_form_id = $form_ids[0];
+    }
+    $selected_format = mdp_get_last_export_format(get_current_user_id());
+    $saved_notice = !empty($_GET['mdp_export_saved']);
+    $script_path = plugin_dir_path(__FILE__) . 'assets/js/export.js';
+    $script_version = file_exists($script_path) ? (string) filemtime($script_path) : '1.0.0';
+    $export_config = array(
+        'ajaxUrl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('mdp_export_fields'),
+        'formId' => $selected_form_id,
+        'dateFormats' => array_map(function($value, $label) {
+            return array('value' => $value, 'label' => $label);
+        }, array_keys(mdp_get_export_date_format_choices()), mdp_get_export_date_format_choices()),
+        'i18n' => array(
+            'saved' => __('Gespeichert', 'elementor-forms-statistics'),
+            'no_fields' => __('Keine Felder gefunden.', 'elementor-forms-statistics'),
+            'no_columns' => __('Keine Spalten ausgewählt.', 'elementor-forms-statistics'),
+            'no_columns_body' => __('Bitte mindestens eine Export-Spalte aktivieren.', 'elementor-forms-statistics'),
+            'no_entries' => __('Keine Einträge gefunden.', 'elementor-forms-statistics'),
+            'delete_field' => __('Feld löschen', 'elementor-forms-statistics'),
+            'delete_rule' => __('Regel löschen', 'elementor-forms-statistics'),
+            'delete_formula' => __('Formel löschen', 'elementor-forms-statistics'),
+        ),
+    );
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('jquery-ui-sortable');
+    wp_print_scripts(array('jquery', 'jquery-ui-sortable'));
+    echo '<script>window.mdpExportConfig = ' . wp_json_encode($export_config) . ';</script>';
+    echo '<script src="' . esc_url(plugin_dir_url(__FILE__) . 'assets/js/export.js?ver=' . rawurlencode($script_version)) . '"></script>';
+    $inline_url = wp_nonce_url(
+        add_query_arg(
+            array(
+                'action' => 'mdp_export_stats_html',
+                'inline' => 1,
+            ),
+            admin_url('admin-post.php')
+        ),
+        'mdp_export_html_inline',
+        'mdp_inline_nonce'
+    );
+    ?>
+    <div class="wrap mdp-stats-root">
+        <h1><?php _e('Formular-Daten Export', 'elementor-forms-statistics'); ?></h1>
+        <?php if ($saved_notice) : ?>
+            <div class="notice notice-success"><p><?php _e('Export-Einstellungen gespeichert.', 'elementor-forms-statistics'); ?></p></div>
+        <?php endif; ?>
+        <?php if (empty($forms_indexed)) : ?>
+            <p><?php _e('Keine Formulare gefunden.', 'elementor-forms-statistics'); ?></p>
+        <?php else : ?>
+            <div class="mdp-export-tabs">
+                <button type="button" class="mdp-export-tab is-active" data-tab="mdp-export-tab-form">
+                    <?php _e('Formular auswählen', 'elementor-forms-statistics'); ?>
+                </button>
+                <button type="button" class="mdp-export-tab" data-tab="mdp-export-tab-columns">
+                    <?php _e('Export-Spalten & Vorschau', 'elementor-forms-statistics'); ?>
+                </button>
+                <button type="button" class="mdp-export-tab" data-tab="mdp-export-tab-rules">
+                    <?php _e('Regeln & Formeln', 'elementor-forms-statistics'); ?>
+                </button>
+            </div>
+            <div id="mdp-export-tab-form" class="mdp-export-tab-panel is-active">
+                <div class="mdp-export-col mdp-export-col-left">
+                    <h2><?php _e('Formular auswählen', 'elementor-forms-statistics'); ?></h2>
+                    <label for="mdp_export_form_id"><?php _e('Formular', 'elementor-forms-statistics'); ?></label>
+                    <select id="mdp_export_form_id">
+                        <?php foreach ($form_ids as $form_id) :
+                            $form_entry = $forms_indexed[$form_id];
+                            $title = mdp_format_form_title($form_id, $forms_indexed, mdp_resolve_form_title($form_id, $form_entry));
+                            $label = $title !== '' ? $title : $form_id;
+                        ?>
+                            <option value="<?php echo esc_attr($form_id); ?>" <?php selected($selected_form_id, $form_id); ?>>
+                                <?php echo esc_html($label . ' (' . $form_id . ')'); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="mdp-export-form">
+                        <?php wp_nonce_field('mdp_export_csv', 'mdp_export_csv_nonce'); ?>
+                        <input type="hidden" name="action" value="mdp_export_csv">
+                        <input type="hidden" name="form_id" id="mdp_export_form_id_csv" value="<?php echo esc_attr($selected_form_id); ?>">
+                        <label for="mdp_export_format"><?php _e('Format', 'elementor-forms-statistics'); ?></label>
+                        <select name="export_format" id="mdp_export_format">
+                            <option value="csv" <?php selected($selected_format, 'csv'); ?>><?php _e('CSV', 'elementor-forms-statistics'); ?></option>
+                            <option value="excel" <?php selected($selected_format, 'excel'); ?>><?php _e('Excel', 'elementor-forms-statistics'); ?></option>
+                        </select>
+                        <?php submit_button(__('Exportieren', 'elementor-forms-statistics'), 'primary'); ?>
+                    </form>
+                </div>
+            </div>
+            <div id="mdp-export-tab-columns" class="mdp-export-tab-panel">
+                <div class="mdp-export-col mdp-export-col-right">
+                    <div class="mdp-export-right-grid">
+                        <div class="mdp-export-fields-panel">
+                            <h2><?php _e('Export-Spalten', 'elementor-forms-statistics'); ?></h2>
+                            <p><?php _e('Felder per Drag & Drop sortieren und Spaltennamen anpassen.', 'elementor-forms-statistics'); ?></p>
+                            <div class="mdp-export-add-field">
+                                <label for="mdp_export_new_field"><?php _e('Eigenes Feld hinzufügen', 'elementor-forms-statistics'); ?></label>
+                                <div class="mdp-export-add-field-row">
+                                    <input type="text" id="mdp_export_new_field" class="regular-text" placeholder="<?php echo esc_attr__('Feldname', 'elementor-forms-statistics'); ?>">
+                                    <button type="button" class="button" id="mdp_export_add_field"><?php _e('Hinzufügen', 'elementor-forms-statistics'); ?></button>
+                                </div>
+                            </div>
+                            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" id="mdp-export-fields-form">
+                                <?php wp_nonce_field('mdp_save_export_fields', 'mdp_export_fields_nonce'); ?>
+                                <input type="hidden" name="action" value="mdp_save_export_fields">
+                                <input type="hidden" name="form_id" id="mdp_export_form_id_save" value="<?php echo esc_attr($selected_form_id); ?>">
+                                <input type="hidden" name="fields_payload" id="mdp_export_fields_payload" value="">
+                                <table class="mdp-export-fields-table">
+                                    <thead>
+                                        <tr>
+                                    <th class="mdp-export-col-handle"></th>
+                                    <th><?php _e('Feld', 'elementor-forms-statistics'); ?></th>
+                                    <th><?php _e('Spaltenname', 'elementor-forms-statistics'); ?></th>
+                                    <th><?php _e('Datumformat', 'elementor-forms-statistics'); ?></th>
+                                    <th class="mdp-export-col-include"><?php _e('Export', 'elementor-forms-statistics'); ?></th>
+                                </tr>
+                            </thead>
+                                    <tbody id="mdp-export-fields-list"></tbody>
+                                </table>
+                                <?php submit_button(__('Reihenfolge speichern', 'elementor-forms-statistics'), 'secondary'); ?>
+                            </form>
+                        </div>
+                        <div class="mdp-export-preview-panel">
+                            <h3><?php _e('Vorschau', 'elementor-forms-statistics'); ?></h3>
+                        <div class="mdp-export-preview">
+                                <table class="mdp-export-preview-table">
+                                    <?php
+                                    $preview_data = mdp_get_export_preview_data($selected_form_id);
+                                    $preview_headers = isset($preview_data['headers']) ? $preview_data['headers'] : [];
+                                    $preview_rows = isset($preview_data['rows']) ? $preview_data['rows'] : [];
+                                    ?>
+                                    <thead>
+                                        <tr>
+                                            <?php if (empty($preview_headers)) : ?>
+                                                <th><?php _e('Keine Spalten ausgewählt.', 'elementor-forms-statistics'); ?></th>
+                                            <?php else : ?>
+                                                <?php foreach ($preview_headers as $header_label) : ?>
+                                                    <th><?php echo esc_html($header_label); ?></th>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if (empty($preview_headers)) : ?>
+                                            <tr>
+                                                <td><?php _e('Bitte mindestens eine Export-Spalte aktivieren.', 'elementor-forms-statistics'); ?></td>
+                                            </tr>
+                                        <?php elseif (empty($preview_rows)) : ?>
+                                            <tr>
+                                                <td colspan="<?php echo (int) count($preview_headers); ?>"><?php _e('Keine Einträge gefunden.', 'elementor-forms-statistics'); ?></td>
+                                            </tr>
+                                        <?php else : ?>
+                                            <?php foreach ($preview_rows as $row) : ?>
+                                                <tr>
+                                                    <?php foreach ($row as $cell) : ?>
+                                                        <td><?php echo esc_html($cell); ?></td>
+                                                    <?php endforeach; ?>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="mdp-export-tab-rules" class="mdp-export-tab-panel">
+                <div class="mdp-export-col mdp-export-col-right">
+                    <div class="mdp-export-right-grid">
+                        <div class="mdp-export-fields-panel">
+                            <div class="mdp-export-rules">
+                                <h3><?php _e('Suchen & Ersetzen', 'elementor-forms-statistics'); ?></h3>
+                                <p><?php _e('Regeln werden beim Export und in der Vorschau angewendet.', 'elementor-forms-statistics'); ?></p>
+                                <table class="mdp-export-rules-table">
+                                    <thead>
+                                        <tr>
+                                            <th><?php _e('Suchen', 'elementor-forms-statistics'); ?></th>
+                                            <th><?php _e('Ersetzen', 'elementor-forms-statistics'); ?></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="mdp-export-rules-body"></tbody>
+                                </table>
+                                <button type="button" class="button" id="mdp_export_add_rule"><?php _e('Regel hinzufügen', 'elementor-forms-statistics'); ?></button>
+                            </div>
+                            <div class="mdp-export-formulas">
+                                <h3><?php _e('Formel erstellen', 'elementor-forms-statistics'); ?></h3>
+                                <div class="mdp-export-formula-add">
+                                    <input type="text" id="mdp_export_new_formula_label" class="regular-text" placeholder="<?php echo esc_attr__('Feldname', 'elementor-forms-statistics'); ?>">
+                                    <button type="button" class="button" id="mdp_export_add_formula"><?php _e('Formel erstellen', 'elementor-forms-statistics'); ?></button>
+                                </div>
+                                <div class="mdp-formula-tags">
+                                    <span class="mdp-formula-tags-label"><?php _e('Felder', 'elementor-forms-statistics'); ?></span>
+                                    <div id="mdp-formula-tags-list" class="mdp-formula-tags-list"></div>
+                                </div>
+                                <table class="mdp-export-formulas-table">
+                                    <thead>
+                                        <tr>
+                                            <th><?php _e('Feldname', 'elementor-forms-statistics'); ?></th>
+                                            <th><?php _e('Formel', 'elementor-forms-statistics'); ?></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="mdp-export-formulas-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="mdp-export-preview-panel">
+                            <h3><?php _e('Vorschau', 'elementor-forms-statistics'); ?></h3>
+                            <div class="mdp-export-preview">
+                                <table class="mdp-export-preview-table">
+                                    <thead></thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php if (!empty($forms_indexed)) : ?>
+    <?php endif; ?>
     <?php
 }
 
@@ -3060,7 +4474,7 @@ function mdp_email_settings_page_callback() {
     $show_weekly_row = ($email_interval === 'weekly');
     $show_monthly_row = ($email_interval === 'monthly');
     ?>
-    <div class="wrap">
+    <div class="wrap mdp-stats-root">
         <h1><?php _e('E-Mail Versand', 'elementor-forms-statistics'); ?></h1>
         <?php if ($message) : ?>
             <div class="notice notice-success"><p><?php echo esc_html($message); ?></p></div>
@@ -3182,12 +4596,17 @@ function mdp_email_settings_page_callback() {
             <?php submit_button(__('Statistik jetzt senden', 'elementor-forms-statistics'), 'secondary', 'mdp_send_now'); ?>
         </form>
         <hr>
-        <h2><?php _e('Statistik als HTML exportieren', 'elementor-forms-statistics'); ?></h2>
-        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="mdp-export-form">
-            <?php wp_nonce_field('mdp_export_html', 'mdp_export_nonce'); ?>
-            <input type="hidden" name="action" value="mdp_export_stats_html">
-            <?php submit_button(__('Als HTML exportieren', 'elementor-forms-statistics'), 'secondary'); ?>
-        </form>
+        <?php if (mdp_user_can_access_export_menu()) : ?>
+            <h2><?php _e('Statistik als HTML exportieren', 'elementor-forms-statistics'); ?></h2>
+            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="mdp-export-form">
+                <?php wp_nonce_field('mdp_export_html', 'mdp_export_nonce'); ?>
+                <input type="hidden" name="action" value="mdp_export_stats_html">
+                <?php submit_button(__('Als HTML exportieren', 'elementor-forms-statistics'), 'secondary'); ?>
+            </form>
+        <?php else : ?>
+            <h2><?php _e('Statistik Export', 'elementor-forms-statistics'); ?></h2>
+            <p><?php _e('Der Export ist für deine Benutzerrolle nicht freigeschaltet.', 'elementor-forms-statistics'); ?></p>
+        <?php endif; ?>
     </div>
     <?php
 }

@@ -1,0 +1,604 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Elementor Forms Statistics\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-02 21:10+0000\n"
+"Last-Translator: Elementor Forms Statistics <info@medienproduktion.biz>\n"
+"Language-Team: el_GR\n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Inquiries"
+msgstr "Αιτήματα"
+
+msgid "Inquiries per Month and Year"
+msgstr "Αιτήματα ανά μήνα και έτος"
+
+msgid "Select a Form:"
+msgstr "Επιλέξτε φόρμα:"
+
+msgid "All Forms"
+msgstr "Όλες οι φόρμες"
+
+msgid "No forms found"
+msgstr "Δεν βρέθηκαν φόρμες"
+
+msgid "Filter"
+msgstr "Φίλτρο"
+
+msgid "Year"
+msgstr "Έτος"
+
+msgid "Form"
+msgstr "Φόρμα"
+
+msgid "Total"
+msgstr "Σύνολο"
+
+msgid "Form Name"
+msgstr "Όνομα φόρμας"
+
+msgid "Default name: %s"
+msgstr "Προεπιλεγμένο όνομα: %s"
+
+msgid "Unnamed Form"
+msgstr "Ανώνυμη φόρμα"
+
+msgid "ID: %s"
+msgstr "ID: %s"
+
+msgid "Additional IDs: %s"
+msgstr "Επιπλέον ID: %s"
+
+msgid "Entries: %s"
+msgstr "Καταχωρήσεις: %s"
+
+msgid "%d Jahr"
+msgstr "%d έτος"
+
+msgid "%s (vor %s)"
+msgstr "%s (πριν %s)"
+
+msgid "%s = Website URL"
+msgstr "%s = URL ιστοσελίδας"
+
+msgid "%s wird durch den Link zur Statistik ersetzt. Fehlt der Platzhalter, hängt das System den Link am Ende an."
+msgstr "%s αντικαθίσταται από τον σύνδεσμο στατιστικών. Αν λείπει το σύμβολο, το σύστημα προσθέτει τον σύνδεσμο στο τέλος."
+
+msgid "%s · 2025 · v%s"
+msgstr "%s · 2025 · v%s"
+
+msgid "1 Jahr"
+msgstr "1 έτος"
+
+msgid "1 Monat"
+msgstr "1 μήνας"
+
+msgid "1 Stunde"
+msgstr "1 ώρα"
+
+msgid "1 Tag"
+msgstr "1 ημέρα"
+
+msgid "Ab dieser Differenz zum Vorjahr werden Werte in der Tabelle fett hervorgehoben. Standard: 5."
+msgstr "Από αυτή τη διαφορά σε σχέση με πέρσι, οι τιμές στον πίνακα επισημαίνονται με έντονα. Προεπιλογή: 5."
+
+msgid "Aktiv"
+msgstr "Ενεργό"
+
+msgid "Aktuelles Jahr"
+msgstr "Τρέχον έτος"
+
+msgid "Als HTML exportieren"
+msgstr "Εξαγωγή ως HTML"
+
+msgid "Anfragen"
+msgstr "Αιτήματα"
+
+msgid "Anfragen Einstellungen"
+msgstr "Ρυθμίσεις αιτημάτων"
+
+msgid "Anfragen Statistik"
+msgstr "Στατιστικά αιτημάτων"
+
+msgid "Anfragen Statistik – %s"
+msgstr "Στατιστικά αιτημάτων – %s"
+
+msgid "Anfragen pro Monat und Jahr"
+msgstr "Αιτήματα ανά μήνα και έτος"
+
+msgid "Anzahl Anfragen"
+msgstr "Αριθμός αιτημάτων"
+
+msgid "Anzahl unterschiedlicher Formulare"
+msgstr "Αριθμός διαφορετικών φορμών"
+
+msgid "April"
+msgstr "Απρίλιος"
+
+msgid "Archiv"
+msgstr "Αρχείο"
+
+msgid "Archiv initialisieren"
+msgstr "Αρχικοποίηση αρχείου"
+
+msgid "Archiv vollständig neu aufbauen (überschreibt bestehende Daten mit aktuellem Elementor-Stand)"
+msgstr "Πλήρης ανακατασκευή αρχείου (αντικαθιστά τα υπάρχοντα δεδομένα με την τρέχουσα κατάσταση του Elementor)"
+
+msgid "Archivierte Statistiken"
+msgstr "Αρχειοθετημένα στατιστικά"
+
+msgid "August"
+msgstr "Αύγουστος"
+
+msgid "Auswählen"
+msgstr "Επιλογή"
+
+msgid "Auswählen %s"
+msgstr "Επιλογή %s"
+
+msgid "Automatischer Versand"
+msgstr "Αυτόματη αποστολή"
+
+msgid "Bei unterschiedlichen Monatslängen wird automatisch der letzte verfügbare Tag verwendet."
+msgstr "Με διαφορετικά μήκη μηνών, χρησιμοποιείται αυτόματα η τελευταία διαθέσιμη ημέρα."
+
+msgid "Beim Deinstallieren dieses Plugins alle Daten bereinigen."
+msgstr "Καθαρισμός όλων των δεδομένων κατά την απεγκατάσταση αυτού του πρόσθετου."
+
+msgid "Betreffzeile"
+msgstr "Θέμα"
+
+msgid "Bitte Plugin einmalig initialisieren, damit die Statistikdaten gesichert und anschließend automatisch synchronisiert werden."
+msgstr "Παρακαλώ αρχικοποιήστε το πρόσθετο μία φορά ώστε τα στατιστικά δεδομένα να αποθηκευτούν και στη συνέχεια να συγχρονίζονται αυτόματα."
+
+msgid "Bitte mindestens eine Export-Spalte aktivieren."
+msgstr "Ενεργοποιήστε τουλάχιστον μία στήλη εξαγωγής."
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "CSV-Ausgabe fehlgeschlagen."
+msgstr "Η έξοδος CSV απέτυχε."
+
+msgid "Das Archiv speichert aggregierte und anonymisierte Formulardaten. So bleiben Statistiken erhalten, auch wenn Elementor-Einträge gelöscht oder aufgeräumt werden."
+msgstr "Το αρχείο αποθηκεύει συγκεντρωτικά και ανωνυμοποιημένα δεδομένα φορμών. Έτσι διατηρούνται τα στατιστικά ακόμη κι αν οι εγγραφές Elementor διαγραφούν ή καθαριστούν."
+
+msgid "Das Archiv wurde vollständig aufgebaut."
+msgstr "Το αρχείο δημιουργήθηκε πλήρως."
+
+msgid "Das Diagramm konnte nicht als Bild gerendert werden."
+msgstr "Το γράφημα δεν μπόρεσε να αποδοθεί ως εικόνα."
+
+msgid "Datumformat"
+msgstr "Μορφή ημερομηνίας"
+
+msgid "Deaktiviert"
+msgstr "Απενεργοποιημένο"
+
+msgid "Der Export ist für deine Benutzerrolle nicht freigeschaltet."
+msgstr "Η εξαγωγή δεν είναι ενεργοποιημένη για τον ρόλο χρήστη σας."
+
+msgid "Der komplette Text für den E-Mail-Body."
+msgstr "Το πλήρες κείμενο για το σώμα του email."
+
+msgid "Dezember"
+msgstr "Δεκέμβριος"
+
+msgid "Diagramm der Formularanfragen"
+msgstr "Γράφημα αιτημάτων φορμών"
+
+msgid "Die Statistik konnte nicht gesendet werden. Bitte Empfänger prüfen."
+msgstr "Δεν ήταν δυνατή η αποστολή των στατιστικών. Ελέγξτε τους παραλήπτες."
+
+msgid "Die Statistik wird zur angegebenen Uhrzeit versendet."
+msgstr "Τα στατιστικά αποστέλλονται την καθορισμένη ώρα."
+
+msgid "Die Statistik wurde erfolgreich versendet."
+msgstr "Τα στατιστικά εστάλησαν επιτυχώς."
+
+msgid "Dienstag"
+msgstr "Τρίτη"
+
+msgid "Dieser Text ersetzt „Passwortfreien Statistik-Zugang“ im Link, falls du ihn anders benennen möchtest."
+msgstr "Αυτό το κείμενο αντικαθιστά το «Πρόσβαση στα στατιστικά χωρίς κωδικό» στον σύνδεσμο, αν θέλετε να το ονομάσετε διαφορετικά."
+
+msgid "Donnerstag"
+msgstr "Πέμπτη"
+
+msgid "E-Mail Ignorelist"
+msgstr "Λίστα αποκλεισμού email"
+
+msgid "E-Mail Text"
+msgstr "Κείμενο email"
+
+msgid "E-Mail Versand"
+msgstr "Αποστολή email"
+
+msgid "E-Mails in diesem Feld fließen nicht in die Statistik ein. Bitte je Zeile eine Adresse oder einen Teilstring eintragen; Wildcards wie * können verwendet werden."
+msgstr "Τα email σε αυτό το πεδίο δεν περιλαμβάνονται στα στατιστικά. Εισάγετε μία διεύθυνση ή τμήμα ανά γραμμή· μπορούν να χρησιμοποιηθούν μπαλαντέρ όπως *."
+
+msgid "Eigenes Feld hinzufügen"
+msgstr "Προσθήκη προσαρμοσμένου πεδίου"
+
+msgid "Eine oder mehrere E-Mail-Adressen, getrennt durch Zeilenumbrüche oder Kommas."
+msgstr "Μία ή περισσότερες διευθύνσεις email, χωρισμένες με αλλαγές γραμμής ή κόμματα."
+
+msgid "Einmal im Monat"
+msgstr "Μία φορά τον μήνα"
+
+msgid "Einstellungen"
+msgstr "Ρυθμίσεις"
+
+msgid "Einstellungen gespeichert."
+msgstr "Οι ρυθμίσεις αποθηκεύτηκαν."
+
+msgid "Einstellungen zur Statistik-Sicherung"
+msgstr "Ρυθμίσεις αποθήκευσης στατιστικών"
+
+msgid "Einträge"
+msgstr "Καταχωρήσεις"
+
+msgid "Element ID"
+msgstr "ID στοιχείου"
+
+msgid "Elementor Forms Statistics"
+msgstr "Elementor Forms Statistics"
+
+msgid "Elementor Forms Statistics."
+msgstr "Elementor Forms Statistics."
+
+msgid "Elementor Submissions bereinigen"
+msgstr "Καθαρισμός υποβολών Elementor"
+
+msgid "Empfänger der Statistik"
+msgstr "Παραλήπτες στατιστικών"
+
+msgid "Ersetzen"
+msgstr "Αντικατάσταση"
+
+msgid "Erstelldatum"
+msgstr "Ημερομηνία δημιουργίας"
+
+msgid "Excel"
+msgstr "Excel"
+
+msgid "Export"
+msgstr "Εξαγωγή"
+
+msgid "Export verfügbar für"
+msgstr "Εξαγωγή διαθέσιμη για"
+
+msgid "Export-Einstellungen gespeichert."
+msgstr "Οι ρυθμίσεις εξαγωγής αποθηκεύτηκαν."
+
+msgid "Export-Ordner (Upload-Verzeichnis)"
+msgstr "Φάκελος εξαγωγής (κατάλογος μεταφορτώσεων)"
+
+msgid "Export-Spalten"
+msgstr "Στήλες εξαγωγής"
+
+msgid "Export-Spalten & Einträge"
+msgstr "Στήλες εξαγωγής & καταχωρήσεις"
+
+msgid "Exportieren"
+msgstr "Εξαγωγή"
+
+msgid "Farben"
+msgstr "Χρώματα"
+
+msgid "Februar"
+msgstr "Φεβρουάριος"
+
+msgid "Feld"
+msgstr "Πεδίο"
+
+msgid "Feld löschen"
+msgstr "Διαγραφή πεδίου"
+
+msgid "Felder"
+msgstr "Πεδία"
+
+msgid "Felder per Drag & Drop sortieren und Spaltennamen anpassen."
+msgstr "Ταξινομήστε τα πεδία με μεταφορά και απόθεση και προσαρμόστε τα ονόματα στηλών."
+
+msgid "Feldname"
+msgstr "Όνομα πεδίου"
+
+msgid "Format"
+msgstr "Μορφή"
+
+msgid "Formel"
+msgstr "Τύπος"
+
+msgid "Formel erstellen"
+msgstr "Δημιουργία τύπου"
+
+msgid "Formel löschen"
+msgstr "Διαγραφή τύπου"
+
+msgid "Formular"
+msgstr "Φόρμα"
+
+msgid "Formular auswählen"
+msgstr "Επιλογή φόρμας"
+
+msgid "Formular-Daten Export"
+msgstr "Εξαγωγή δεδομένων φόρμας"
+
+msgid "Formular-Update"
+msgstr "Ενημέρωση φόρμας"
+
+msgid "Formularname"
+msgstr "Όνομα φόρμας"
+
+msgid "Formularname (Distinct)"
+msgstr "Όνομα φόρμας (διακριτά)"
+
+msgid "Freitag"
+msgstr "Παρασκευή"
+
+msgid "Für Chartansicht im Browser ansehen"
+msgstr "Προβολή στο πρόγραμμα περιήγησης για το γράφημα"
+
+msgid "Gesamt"
+msgstr "Σύνολο"
+
+msgid "Gespeichert"
+msgstr "Αποθηκεύτηκε"
+
+msgid "Gespeicherte Monate"
+msgstr "Αποθηκευμένοι μήνες"
+
+msgid "Hallo,\\n\\nanbei die aktuelle Übersicht der Formular-Anfragen.\\n%stats_link%\\n\\nDeine freundliche Website\\n%s\\n\\n"
+msgstr "Γεια σας,\\n\\nπαρακάτω η τρέχουσα επισκόπηση των αιτημάτων φόρμας.\\n%stats_link%\\n\\nΗ ιστοσελίδα σας\\n%s\\n\\n"
+
+msgid "Hinweis ausblenden"
+msgstr "Απόκρυψη ειδοποίησης"
+
+msgid "Hinzufügen"
+msgstr "Προσθήκη"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Im Browser anzeigen"
+msgstr "Προβολή στο πρόγραμμα περιήγησης"
+
+msgid "Januar"
+msgstr "Ιανουάριος"
+
+msgid "Juli"
+msgstr "Ιούλιος"
+
+msgid "Juni"
+msgstr "Ιούνιος"
+
+msgid "Kein Formular ausgewählt."
+msgstr "Δεν επιλέχθηκε φόρμα."
+
+msgid "Keine Benutzerrollen gefunden."
+msgstr "Δεν βρέθηκαν ρόλοι χρηστών."
+
+msgid "Keine Berechtigung."
+msgstr "Χωρίς δικαιώματα."
+
+msgid "Keine Daten vorhanden."
+msgstr "Δεν υπάρχουν δεδομένα."
+
+msgid "Keine Einträge gefunden."
+msgstr "Δεν βρέθηκαν καταχωρήσεις."
+
+msgid "Keine Felder gefunden."
+msgstr "Δεν βρέθηκαν πεδία."
+
+msgid "Keine Formulare gefunden."
+msgstr "Δεν βρέθηκαν φόρμες."
+
+msgid "Keine Seiten gefunden."
+msgstr "Δεν βρέθηκαν σελίδες."
+
+msgid "Keine Spalten ausgewählt."
+msgstr "Δεν επιλέχθηκαν στήλες."
+
+msgid "Legt fest, wie oft die Statistik per E-Mail verschickt wird."
+msgstr "Καθορίζει πόσο συχνά αποστέλλονται τα στατιστικά μέσω email."
+
+msgid "Letzte Synchronisierung"
+msgstr "Τελευταίος συγχρονισμός"
+
+msgid "Letzter vollständiger Import"
+msgstr "Τελευταία πλήρης εισαγωγή"
+
+msgid "Liste nach"
+msgstr "Λίστα κατά"
+
+msgid "Mai"
+msgstr "Μάιος"
+
+msgid "Mittwoch"
+msgstr "Τετάρτη"
+
+msgid "Monatlich"
+msgstr "Μηνιαία"
+
+msgid "Montag"
+msgstr "Δευτέρα"
+
+msgid "März"
+msgstr "Μάρτιος"
+
+msgid "Nach der Initialisierung synchronisiert das Plugin automatisch neue Einträge in kurzen Abständen. Bei Bedarf kann der Prozess hier jederzeit erneut gestartet werden."
+msgstr "Μετά την αρχικοποίηση, το πρόσθετο συγχρονίζει αυτόματα νέες καταχωρήσεις σε σύντομα διαστήματα. Αν χρειαστεί, η διαδικασία μπορεί να ξεκινήσει ξανά εδώ οποτεδήποτε."
+
+msgid "Neue Einträge sichern"
+msgstr "Αποθήκευση νέων καταχωρήσεων"
+
+msgid "Neue Einträge wurden ins Archiv übernommen."
+msgstr "Οι νέες καταχωρήσεις προστέθηκαν στο αρχείο."
+
+msgid "Noch kein Import durchgeführt."
+msgstr "Δεν έχει γίνει ακόμη εισαγωγή."
+
+msgid "Noch nicht initialisiert"
+msgstr "Δεν έχει αρχικοποιηθεί"
+
+msgid "Noch nie"
+msgstr "Ποτέ"
+
+msgid "November"
+msgstr "Νοέμβριος"
+
+msgid "Nur aktivieren, wenn das Archiv beschädigt ist. Achtung: Gelöschte Elementor-Einträge gehen dabei verloren."
+msgstr "Ενεργοποιήστε μόνο αν το αρχείο είναι κατεστραμμένο. Προσοχή: Οι διαγραμμένες εγγραφές Elementor θα χαθούν."
+
+msgid "Nur ausgewählte Formulare werden in Grafik und Tabellen berücksichtigt."
+msgstr "Μόνο οι επιλεγμένες φόρμες λαμβάνονται υπόψη σε γραφήματα και πίνακες."
+
+msgid "Nur ausgewählte Rollen sehen den Export-Menüpunkt."
+msgstr "Μόνο οι επιλεγμένοι ρόλοι βλέπουν το μενού εξαγωγής."
+
+msgid "Nur sichtbar bei wöchentlichem Versand."
+msgstr "Ορατό μόνο σε εβδομαδιαία αποστολή."
+
+msgid "Nur wenn ein Intervall ausgewählt ist, werden alte Elementor Submissions im gewählten Rhythmus gelöscht, nachdem sie ins Archiv übernommen wurden."
+msgstr "Μόνο όταν επιλεγεί ένα διάστημα, οι παλιές υποβολές Elementor διαγράφονται με τον επιλεγμένο ρυθμό αφού αρχειοθετηθούν."
+
+msgid "Oktober"
+msgstr "Οκτώβριος"
+
+msgid "Ordnername unter wp-content/uploads für die gespeicherten Statistiken."
+msgstr "Όνομα φακέλου κάτω από το wp-content/uploads για τα αποθηκευμένα στατιστικά."
+
+msgid "Original"
+msgstr "Αρχικό"
+
+msgid "Regel hinzufügen"
+msgstr "Προσθήκη κανόνα"
+
+msgid "Regel löschen"
+msgstr "Διαγραφή κανόνα"
+
+msgid "Regeln werden beim Export und in der Vorschau angewendet."
+msgstr "Οι κανόνες εφαρμόζονται στην εξαγωγή και στην προεπισκόπηση."
+
+msgid "Reihenfolge speichern"
+msgstr "Αποθήκευση σειράς"
+
+msgid "Samstag"
+msgstr "Σάββατο"
+
+msgid "Schwellwert für außergewöhnliche Veränderungen"
+msgstr "Όριο για εξαιρετικές μεταβολές"
+
+msgid "Seiten-Referer"
+msgstr "Παραπομπή σελίδας"
+
+msgid "Seiten-Referer (Distinct)"
+msgstr "Παραπομπή σελίδας (διακριτά)"
+
+msgid "September"
+msgstr "Σεπτέμβριος"
+
+msgid "Sichtbare Formulare in Statistik"
+msgstr "Ορατές φόρμες στα στατιστικά"
+
+msgid "Sie haben keine Berechtigung, diese Seite zu sehen."
+msgstr "Δεν έχετε άδεια να δείτε αυτή τη σελίδα."
+
+msgid "Sonntag"
+msgstr "Κυριακή"
+
+msgid "Spaltenname"
+msgstr "Όνομα στήλης"
+
+msgid "Speichern"
+msgstr "Αποθήκευση"
+
+msgid "Statistik"
+msgstr "Στατιστικά"
+
+msgid "Statistik Export"
+msgstr "Εξαγωγή στατιστικών"
+
+msgid "Statistik als HTML exportieren"
+msgstr "Εξαγωγή στατιστικών ως HTML"
+
+msgid "Statistik jetzt senden"
+msgstr "Αποστολή στατιστικών τώρα"
+
+msgid "Statistik sofort versenden"
+msgstr "Άμεση αποστολή στατιστικών"
+
+msgid "Statistik öffnen"
+msgstr "Άνοιγμα στατιστικών"
+
+msgid "Statistiken %s"
+msgstr "Στατιστικά %s"
+
+msgid "Status"
+msgstr "Κατάσταση"
+
+msgid "Suchen"
+msgstr "Αναζήτηση"
+
+msgid "Suchen & Ersetzen"
+msgstr "Αναζήτηση & αντικατάσταση"
+
+msgid "Summe"
+msgstr "Σύνολο"
+
+msgid "Summe aller Anfragen"
+msgstr "Σύνολο αιτημάτων"
+
+msgid "TT.MM.JJJJ"
+msgstr "ΗΗ.ΜΜ.ΕΕΕΕ"
+
+msgid "Tag im Monat"
+msgstr "Ημέρα του μήνα"
+
+msgid "Text Link"
+msgstr "Κείμενο συνδέσμου"
+
+msgid "Transparenz"
+msgstr "Διαφάνεια"
+
+msgid "Täglich"
+msgstr "Καθημερινά"
+
+msgid "Uhrzeit für den Versand"
+msgstr "Ώρα αποστολής"
+
+msgid "Unbenannte Seite"
+msgstr "Ανώνυμη σελίδα"
+
+msgid "Ungültige Anfrage."
+msgstr "Μη έγκυρο αίτημα."
+
+msgid "Verhalten Deinstallieren"
+msgstr "Συμπεριφορά απεγκατάστασης"
+
+msgid "Verschickt die aktuelle Statistik einmalig an die oben definierten Empfänger."
+msgstr "Στέλνει τα τρέχοντα στατιστικά μία φορά στους παραπάνω ορισμένους παραλήπτες."
+
+msgid "Wenn diese Checkbox aktiviert ist, wird bei der Deinstallation alles bereinigt: Datenbank-Tabellen, archivierte Statistiken und die statischen Dateien im Upload-Ordner werden gelöscht. Elementor-Submissions bleiben unberührt."
+msgstr "Αν ενεργοποιηθεί αυτό το πλαίσιο, κατά την απεγκατάσταση καθαρίζονται όλα: πίνακες βάσης δεδομένων, αρχειοθετημένα στατιστικά και στατικά αρχεία στον φάκελο uploads διαγράφονται. Οι υποβολές Elementor παραμένουν ανέπαφες."
+
+msgid "Wochentag für den Versand"
+msgstr "Ημέρα εβδομάδας για αποστολή"
+
+msgid "Wöchentlich"
+msgstr "Εβδομαδιαία"
+
+msgid "Öffne die %s, um den Vorgang manuell zu starten und die Sicherung zu prüfen."
+msgstr "Ανοίξτε το %s για να ξεκινήσετε τη διαδικασία χειροκίνητα και να ελέγξετε το αντίγραφο ασφαλείας."
+
+msgid "Vorschau"
+msgstr "Προεπισκόπηση"
+
+msgid "Export-Spalten & Vorschau"
+msgstr "Στήλες εξαγωγής και προεπισκόπηση"
+
