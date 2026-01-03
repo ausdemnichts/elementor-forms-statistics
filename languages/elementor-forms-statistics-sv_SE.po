@@ -602,3 +602,105 @@ msgstr "Förhandsvisning"
 msgid "Export-Spalten & Vorschau"
 msgstr "Exportkolumner och förhandsvisning"
 
+
+msgid "Conversions"
+msgstr "Konverteringar"
+
+msgid "Google Ads Conversions"
+msgstr "Google Ads-konverteringar"
+
+msgid "Conversion-Einstellungen gespeichert."
+msgstr "Konverteringsinställningar sparade."
+
+msgid "Consent-Tool"
+msgstr "Samtyckesverktyg"
+
+msgid "Erkannt: %s"
+msgstr "Upptäckt: %s"
+
+msgid "Consent-Tool verwenden"
+msgstr "Använd samtyckesverktyg"
+
+msgid "CCM19 Kategorie"
+msgstr "CCM19-kategori"
+
+msgid "Usercentrics Kategorie"
+msgstr "Usercentrics-kategori"
+
+msgid "Complianz Kategorie"
+msgstr "Complianz-kategori"
+
+msgid "Conversion-Name"
+msgstr "Konverteringsnamn"
+
+msgid "Conversion-Wert"
+msgstr "Konverteringsvärde"
+
+msgid "Währung"
+msgstr "Valuta"
+
+msgid "Conversions exportieren"
+msgstr "Exportera konverteringar"
+
+msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
+msgstr "Markera poster som konverteringar för att inkludera dem i Google Ads-exporten."
+
+msgid "Conversion"
+msgstr "Konvertering"
+
+msgid "Datum"
+msgstr "Datum"
+
+msgid "Conversion-Zeit"
+msgstr "Konverteringstid"
+
+msgid "Bitte Conversion-Name angeben."
+msgstr "Ange konverteringsnamn."
+
+msgid "Keine markierten Conversions gefunden."
+msgstr "Inga markerade konverteringar hittades."
+
+msgid "Automatisch erkennen"
+msgstr "Identifiera automatiskt"
+
+msgid "Kein Consent-Tool"
+msgstr "Inget samtyckesverktyg"
+
+msgid "E-Mail Feld-Key"
+msgstr "Fältnyckel för e‑post"
+
+msgid "Name Feld-Key"
+msgstr "Fältnyckel för namn"
+
+msgid "Trage die Feld-Keys aus dem Formular ein (z. B. email, name)."
+msgstr "Ange fältnycklarna från formuläret (t.ex. email, name)."
+
+msgid "E-Mail Feld"
+msgstr "E-postfält"
+
+msgid "Name Feld"
+msgstr "Namnfält"
+
+msgid "Keine Formularfelder gefunden."
+msgstr "Inga formulärfält hittades."
+
+msgid "Conversion-Wert Feld"
+msgstr "Konverteringsvärdesfält"
+
+msgid "Manuell"
+msgstr "Manuell"
+
+msgid "Wert"
+msgstr "Värde"
+
+msgid "Auftragswert"
+msgstr "Ordervärde"
+
+msgid "Auftrags Zeitpunkt"
+msgstr "Beställningstid"
+
+msgid "Einreichen"
+msgstr "Skicka in"
+
+msgid "Bitte zuerst Auftragswerte eintragen."
+msgstr "Ange först ordervärden."

@@ -602,3 +602,105 @@ msgstr "Forhåndsvisning"
 msgid "Export-Spalten & Vorschau"
 msgstr "Eksportkolonner og forhåndsvisning"
 
+
+msgid "Conversions"
+msgstr "Konverteringer"
+
+msgid "Google Ads Conversions"
+msgstr "Google Ads-konverteringer"
+
+msgid "Conversion-Einstellungen gespeichert."
+msgstr "Konverteringsindstillinger gemt."
+
+msgid "Consent-Tool"
+msgstr "Samtykkeværktøj"
+
+msgid "Erkannt: %s"
+msgstr "Registreret: %s"
+
+msgid "Consent-Tool verwenden"
+msgstr "Brug samtykkeværktøj"
+
+msgid "CCM19 Kategorie"
+msgstr "CCM19-kategori"
+
+msgid "Usercentrics Kategorie"
+msgstr "Usercentrics-kategori"
+
+msgid "Complianz Kategorie"
+msgstr "Complianz-kategori"
+
+msgid "Conversion-Name"
+msgstr "Konverteringsnavn"
+
+msgid "Conversion-Wert"
+msgstr "Konverteringsværdi"
+
+msgid "Währung"
+msgstr "Valuta"
+
+msgid "Conversions exportieren"
+msgstr "Eksportér konverteringer"
+
+msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
+msgstr "Markér poster som konverteringer for at inkludere dem i Google Ads-eksporten."
+
+msgid "Conversion"
+msgstr "Konvertering"
+
+msgid "Datum"
+msgstr "Dato"
+
+msgid "Conversion-Zeit"
+msgstr "Konverteringstidspunkt"
+
+msgid "Bitte Conversion-Name angeben."
+msgstr "Angiv konverteringsnavn."
+
+msgid "Keine markierten Conversions gefunden."
+msgstr "Ingen markerede konverteringer fundet."
+
+msgid "Automatisch erkennen"
+msgstr "Registrer automatisk"
+
+msgid "Kein Consent-Tool"
+msgstr "Intet samtykkeværktøj"
+
+msgid "E-Mail Feld-Key"
+msgstr "Felt-nøgle for e-mail"
+
+msgid "Name Feld-Key"
+msgstr "Felt-nøgle for navn"
+
+msgid "Trage die Feld-Keys aus dem Formular ein (z. B. email, name)."
+msgstr "Indtast felt-nøglerne fra formularen (f.eks. email, name)."
+
+msgid "E-Mail Feld"
+msgstr "E-mailfelt"
+
+msgid "Name Feld"
+msgstr "Navnefelt"
+
+msgid "Keine Formularfelder gefunden."
+msgstr "Ingen formularfelter fundet."
+
+msgid "Conversion-Wert Feld"
+msgstr "Felt for konverteringsværdi"
+
+msgid "Manuell"
+msgstr "Manuel"
+
+msgid "Wert"
+msgstr "Værdi"
+
+msgid "Auftragswert"
+msgstr "Ordreværdi"
+
+msgid "Auftrags Zeitpunkt"
+msgstr "Ordretidspunkt"
+
+msgid "Einreichen"
+msgstr "Indsend"
+
+msgid "Bitte zuerst Auftragswerte eintragen."
+msgstr "Indtast først ordreværdier."

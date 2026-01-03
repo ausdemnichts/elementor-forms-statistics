@@ -602,3 +602,105 @@ msgstr "Προεπισκόπηση"
 msgid "Export-Spalten & Vorschau"
 msgstr "Στήλες εξαγωγής και προεπισκόπηση"
 
+
+msgid "Conversions"
+msgstr "Μετατροπές"
+
+msgid "Google Ads Conversions"
+msgstr "Μετατροπές Google Ads"
+
+msgid "Conversion-Einstellungen gespeichert."
+msgstr "Οι ρυθμίσεις μετατροπών αποθηκεύτηκαν."
+
+msgid "Consent-Tool"
+msgstr "Εργαλείο συγκατάθεσης"
+
+msgid "Erkannt: %s"
+msgstr "Εντοπίστηκε: %s"
+
+msgid "Consent-Tool verwenden"
+msgstr "Χρήση εργαλείου συγκατάθεσης"
+
+msgid "CCM19 Kategorie"
+msgstr "Κατηγορία CCM19"
+
+msgid "Usercentrics Kategorie"
+msgstr "Κατηγορία Usercentrics"
+
+msgid "Complianz Kategorie"
+msgstr "Κατηγορία Complianz"
+
+msgid "Conversion-Name"
+msgstr "Όνομα μετατροπής"
+
+msgid "Conversion-Wert"
+msgstr "Τιμή μετατροπής"
+
+msgid "Währung"
+msgstr "Νόμισμα"
+
+msgid "Conversions exportieren"
+msgstr "Εξαγωγή μετατροπών"
+
+msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
+msgstr "Επισημάνετε τις καταχωρίσεις ως μετατροπές για να συμπεριληφθούν στην εξαγωγή Google Ads."
+
+msgid "Conversion"
+msgstr "Μετατροπή"
+
+msgid "Datum"
+msgstr "Ημερομηνία"
+
+msgid "Conversion-Zeit"
+msgstr "Ώρα μετατροπής"
+
+msgid "Bitte Conversion-Name angeben."
+msgstr "Εισαγάγετε όνομα μετατροπής."
+
+msgid "Keine markierten Conversions gefunden."
+msgstr "Δεν βρέθηκαν επισημασμένες μετατροπές."
+
+msgid "Automatisch erkennen"
+msgstr "Αυτόματη ανίχνευση"
+
+msgid "Kein Consent-Tool"
+msgstr "Χωρίς εργαλείο συγκατάθεσης"
+
+msgid "E-Mail Feld-Key"
+msgstr "Κλειδί πεδίου email"
+
+msgid "Name Feld-Key"
+msgstr "Κλειδί πεδίου ονόματος"
+
+msgid "Trage die Feld-Keys aus dem Formular ein (z. B. email, name)."
+msgstr "Εισάγετε τα κλειδιά πεδίων της φόρμας (π.χ. email, name)."
+
+msgid "E-Mail Feld"
+msgstr "Πεδίο email"
+
+msgid "Name Feld"
+msgstr "Πεδίο ονόματος"
+
+msgid "Keine Formularfelder gefunden."
+msgstr "Δεν βρέθηκαν πεδία φόρμας."
+
+msgid "Conversion-Wert Feld"
+msgstr "Πεδίο τιμής μετατροπής"
+
+msgid "Manuell"
+msgstr "Χειροκίνητα"
+
+msgid "Wert"
+msgstr "Τιμή"
+
+msgid "Auftragswert"
+msgstr "Αξία παραγγελίας"
+
+msgid "Auftrags Zeitpunkt"
+msgstr "Ώρα παραγγελίας"
+
+msgid "Einreichen"
+msgstr "Υποβολή"
+
+msgid "Bitte zuerst Auftragswerte eintragen."
+msgstr "Παρακαλούμε εισαγάγετε πρώτα τις αξίες παραγγελίας."

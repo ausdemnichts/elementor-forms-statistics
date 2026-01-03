@@ -602,3 +602,105 @@ msgstr "Aperçu"
 msgid "Export-Spalten & Vorschau"
 msgstr "Colonnes d’export & aperçu"
 
+
+msgid "Conversions"
+msgstr "Conversions"
+
+msgid "Google Ads Conversions"
+msgstr "Conversions Google Ads"
+
+msgid "Conversion-Einstellungen gespeichert."
+msgstr "Paramètres de conversion enregistrés."
+
+msgid "Consent-Tool"
+msgstr "Outil de consentement"
+
+msgid "Erkannt: %s"
+msgstr "Détecté : %s"
+
+msgid "Consent-Tool verwenden"
+msgstr "Utiliser l’outil de consentement"
+
+msgid "CCM19 Kategorie"
+msgstr "Catégorie CCM19"
+
+msgid "Usercentrics Kategorie"
+msgstr "Catégorie Usercentrics"
+
+msgid "Complianz Kategorie"
+msgstr "Catégorie Complianz"
+
+msgid "Conversion-Name"
+msgstr "Nom de conversion"
+
+msgid "Conversion-Wert"
+msgstr "Valeur de conversion"
+
+msgid "Währung"
+msgstr "Devise"
+
+msgid "Conversions exportieren"
+msgstr "Exporter les conversions"
+
+msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
+msgstr "Marquez les entrées comme conversions pour les inclure dans l’export Google Ads."
+
+msgid "Conversion"
+msgstr "Conversion"
+
+msgid "Datum"
+msgstr "Date"
+
+msgid "Conversion-Zeit"
+msgstr "Heure de conversion"
+
+msgid "Bitte Conversion-Name angeben."
+msgstr "Veuillez indiquer le nom de la conversion."
+
+msgid "Keine markierten Conversions gefunden."
+msgstr "Aucune conversion marquée trouvée."
+
+msgid "Automatisch erkennen"
+msgstr "Détection automatique"
+
+msgid "Kein Consent-Tool"
+msgstr "Aucun outil de consentement"
+
+msgid "E-Mail Feld-Key"
+msgstr "Clé du champ e-mail"
+
+msgid "Name Feld-Key"
+msgstr "Clé du champ nom"
+
+msgid "Trage die Feld-Keys aus dem Formular ein (z. B. email, name)."
+msgstr "Saisissez les clés des champs du formulaire (ex. email, name)."
+
+msgid "E-Mail Feld"
+msgstr "Champ e-mail"
+
+msgid "Name Feld"
+msgstr "Champ nom"
+
+msgid "Keine Formularfelder gefunden."
+msgstr "Aucun champ de formulaire trouvé."
+
+msgid "Conversion-Wert Feld"
+msgstr "Champ de valeur de conversion"
+
+msgid "Manuell"
+msgstr "Manuel"
+
+msgid "Wert"
+msgstr "Valeur"
+
+msgid "Auftragswert"
+msgstr "Valeur de commande"
+
+msgid "Auftrags Zeitpunkt"
+msgstr "Heure de commande"
+
+msgid "Einreichen"
+msgstr "Soumettre"
+
+msgid "Bitte zuerst Auftragswerte eintragen."
+msgstr "Veuillez d’abord saisir les valeurs de commande."

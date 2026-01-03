@@ -602,3 +602,105 @@ msgstr "Anteprima"
 msgid "Export-Spalten & Vorschau"
 msgstr "Colonne di esportazione e anteprima"
 
+
+msgid "Conversions"
+msgstr "Conversioni"
+
+msgid "Google Ads Conversions"
+msgstr "Conversioni Google Ads"
+
+msgid "Conversion-Einstellungen gespeichert."
+msgstr "Impostazioni conversioni salvate."
+
+msgid "Consent-Tool"
+msgstr "Strumento di consenso"
+
+msgid "Erkannt: %s"
+msgstr "Rilevato: %s"
+
+msgid "Consent-Tool verwenden"
+msgstr "Usa lo strumento di consenso"
+
+msgid "CCM19 Kategorie"
+msgstr "Categoria CCM19"
+
+msgid "Usercentrics Kategorie"
+msgstr "Categoria Usercentrics"
+
+msgid "Complianz Kategorie"
+msgstr "Categoria Complianz"
+
+msgid "Conversion-Name"
+msgstr "Nome conversione"
+
+msgid "Conversion-Wert"
+msgstr "Valore conversione"
+
+msgid "Währung"
+msgstr "Valuta"
+
+msgid "Conversions exportieren"
+msgstr "Esporta conversioni"
+
+msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
+msgstr "Contrassegna le voci come conversioni per includerle nell’export Google Ads."
+
+msgid "Conversion"
+msgstr "Conversione"
+
+msgid "Datum"
+msgstr "Data"
+
+msgid "Conversion-Zeit"
+msgstr "Ora conversione"
+
+msgid "Bitte Conversion-Name angeben."
+msgstr "Inserisci il nome della conversione."
+
+msgid "Keine markierten Conversions gefunden."
+msgstr "Nessuna conversione contrassegnata trovata."
+
+msgid "Automatisch erkennen"
+msgstr "Rilevamento automatico"
+
+msgid "Kein Consent-Tool"
+msgstr "Nessuno strumento di consenso"
+
+msgid "E-Mail Feld-Key"
+msgstr "Chiave campo email"
+
+msgid "Name Feld-Key"
+msgstr "Chiave campo nome"
+
+msgid "Trage die Feld-Keys aus dem Formular ein (z. B. email, name)."
+msgstr "Inserisci le chiavi dei campi del modulo (es. email, name)."
+
+msgid "E-Mail Feld"
+msgstr "Campo email"
+
+msgid "Name Feld"
+msgstr "Campo nome"
+
+msgid "Keine Formularfelder gefunden."
+msgstr "Nessun campo del modulo trovato."
+
+msgid "Conversion-Wert Feld"
+msgstr "Campo valore conversione"
+
+msgid "Manuell"
+msgstr "Manuale"
+
+msgid "Wert"
+msgstr "Valore"
+
+msgid "Auftragswert"
+msgstr "Valore dell’ordine"
+
+msgid "Auftrags Zeitpunkt"
+msgstr "Ora dell’ordine"
+
+msgid "Einreichen"
+msgstr "Invia"
+
+msgid "Bitte zuerst Auftragswerte eintragen."
+msgstr "Inserisci prima i valori dell’ordine."

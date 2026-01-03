@@ -602,3 +602,105 @@ msgstr "Vorschau"
 msgid "Export-Spalten & Vorschau"
 msgstr "Export-Spalten & Vorschau"
 
+
+msgid "Conversions"
+msgstr "Conversions"
+
+msgid "Google Ads Conversions"
+msgstr "Google Ads Conversions"
+
+msgid "Conversion-Einstellungen gespeichert."
+msgstr "Conversion-Einstellungen gespeichert."
+
+msgid "Consent-Tool"
+msgstr "Consent-Tool"
+
+msgid "Erkannt: %s"
+msgstr "Erkannt: %s"
+
+msgid "Consent-Tool verwenden"
+msgstr "Consent-Tool verwenden"
+
+msgid "CCM19 Kategorie"
+msgstr "CCM19 Kategorie"
+
+msgid "Usercentrics Kategorie"
+msgstr "Usercentrics Kategorie"
+
+msgid "Complianz Kategorie"
+msgstr "Complianz Kategorie"
+
+msgid "Conversion-Name"
+msgstr "Conversion-Name"
+
+msgid "Conversion-Wert"
+msgstr "Conversion-Wert"
+
+msgid "Währung"
+msgstr "Währung"
+
+msgid "Conversions exportieren"
+msgstr "Conversions exportieren"
+
+msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
+msgstr "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
+
+msgid "Conversion"
+msgstr "Conversion"
+
+msgid "Datum"
+msgstr "Datum"
+
+msgid "Conversion-Zeit"
+msgstr "Conversion-Zeit"
+
+msgid "Bitte Conversion-Name angeben."
+msgstr "Bitte Conversion-Name angeben."
+
+msgid "Keine markierten Conversions gefunden."
+msgstr "Keine markierten Conversions gefunden."
+
+msgid "Automatisch erkennen"
+msgstr "Automatisch erkennen"
+
+msgid "Kein Consent-Tool"
+msgstr "Kein Consent-Tool"
+
+msgid "E-Mail Feld-Key"
+msgstr "E-Mail Feld-Key"
+
+msgid "Name Feld-Key"
+msgstr "Name Feld-Key"
+
+msgid "Trage die Feld-Keys aus dem Formular ein (z. B. email, name)."
+msgstr "Trage die Feld-Keys aus dem Formular ein (z. B. email, name)."
+
+msgid "E-Mail Feld"
+msgstr "E-Mail Feld"
+
+msgid "Name Feld"
+msgstr "Name Feld"
+
+msgid "Keine Formularfelder gefunden."
+msgstr "Keine Formularfelder gefunden."
+
+msgid "Conversion-Wert Feld"
+msgstr "Conversion-Wert Feld"
+
+msgid "Manuell"
+msgstr "Manuell"
+
+msgid "Wert"
+msgstr "Wert"
+
+msgid "Auftragswert"
+msgstr "Auftragswert"
+
+msgid "Auftrags Zeitpunkt"
+msgstr "Auftrags Zeitpunkt"
+
+msgid "Einreichen"
+msgstr "Einreichen"
+
+msgid "Bitte zuerst Auftragswerte eintragen."
+msgstr "Bitte zuerst Auftragswerte eintragen."

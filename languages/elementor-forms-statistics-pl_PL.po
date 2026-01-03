@@ -602,3 +602,105 @@ msgstr "Podgląd"
 msgid "Export-Spalten & Vorschau"
 msgstr "Kolumny eksportu i podgląd"
 
+
+msgid "Conversions"
+msgstr "Konwersje"
+
+msgid "Google Ads Conversions"
+msgstr "Konwersje Google Ads"
+
+msgid "Conversion-Einstellungen gespeichert."
+msgstr "Ustawienia konwersji zapisane."
+
+msgid "Consent-Tool"
+msgstr "Narzędzie zgody"
+
+msgid "Erkannt: %s"
+msgstr "Wykryto: %s"
+
+msgid "Consent-Tool verwenden"
+msgstr "Użyj narzędzia zgody"
+
+msgid "CCM19 Kategorie"
+msgstr "Kategoria CCM19"
+
+msgid "Usercentrics Kategorie"
+msgstr "Kategoria Usercentrics"
+
+msgid "Complianz Kategorie"
+msgstr "Kategoria Complianz"
+
+msgid "Conversion-Name"
+msgstr "Nazwa konwersji"
+
+msgid "Conversion-Wert"
+msgstr "Wartość konwersji"
+
+msgid "Währung"
+msgstr "Waluta"
+
+msgid "Conversions exportieren"
+msgstr "Eksportuj konwersje"
+
+msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
+msgstr "Oznacz wpisy jako konwersje, aby uwzględnić je w eksporcie Google Ads."
+
+msgid "Conversion"
+msgstr "Konwersja"
+
+msgid "Datum"
+msgstr "Data"
+
+msgid "Conversion-Zeit"
+msgstr "Czas konwersji"
+
+msgid "Bitte Conversion-Name angeben."
+msgstr "Podaj nazwę konwersji."
+
+msgid "Keine markierten Conversions gefunden."
+msgstr "Nie znaleziono oznaczonych konwersji."
+
+msgid "Automatisch erkennen"
+msgstr "Wykryj automatycznie"
+
+msgid "Kein Consent-Tool"
+msgstr "Brak narzędzia zgody"
+
+msgid "E-Mail Feld-Key"
+msgstr "Klucz pola e-mail"
+
+msgid "Name Feld-Key"
+msgstr "Klucz pola imienia"
+
+msgid "Trage die Feld-Keys aus dem Formular ein (z. B. email, name)."
+msgstr "Wpisz klucze pól z formularza (np. email, name)."
+
+msgid "E-Mail Feld"
+msgstr "Pole e-mail"
+
+msgid "Name Feld"
+msgstr "Pole imienia"
+
+msgid "Keine Formularfelder gefunden."
+msgstr "Nie znaleziono pól formularza."
+
+msgid "Conversion-Wert Feld"
+msgstr "Pole wartości konwersji"
+
+msgid "Manuell"
+msgstr "Ręcznie"
+
+msgid "Wert"
+msgstr "Wartość"
+
+msgid "Auftragswert"
+msgstr "Wartość zamówienia"
+
+msgid "Auftrags Zeitpunkt"
+msgstr "Czas zamówienia"
+
+msgid "Einreichen"
+msgstr "Prześlij"
+
+msgid "Bitte zuerst Auftragswerte eintragen."
+msgstr "Najpierw wpisz wartości zamówienia."
