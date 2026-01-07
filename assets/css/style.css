@@ -81,6 +81,20 @@ body.wp-admin .mdp-year-heading {
     display: block;
 }
 
+.mdp-role-matrix-wrap {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.mdp-role-matrix {
+    width: 100%;
+}
+
+body.wp-admin #e-form-submissions {
+    padding-right: 5%;
+    box-sizing: border-box;
+}
+
 .mdp-chart-footer {
     font-size: 11px;
     color: #7d8391;

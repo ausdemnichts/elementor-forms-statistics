@@ -4,7 +4,7 @@ Plugin Name: Elementor Forms Statistics
 Requires Plugins: elementor/elementor.php
 Plugin URI: https://www.medienproduktion.biz/elementor-forms-extras/
 Description: This plugin allows editors to view submissions received through Elementor forms. Additionally, a separate menu provides statistical analyses of the submissions, displayed as charts and tables.
-Version: 1.1.0
+Version: 1.1.1
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.2
@@ -13,6 +13,11 @@ Author URI: https://www.medienproduktion.biz
 Text Domain: elementor-forms-statistics
 
 === Changelog ===
+
+= Version 1.1.1 – 08. Januar 2026 =
+* Benutzerrollen für alle Menüeinträge (Statistik, Einstellungen, E-Mail Versand, Archiv, Export, Anfragen) einstellbar.
+* Anfragen als Unterpunkt im Statistik-Menü, gesteuert über Rollenregeln.
+* HTML-Export im E-Mail Versand unabhängig vom Export-Menü.
 
 = Version 1.0.1 – 20. Dezember 2025 =
 * Die automatische Bereinigung lässt sich jetzt per Dropdown (Deaktiviert | 1 Stunde | 1 Tag | 1 Monat | 1 Jahr) steuern, die Daten werden weiterhin erst nach Archivierung gelöscht.
@@ -294,7 +299,7 @@ function mdp_archive_maybe_sync() {
 }
 
 function mdp_handle_archive_import() {
-    if (!current_user_can('edit_posts')) {
+    if (!mdp_user_can_access_menu('statistiken-archiv')) {
         wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
     }
     if (!isset($_POST['mdp_archive_nonce']) || !wp_verify_nonce($_POST['mdp_archive_nonce'], 'mdp_archive_import')) {
@@ -318,7 +323,7 @@ function enqueue_custom_plugin_styles() {
 }
 add_action('admin_enqueue_scripts', 'enqueue_custom_plugin_styles');
 
-function mdp_get_export_role_choices() {
+function mdp_get_menu_role_choices() {
     $wp_roles = wp_roles();
     if (!$wp_roles || empty($wp_roles->roles)) {
         return array();
@@ -330,31 +335,89 @@ function mdp_get_export_role_choices() {
     return $choices;
 }
 
-function mdp_get_export_allowed_roles() {
-    $stored = get_option('mdp_efs_export_roles', null);
-    if ($stored === null) {
-        $stored = array('administrator');
+function mdp_get_menu_items() {
+    return array(
+        'statistiken' => __('Statistik (Hauptmenü)', 'elementor-forms-statistics'),
+        'statistiken-einstellungen' => __('Einstellungen', 'elementor-forms-statistics'),
+        'statistiken-emailversand' => __('E-Mail Versand', 'elementor-forms-statistics'),
+        'statistiken-archiv' => __('Archiv', 'elementor-forms-statistics'),
+        'statistiken-export' => __('Export', 'elementor-forms-statistics'),
+        'statistiken-conversions' => __('Conversions', 'elementor-forms-statistics'),
+        'elementor-submissions' => __('Anfragen (Elementor Submissions)', 'elementor-forms-statistics'),
+    );
+}
+
+function mdp_get_default_menu_roles() {
+    $choices = mdp_get_menu_role_choices();
+    $defaults = array();
+    $edit_posts_roles = array();
+    foreach ($choices as $role_slug => $role_label) {
+        $role_obj = get_role($role_slug);
+        if ($role_obj && $role_obj->has_cap('edit_posts')) {
+            $edit_posts_roles[] = $role_slug;
+        }
     }
+    $defaults['statistiken'] = $edit_posts_roles;
+    $defaults['statistiken-einstellungen'] = $edit_posts_roles;
+    $defaults['statistiken-emailversand'] = $edit_posts_roles;
+    $defaults['statistiken-archiv'] = $edit_posts_roles;
+    $defaults['statistiken-export'] = array('administrator');
+    $defaults['statistiken-conversions'] = $edit_posts_roles;
+    $defaults['elementor-submissions'] = array('editor');
+    return $defaults;
+}
+
+function mdp_get_menu_roles() {
+    $stored = get_option('mdp_efs_menu_roles', null);
+    $defaults = mdp_get_default_menu_roles();
+    $choices = mdp_get_menu_role_choices();
+    $valid_roles = array_keys($choices);
+    $menu_items = array_keys(mdp_get_menu_items());
+
+    if ($stored === null) {
+        $stored = $defaults;
+        $legacy_export = get_option('mdp_efs_export_roles', null);
+        if (is_array($legacy_export)) {
+            $legacy_allowed = array();
+            foreach ($legacy_export as $role) {
+                $role = sanitize_key($role);
+                if ($role !== '' && in_array($role, $valid_roles, true)) {
+                    $legacy_allowed[] = $role;
+                }
+            }
+            if (!empty($legacy_allowed)) {
+                $stored['statistiken-export'] = array_values(array_unique($legacy_allowed));
+            }
+        }
+        update_option('mdp_efs_menu_roles', $stored);
+    }
+
     if (!is_array($stored)) {
         $stored = array();
     }
-    $valid_roles = array_keys(mdp_get_export_role_choices());
-    $allowed = array();
-    foreach ($stored as $role) {
-        $role = sanitize_key($role);
-        if ($role !== '' && in_array($role, $valid_roles, true)) {
-            $allowed[] = $role;
+
+    $normalized = array();
+    foreach ($menu_items as $menu_key) {
+        $normalized[$menu_key] = array();
+        $roles = isset($stored[$menu_key]) && is_array($stored[$menu_key]) ? $stored[$menu_key] : $defaults[$menu_key];
+        foreach ($roles as $role) {
+            $role = sanitize_key($role);
+            if ($role !== '' && in_array($role, $valid_roles, true)) {
+                $normalized[$menu_key][] = $role;
+            }
         }
+        $normalized[$menu_key] = array_values(array_unique($normalized[$menu_key]));
     }
-    return array_values(array_unique($allowed));
+
+    return $normalized;
 }
 
-function mdp_user_can_access_export_menu($user = null) {
+function mdp_user_can_access_menu($menu_key, $user = null) {
     if (!is_user_logged_in()) {
         return false;
     }
-    $allowed_roles = mdp_get_export_allowed_roles();
-    if (empty($allowed_roles)) {
+    $menu_roles = mdp_get_menu_roles();
+    if (empty($menu_roles[$menu_key])) {
         return false;
     }
     $user = $user instanceof WP_User ? $user : wp_get_current_user();
@@ -362,12 +425,18 @@ function mdp_user_can_access_export_menu($user = null) {
         return false;
     }
     foreach ($user->roles as $role) {
-        if (in_array($role, $allowed_roles, true)) {
+        if (in_array($role, $menu_roles[$menu_key], true)) {
             return true;
         }
     }
     return false;
 }
+
+function mdp_user_can_access_export_menu($user = null) {
+    return mdp_user_can_access_menu('statistiken-export', $user);
+}
+
+require_once __DIR__ . '/elementor-form-submissions-access.php';
 
 function mdp_get_export_fields_option() {
     $stored = get_option('mdp_efs_export_fields', []);
@@ -1028,6 +1097,18 @@ function mdp_get_export_fields_for_form($form_id) {
 }
 
 function custom_menu_item() {
+    $can_view_stats = mdp_user_can_access_menu('statistiken')
+        || mdp_user_can_access_menu('statistiken-einstellungen')
+        || mdp_user_can_access_menu('statistiken-emailversand')
+        || mdp_user_can_access_menu('statistiken-archiv')
+        || mdp_user_can_access_menu('statistiken-export')
+        || mdp_user_can_access_menu('statistiken-conversions')
+        || mdp_user_can_access_menu('elementor-submissions');
+
+    if (!$can_view_stats) {
+        return;
+    }
+
     add_menu_page(
         __('Statistik', 'elementor-forms-statistics'), // The title of the menu item
         __('Statistik', 'elementor-forms-statistics'), // The name of the menu item in the navigation bar
@@ -1038,32 +1119,38 @@ function custom_menu_item() {
         2 // The position of the menu item in the navigation bar
     );
 
-    add_submenu_page(
-        'statistiken',
-        __('Einstellungen', 'elementor-forms-statistics'),
-        __('Einstellungen', 'elementor-forms-statistics'),
-        'edit_posts',
-        'statistiken-einstellungen',
-        'mdp_settings_page_callback'
-    );
+    if (mdp_user_can_access_menu('statistiken-einstellungen')) {
+        add_submenu_page(
+            'statistiken',
+            __('Einstellungen', 'elementor-forms-statistics'),
+            __('Einstellungen', 'elementor-forms-statistics'),
+            'edit_posts',
+            'statistiken-einstellungen',
+            'mdp_settings_page_callback'
+        );
+    }
 
-    add_submenu_page(
-        'statistiken',
-        __('E-Mail Versand', 'elementor-forms-statistics'),
-        __('E-Mail Versand', 'elementor-forms-statistics'),
-        'edit_posts',
-        'statistiken-emailversand',
-        'mdp_email_settings_page_callback'
-    );
+    if (mdp_user_can_access_menu('statistiken-emailversand')) {
+        add_submenu_page(
+            'statistiken',
+            __('E-Mail Versand', 'elementor-forms-statistics'),
+            __('E-Mail Versand', 'elementor-forms-statistics'),
+            'edit_posts',
+            'statistiken-emailversand',
+            'mdp_email_settings_page_callback'
+        );
+    }
 
-    add_submenu_page(
-        'statistiken',
-        __('Archiv', 'elementor-forms-statistics'),
-        __('Archiv', 'elementor-forms-statistics'),
-        'edit_posts',
-        'statistiken-archiv',
-        'mdp_archive_page_callback'
-    );
+    if (mdp_user_can_access_menu('statistiken-archiv')) {
+        add_submenu_page(
+            'statistiken',
+            __('Archiv', 'elementor-forms-statistics'),
+            __('Archiv', 'elementor-forms-statistics'),
+            'edit_posts',
+            'statistiken-archiv',
+            'mdp_archive_page_callback'
+        );
+    }
 
     if (mdp_user_can_access_export_menu()) {
         add_submenu_page(
@@ -1074,6 +1161,9 @@ function custom_menu_item() {
             'statistiken-export',
             'mdp_export_page_callback'
         );
+    }
+
+    if (mdp_user_can_access_menu('statistiken-conversions')) {
         add_submenu_page(
             'statistiken',
             __('Conversions', 'elementor-forms-statistics'),
@@ -1086,7 +1176,7 @@ function custom_menu_item() {
 }
 
 function mdp_archive_setup_notice() {
-    if (!current_user_can('edit_posts')) {
+    if (!mdp_user_can_access_menu('statistiken-archiv')) {
         return;
     }
     $show = get_option('mdp_efs_show_archive_notice', 0);
@@ -1111,7 +1201,7 @@ function mdp_archive_setup_notice() {
 }
 
 function mdp_handle_archive_notice_dismiss() {
-    if (!current_user_can('edit_posts')) {
+    if (!mdp_user_can_access_menu('statistiken-archiv')) {
         return;
     }
     if (empty($_GET['mdp_archive_notice_dismiss'])) {
@@ -1152,7 +1242,7 @@ add_action('init', 'mdp_maybe_schedule_stats_email');
 add_action('mdp_send_stats_email', 'mdp_send_stats_email_callback');
 
 function mdp_export_stats_html() {
-    if (!mdp_user_can_access_export_menu()) {
+    if (!mdp_user_can_access_menu('statistiken-emailversand')) {
         wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
     }
 
@@ -2060,6 +2150,9 @@ function mdp_get_plugin_version_string() {
 }
 
 function custom_menu_callback($return_output = false, $render_options = array()) {
+    if (!mdp_user_can_access_menu('statistiken')) {
+        wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
+    }
     $render_defaults = array(
         'export' => false,
         'inline_styles' => false,
@@ -4188,7 +4281,7 @@ function mdp_get_email_exclusion_clause($table_alias) {
 }
 
 function mdp_settings_page_callback() {
-    if (!current_user_can('edit_posts')) {
+    if (!mdp_user_can_access_menu('statistiken-einstellungen')) {
         wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
     }
 
@@ -4222,14 +4315,22 @@ function mdp_settings_page_callback() {
             $cleanup_interval = 'disabled';
         }
 
-        $export_roles = array();
-        $valid_roles = array_keys(mdp_get_export_role_choices());
-        if (isset($_POST['export_roles']) && is_array($_POST['export_roles'])) {
-            foreach ($_POST['export_roles'] as $role) {
-                $role = sanitize_key($role);
-                if ($role !== '' && in_array($role, $valid_roles, true)) {
-                    $export_roles[] = $role;
+        $menu_roles = array();
+        $valid_roles = array_keys(mdp_get_menu_role_choices());
+        $menu_items = array_keys(mdp_get_menu_items());
+        if (isset($_POST['menu_roles']) && is_array($_POST['menu_roles'])) {
+            foreach ($_POST['menu_roles'] as $menu_key => $roles) {
+                if (!in_array($menu_key, $menu_items, true) || !is_array($roles)) {
+                    continue;
                 }
+                $menu_roles[$menu_key] = array();
+                foreach ($roles as $role) {
+                    $role = sanitize_key($role);
+                    if ($role !== '' && in_array($role, $valid_roles, true)) {
+                        $menu_roles[$menu_key][] = $role;
+                    }
+                }
+                $menu_roles[$menu_key] = array_values(array_unique($menu_roles[$menu_key]));
             }
         }
 
@@ -4289,7 +4390,7 @@ function mdp_settings_page_callback() {
         update_option('mdp_efs_curve_color_slots', $curve_color_slots);
         update_option('mdp_efs_clean_on_uninstall', $clean_on_uninstall);
         update_option('mdp_efs_submission_cleanup_interval', $cleanup_interval);
-        update_option('mdp_efs_export_roles', array_values(array_unique($export_roles)));
+        update_option('mdp_efs_menu_roles', $menu_roles);
         mdp_ensure_stats_export_dir();
         $message = __('Einstellungen gespeichert.', 'elementor-forms-statistics');
         mdp_schedule_submission_cleanup(true);
@@ -4312,8 +4413,9 @@ function mdp_settings_page_callback() {
     $curve_color_slots = mdp_get_curve_color_slots();
     $clean_on_uninstall = get_option('mdp_efs_clean_on_uninstall', '0');
     $cleanup_interval = mdp_get_submission_cleanup_interval();
-    $export_roles = mdp_get_export_allowed_roles();
-    $export_role_choices = mdp_get_export_role_choices();
+    $menu_roles = mdp_get_menu_roles();
+    $menu_role_choices = mdp_get_menu_role_choices();
+    $menu_items = mdp_get_menu_items();
     ?>
     <div class="wrap mdp-stats-root">
         <h1><?php _e('Anfragen Einstellungen', 'elementor-forms-statistics'); ?></h1>
@@ -4414,20 +4516,39 @@ function mdp_settings_page_callback() {
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label><?php _e('Export verfügbar für', 'elementor-forms-statistics'); ?></label>
+                        <label><?php _e('Benutzerrollen', 'elementor-forms-statistics'); ?></label>
                     </th>
                     <td>
-                        <?php if (empty($export_role_choices)) : ?>
+                        <?php if (empty($menu_role_choices)) : ?>
                             <p><?php _e('Keine Benutzerrollen gefunden.', 'elementor-forms-statistics'); ?></p>
                         <?php else : ?>
-                            <?php foreach ($export_role_choices as $role_slug => $role_label) : ?>
-                                <label>
-                                    <input type="checkbox" name="export_roles[]" value="<?php echo esc_attr($role_slug); ?>" <?php checked(in_array($role_slug, $export_roles, true)); ?>>
-                                    <?php echo esc_html($role_label); ?>
-                                </label><br>
-                            <?php endforeach; ?>
+                            <div class="mdp-role-matrix-wrap">
+                                <table class="widefat striped mdp-role-matrix">
+                                    <thead>
+                                        <tr>
+                                            <th><?php _e('Menüpunkt', 'elementor-forms-statistics'); ?></th>
+                                            <th><?php _e('Zugriff für Rollen', 'elementor-forms-statistics'); ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($menu_items as $menu_key => $menu_label) : ?>
+                                            <tr>
+                                                <td><?php echo esc_html($menu_label); ?></td>
+                                                <td>
+                                                    <?php foreach ($menu_role_choices as $role_slug => $role_label) : ?>
+                                                        <label style="margin-right:12px;">
+                                                            <input type="checkbox" name="menu_roles[<?php echo esc_attr($menu_key); ?>][]" value="<?php echo esc_attr($role_slug); ?>" <?php checked(in_array($role_slug, $menu_roles[$menu_key], true)); ?>>
+                                                            <?php echo esc_html($role_label); ?>
+                                                        </label>
+                                                    <?php endforeach; ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         <?php endif; ?>
-                        <p class="description"><?php _e('Nur ausgewählte Rollen sehen den Export-Menüpunkt.', 'elementor-forms-statistics'); ?></p>
+                        <p class="description"><?php _e('Lege fest, welche Benutzerrollen die einzelnen Menüeinträge von Elementor Forms Statistics sehen.', 'elementor-forms-statistics'); ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -4527,7 +4648,7 @@ function mdp_settings_page_callback() {
 }
 
 function mdp_archive_page_callback() {
-    if (!current_user_can('edit_posts')) {
+    if (!mdp_user_can_access_menu('statistiken-archiv')) {
         wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
     }
 
@@ -4981,7 +5102,7 @@ function mdp_export_conversions_csv() {
 }
 
 function mdp_conversions_page_callback() {
-    if (!mdp_user_can_access_export_menu()) {
+    if (!mdp_user_can_access_menu('statistiken-conversions')) {
         wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
     }
     $forms_indexed = mdp_get_forms_indexed();
@@ -5214,7 +5335,7 @@ function mdp_conversions_page_callback() {
 }
 
 function mdp_email_settings_page_callback() {
-    if (!current_user_can('edit_posts')) {
+    if (!mdp_user_can_access_menu('statistiken-emailversand')) {
         wp_die(__('Sie haben keine Berechtigung, diese Seite zu sehen.', 'elementor-forms-statistics'));
     }
 
@@ -5417,7 +5538,7 @@ function mdp_email_settings_page_callback() {
             <?php submit_button(__('Statistik jetzt senden', 'elementor-forms-statistics'), 'secondary', 'mdp_send_now'); ?>
         </form>
         <hr>
-        <?php if (mdp_user_can_access_export_menu()) : ?>
+        <?php if (mdp_user_can_access_menu('statistiken-emailversand')) : ?>
             <h2><?php _e('Statistik als HTML exportieren', 'elementor-forms-statistics'); ?></h2>
             <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="mdp-export-form">
                 <?php wp_nonce_field('mdp_export_html', 'mdp_export_nonce'); ?>
@@ -5426,7 +5547,7 @@ function mdp_email_settings_page_callback() {
             </form>
         <?php else : ?>
             <h2><?php _e('Statistik Export', 'elementor-forms-statistics'); ?></h2>
-            <p><?php _e('Der Export ist für deine Benutzerrolle nicht freigeschaltet.', 'elementor-forms-statistics'); ?></p>
+            <p><?php _e('Der HTML-Export ist für deine Benutzerrolle nicht freigeschaltet.', 'elementor-forms-statistics'); ?></p>
         <?php endif; ?>
     </div>
     <?php

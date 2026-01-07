@@ -25,7 +25,7 @@ if (!class_exists('ElementorFormSubmissionsAccess')) {
          */
         static function filterRestEndpoints($endpoints)
         {
-            if (self::isJustEditor()) 
+            if (mdp_user_can_access_menu('elementor-submissions') && !current_user_can('manage_options')) 
             {
                 error_reporting(0); // Suppress PHP notices that could prevent JSON data from loading
                 foreach ($endpoints as $route => $handlers) // For each endpoint
@@ -43,10 +43,17 @@ if (!class_exists('ElementorFormSubmissionsAccess')) {
          */
         static function addOptionsPage()
         {
-            if (!self::isJustEditor()) return;
-            add_menu_page('Anfragen', 'Anfragen', 'edit_posts', 'e-form-submissions', function () {
-                echo '<div id="e-form-submissions"></div>';
-            }, 'dashicons-list-view', 3);
+            if (!mdp_user_can_access_menu('elementor-submissions') || current_user_can('manage_options')) return;
+            add_submenu_page(
+                'statistiken',
+                __('Anfragen', 'elementor-forms-statistics'),
+                __('Anfragen', 'elementor-forms-statistics'),
+                'edit_posts',
+                'e-form-submissions',
+                function () {
+                    echo '<div id="e-form-submissions"></div>';
+                }
+            );
         }
 
         /**
