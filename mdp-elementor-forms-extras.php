@@ -342,7 +342,7 @@ function mdp_get_menu_items() {
         'statistiken-emailversand' => __('E-Mail Versand', 'elementor-forms-statistics'),
         'statistiken-archiv' => __('Archiv', 'elementor-forms-statistics'),
         'statistiken-export' => __('Export', 'elementor-forms-statistics'),
-        'elementor-submissions' => __('Anfragen (Elementor Submissions)', 'elementor-forms-statistics'),
+        'elementor-submissions' => __('Anfragen', 'elementor-forms-statistics'),
     );
 }
 
