@@ -14,9 +14,8 @@ body.wp-admin .wrap.mdp-stats-root label {
 }
 
 body.wp-admin .wrap.mdp-stats-root {
-    width: 100%;
+    width: 1090px;
     margin: 0;
-    padding: 32px 5% 80px;
     box-sizing: border-box;
 }
 
@@ -29,6 +28,7 @@ body.wp-admin .wrap.mdp-stats-root {
     border-bottom: 1px solid #e5e8f1;
     padding-bottom: 28px;
     margin-bottom: 32px;
+	width: 620px;    
 }
 
 .mdp-form-section:last-child {
@@ -301,9 +301,9 @@ body.wp-admin .mdp-export-tab-panel.is-active {
 
 .mdp-export-right-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
-    align-items: start;
+    align-items: stretch;
 }
 
 .mdp-export-fields-panel,
@@ -559,7 +559,7 @@ body.wp-admin .mdp-export-tab-panel.is-active {
 .mdp-export-preview {
     max-height: 520px;
     min-height: 260px;
-    max-width: 100%;
+    max-width: 90%;
     overflow-x: auto;
     overflow-y: auto;
     border: 1px solid #e2e4e7;
