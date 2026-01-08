@@ -28,10 +28,15 @@ body.wp-admin .wrap.mdp-stats-root {
     border-bottom: 1px solid #e5e8f1;
     padding-bottom: 28px;
     margin-bottom: 32px;
-	width: 620px;    
 }
 
 .mdp-form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.mdp-form-section--no-divider {
     border-bottom: none;
     margin-bottom: 0;
     padding-bottom: 0;

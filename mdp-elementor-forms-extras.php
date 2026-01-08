@@ -4737,7 +4737,7 @@ function mdp_email_settings_page_callback() {
                         </div>
                     </div>
                 </div>
-                <div class="mdp-form-section">
+                <div class="mdp-form-section mdp-form-section--no-divider">
                     <div class="mdp-form-field">
                         <label for="email_subject"><?php _e('Betreffzeile', 'elementor-forms-statistics'); ?></label>
                         <div class="mdp-form-field-control">
@@ -4745,7 +4745,7 @@ function mdp_email_settings_page_callback() {
                         </div>
                     </div>
                 </div>
-                <div class="mdp-form-section">
+                <div class="mdp-form-section mdp-form-section--no-divider">
                     <div class="mdp-form-field">
                         <label for="email_message"><?php _e('E-Mail Text', 'elementor-forms-statistics'); ?></label>
                         <div class="mdp-form-field-control">
@@ -4759,7 +4759,7 @@ function mdp_email_settings_page_callback() {
                         </div>
                     </div>
                 </div>
-                <div class="mdp-form-section">
+                <div class="mdp-form-section mdp-form-section--no-divider">
                     <div class="mdp-form-field">
                         <label for="export_link_label"><?php _e('Text Link', 'elementor-forms-statistics'); ?></label>
                         <div class="mdp-form-field-control">
