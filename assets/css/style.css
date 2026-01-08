@@ -19,11 +19,7 @@ body.wp-admin .wrap.mdp-stats-root {
     box-sizing: border-box;
 }
 
-.mdp-form-wrapper {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
+.mdp-form-wrapper,
 .mdp-email-form-wrapper {
     width: min(60%, 860px);
     max-width: 860px;
