@@ -4679,7 +4679,7 @@ function mdp_email_settings_page_callback() {
         <?php endif; ?>
         <form method="post">
             <?php wp_nonce_field('mdp_save_email_settings', 'mdp_email_settings_nonce'); ?>
-            <div class="mdp-form-wrapper">
+            <div class="mdp-form-wrapper mdp-email-form-wrapper">
                 <div class="mdp-form-section">
                     <div class="mdp-form-field">
                         <label for="email_interval"><?php _e('Automatischer Versand', 'elementor-forms-statistics'); ?></label>

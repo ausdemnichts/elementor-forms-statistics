@@ -24,6 +24,12 @@ body.wp-admin .wrap.mdp-stats-root {
     margin: 0 auto;
 }
 
+.mdp-email-form-wrapper {
+    width: min(60%, 860px);
+    max-width: 860px;
+    margin: 0 auto;
+}
+
 .mdp-form-section {
     border-bottom: 1px solid #e5e8f1;
     padding-bottom: 28px;
