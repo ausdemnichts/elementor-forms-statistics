@@ -1,45 +1,5 @@
 /* assets/css/style.css */
 
-.form-table {
-    border: 0;
-    width: 100%;
-}
-
-.form-table tr {
-    display: block;
-    margin-bottom: 32px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #e5e8f1;
-}
-
-.form-table th, .form-table td {
-    display: block;
-    width: 100%;
-    text-align: left;
-}
-
-.form-table th label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-}
-
-.form-table td > .description {
-    margin-top: 6px;
-}
-
-.form-table td table {
-    margin-top: 12px;
-}
-
-.form-table input[type=number],
-.form-table input[type=text],
-.form-table select,
-.form-table textarea {
-    width: 100%;
-    max-width: 480px;
-}
-
 body.wp-admin .wrap.mdp-stats-root,
 body.wp-admin .wrap.mdp-stats-root h1,
 body.wp-admin .wrap.mdp-stats-root h2,
@@ -54,12 +14,61 @@ body.wp-admin .wrap.mdp-stats-root label {
 }
 
 body.wp-admin .wrap.mdp-stats-root {
-
-	width: 1096px;
+    width: 100%;
     margin: 0;
-
+    padding: 32px 5% 80px;
     box-sizing: border-box;
-    border: 1px dashed red;
+}
+
+.mdp-form-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.mdp-form-section {
+    border-bottom: 1px solid #e5e8f1;
+    padding-bottom: 28px;
+    margin-bottom: 32px;
+}
+
+.mdp-form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.mdp-form-field {
+    margin-bottom: 0;
+}
+
+.mdp-form-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.mdp-form-field-control {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mdp-form-field-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 420px;
+}
+
+.mdp-checkbox-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.mdp-answer-description {
+    margin-top: 6px;
 }
 
 .mdp-table {

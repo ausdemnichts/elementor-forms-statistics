@@ -4031,205 +4031,207 @@ function mdp_settings_page_callback() {
             <div class="notice notice-success"><p><?php echo esc_html($message); ?></p></div>
         <?php endif; ?>
         <form method="post">
-        <?php wp_nonce_field('mdp_save_settings', 'mdp_settings_nonce'); ?>
-        <table class="form-table" role="presentation">
-            <tr>
-                <th scope="row">
-                    <label><?php _e('Sichtbare Formulare in Statistik', 'elementor-forms-statistics'); ?></label>
-                </th>
-                <td>
-                        <p>
-                            <label for="form_display_mode"><?php _e('Liste nach', 'elementor-forms-statistics'); ?></label>
-                            <select name="form_display_mode" id="form_display_mode">
-                                <option value="element_id" <?php selected($display_mode, 'element_id'); ?>><?php _e('Element ID', 'elementor-forms-statistics'); ?></option>
-                                <option value="form_name" <?php selected($display_mode, 'form_name'); ?>><?php _e('Formularname', 'elementor-forms-statistics'); ?></option>
-                                <option value="form_name_distinct" <?php selected($display_mode, 'form_name_distinct'); ?>><?php _e('Formularname (Distinct)', 'elementor-forms-statistics'); ?></option>
-                                <option value="referer_title" <?php selected($display_mode, 'referer_title'); ?>><?php _e('Seiten-Referer', 'elementor-forms-statistics'); ?></option>
-                                <option value="referer_title_distinct" <?php selected($display_mode, 'referer_title_distinct'); ?>><?php _e('Seiten-Referer (Distinct)', 'elementor-forms-statistics'); ?></option>
-                            </select>
-                        </p>
-                        <?php
-                        $has_forms_to_show = !empty($form_order);
-                        if (!$has_forms_to_show) :
-                        ?>
-                            <p><?php _e('Keine Seiten gefunden.', 'elementor-forms-statistics'); ?></p>
-                        <?php else : ?>
-                        <table class="widefat striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="check-column"><span class="screen-reader-text"><?php _e('Auswählen', 'elementor-forms-statistics'); ?></span></th>
-                                    <th scope="col"><?php _e('ID', 'elementor-forms-statistics'); ?></th>
-                                    <th scope="col"><?php _e('Formular', 'elementor-forms-statistics'); ?></th>
-                                    <th scope="col"><?php _e('Einträge', 'elementor-forms-statistics'); ?></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                        <?php foreach ($form_order as $row_key) :
-                            $entry = $form_rows[$row_key];
-                            $label_title = $entry['title'];
-                            $checked = in_array($row_key, $selected_form_ids, true) ? 'checked' : '';
-                            $entry_count = $entry['count'];
-                            $ids = is_array($entry['ids']) ? $entry['ids'] : array();
-                            if ($display_mode === 'form_name_distinct') {
-                                $id_label = implode(', ', $ids);
-                            } elseif ($display_mode === 'form_name') {
-                                $parts = explode('||', $row_key, 2);
-                                $id_label = $parts[0];
-                            } else {
-                                $id_label = $row_key;
-                            }
-                        ?>
-                            <tr>
-                                <th scope="row" class="check-column">
-                                    <label class="screen-reader-text"><?php printf(__('Auswählen %s', 'elementor-forms-statistics'), esc_html($label_title)); ?></label>
-                                    <input type="checkbox" name="selected_form_ids[]" value="<?php echo esc_attr($row_key); ?>" <?php echo $checked; ?>>
-                                </th>
-                                <td><?php echo esc_html($id_label); ?></td>
-                                <td><?php echo esc_html($label_title); ?></td>
-                                <td><?php echo esc_html(number_format_i18n($entry_count)); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        <?php endif; ?>
-                        <p class="description"><?php _e('Nur ausgewählte Formulare werden in Grafik und Tabellen berücksichtigt.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <label for="excluded_emails"><?php _e('E-Mail Ignorelist', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <textarea name="excluded_emails" id="excluded_emails" rows="8" class="large-text code"><?php echo esc_textarea($stored_text); ?></textarea>
-                        <p class="description"><?php _e('E-Mails in diesem Feld fließen nicht in die Statistik ein. Bitte je Zeile eine Adresse oder einen Teilstring eintragen; Wildcards wie * können verwendet werden.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <label for="emphasis_threshold"><?php _e('Schwellwert für außergewöhnliche Veränderungen', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <input type="number" min="0" step="1" name="emphasis_threshold" id="emphasis_threshold" value="<?php echo esc_attr($emphasis_threshold); ?>">
-                        <p class="description"><?php _e('Ab dieser Differenz zum Vorjahr werden Werte in der Tabelle fett hervorgehoben. Standard: 5.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <label for="export_folder"><?php _e('Export-Ordner (Upload-Verzeichnis)', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <input type="text" name="export_folder" id="export_folder" value="<?php echo esc_attr($export_folder_slug); ?>" class="regular-text">
-                        <p class="description"><?php _e('Ordnername unter wp-content/uploads für die gespeicherten Statistiken.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <label><?php _e('Benutzerrollen', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <?php if (empty($menu_role_choices)) : ?>
-                            <p><?php _e('Keine Benutzerrollen gefunden.', 'elementor-forms-statistics'); ?></p>
-                        <?php else : ?>
-                            <div class="mdp-role-matrix-wrap">
-                                <table class="widefat striped mdp-role-matrix">
-                                    <thead>
-                                        <tr>
-                                            <th><?php _e('Menüpunkt', 'elementor-forms-statistics'); ?></th>
-                                            <th><?php _e('Zugriff für Rollen', 'elementor-forms-statistics'); ?></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($menu_items as $menu_key => $menu_label) : ?>
+            <?php wp_nonce_field('mdp_save_settings', 'mdp_settings_nonce'); ?>
+            <div class="mdp-form-wrapper">
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
+                        <label><?php _e('Sichtbare Formulare in Statistik', 'elementor-forms-statistics'); ?></label>
+                        <div class="mdp-form-field-control">
+                            <div class="mdp-form-field-inline">
+                                <label for="form_display_mode"><?php _e('Liste nach', 'elementor-forms-statistics'); ?></label>
+                                <select name="form_display_mode" id="form_display_mode">
+                                    <option value="element_id" <?php selected($display_mode, 'element_id'); ?>><?php _e('Element ID', 'elementor-forms-statistics'); ?></option>
+                                    <option value="form_name" <?php selected($display_mode, 'form_name'); ?>><?php _e('Formularname', 'elementor-forms-statistics'); ?></option>
+                                    <option value="form_name_distinct" <?php selected($display_mode, 'form_name_distinct'); ?>><?php _e('Formularname (Distinct)', 'elementor-forms-statistics'); ?></option>
+                                    <option value="referer_title" <?php selected($display_mode, 'referer_title'); ?>><?php _e('Seiten-Referer', 'elementor-forms-statistics'); ?></option>
+                                    <option value="referer_title_distinct" <?php selected($display_mode, 'referer_title_distinct'); ?>><?php _e('Seiten-Referer (Distinct)', 'elementor-forms-statistics'); ?></option>
+                                </select>
+                            </div>
+                            <?php
+                            $has_forms_to_show = !empty($form_order);
+                            if (!$has_forms_to_show) :
+                            ?>
+                                <p><?php _e('Keine Seiten gefunden.', 'elementor-forms-statistics'); ?></p>
+                            <?php else : ?>
+                                <div class="mdp-form-field-table">
+                                    <table class="widefat striped">
+                                        <thead>
                                             <tr>
-                                                <td><?php echo esc_html($menu_label); ?></td>
-                                                <td>
-                                                    <?php foreach ($menu_role_choices as $role_slug => $role_label) : ?>
-                                                        <label style="margin-right:12px;">
-                                                            <input type="checkbox" name="menu_roles[<?php echo esc_attr($menu_key); ?>][]" value="<?php echo esc_attr($role_slug); ?>" <?php checked(in_array($role_slug, $menu_roles[$menu_key], true)); ?>>
-                                                            <?php echo esc_html($role_label); ?>
-                                                        </label>
-                                                    <?php endforeach; ?>
-                                                </td>
+                                                <th scope="col" class="check-column"><span class="screen-reader-text"><?php _e('Auswählen', 'elementor-forms-statistics'); ?></span></th>
+                                                <th scope="col"><?php _e('ID', 'elementor-forms-statistics'); ?></th>
+                                                <th scope="col"><?php _e('Formular', 'elementor-forms-statistics'); ?></th>
+                                                <th scope="col"><?php _e('Einträge', 'elementor-forms-statistics'); ?></th>
                                             </tr>
-                                        <?php endforeach; ?>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($form_order as $row_key) :
+                                                $entry = $form_rows[$row_key];
+                                                $label_title = $entry['title'];
+                                                $checked = in_array($row_key, $selected_form_ids, true) ? 'checked' : '';
+                                                $entry_count = $entry['count'];
+                                                $ids = is_array($entry['ids']) ? $entry['ids'] : array();
+                                                if ($display_mode === 'form_name_distinct') {
+                                                    $id_label = implode(', ', $ids);
+                                                } elseif ($display_mode === 'form_name') {
+                                                    $parts = explode('||', $row_key, 2);
+                                                    $id_label = $parts[0];
+                                                } else {
+                                                    $id_label = $row_key;
+                                                }
+                                            ?>
+                                                <tr>
+                                                    <th scope="row" class="check-column">
+                                                        <label class="screen-reader-text"><?php printf(__('Auswählen %s', 'elementor-forms-statistics'), esc_html($label_title)); ?></label>
+                                                        <input type="checkbox" name="selected_form_ids[]" value="<?php echo esc_attr($row_key); ?>" <?php echo $checked; ?>>
+                                                    </th>
+                                                    <td><?php echo esc_html($id_label); ?></td>
+                                                    <td><?php echo esc_html($label_title); ?></td>
+                                                    <td><?php echo esc_html(number_format_i18n($entry_count)); ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php endif; ?>
+                            <p class="description"><?php _e('Nur ausgewählte Formulare werden in Grafik und Tabellen berücksichtigt.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
+                        <label for="excluded_emails"><?php _e('E-Mail Ignorelist', 'elementor-forms-statistics'); ?></label>
+                        <div class="mdp-form-field-control">
+                            <textarea name="excluded_emails" id="excluded_emails" rows="8" class="large-text code"><?php echo esc_textarea($stored_text); ?></textarea>
+                            <p class="description"><?php _e('E-Mails in diesem Feld fließen nicht in die Statistik ein. Bitte je Zeile eine Adresse oder einen Teilstring eintragen; Wildcards wie * können verwendet werden.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
+                        <label for="emphasis_threshold"><?php _e('Schwellwert für außergewöhnliche Veränderungen', 'elementor-forms-statistics'); ?></label>
+                        <div class="mdp-form-field-control">
+                            <input type="number" min="0" step="1" name="emphasis_threshold" id="emphasis_threshold" value="<?php echo esc_attr($emphasis_threshold); ?>">
+                            <p class="description"><?php _e('Ab dieser Differenz zum Vorjahr werden Werte in der Tabelle fett hervorgehoben. Standard: 5.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
+                        <label for="export_folder"><?php _e('Export-Ordner (Upload-Verzeichnis)', 'elementor-forms-statistics'); ?></label>
+                        <div class="mdp-form-field-control">
+                            <input type="text" name="export_folder" id="export_folder" value="<?php echo esc_attr($export_folder_slug); ?>" class="regular-text">
+                            <p class="description"><?php _e('Ordnername unter wp-content/uploads für die gespeicherten Statistiken.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
+                        <label><?php _e('Benutzerrollen', 'elementor-forms-statistics'); ?></label>
+                        <div class="mdp-form-field-control">
+                            <?php if (empty($menu_role_choices)) : ?>
+                                <p><?php _e('Keine Benutzerrollen gefunden.', 'elementor-forms-statistics'); ?></p>
+                            <?php else : ?>
+                                <div class="mdp-role-matrix-wrap">
+                                    <table class="widefat striped mdp-role-matrix">
+                                        <thead>
+                                            <tr>
+                                                <th><?php _e('Menüpunkt', 'elementor-forms-statistics'); ?></th>
+                                                <th><?php _e('Zugriff für Rollen', 'elementor-forms-statistics'); ?></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($menu_items as $menu_key => $menu_label) : ?>
+                                                <tr>
+                                                    <td><?php echo esc_html($menu_label); ?></td>
+                                                    <td>
+                                                        <?php foreach ($menu_role_choices as $role_slug => $role_label) : ?>
+                                                            <label class="mdp-role-checkbox">
+                                                                <input type="checkbox" name="menu_roles[<?php echo esc_attr($menu_key); ?>][]" value="<?php echo esc_attr($role_slug); ?>" <?php checked(in_array($role_slug, $menu_roles[$menu_key], true)); ?>>
+                                                                <?php echo esc_html($role_label); ?>
+                                                            </label>
+                                                        <?php endforeach; ?>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php endif; ?>
+                            <p class="description"><?php _e('Lege fest, welche Benutzerrollen die einzelnen Menüeinträge von Elementor Forms Statistics sehen.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
+                        <label><?php _e('Farben', 'elementor-forms-statistics'); ?></label>
+                        <div class="mdp-form-field-control">
+                            <div class="mdp-color-matrix">
+                                <table class="mdp-color-table">
+                                    <tbody>
+                                    <?php foreach ($curve_color_slots as $index => $slot) : ?>
+                                        <tr>
+                                            <td class="mdp-color-label">
+                                                <?php
+                                                if ($index === 0) {
+                                                    echo esc_html__('Aktuelles Jahr', 'elementor-forms-statistics');
+                                                } else {
+                                                    printf(esc_html__('%d Jahr', 'elementor-forms-statistics'), $index + 1);
+                                                }
+                                                ?>
+                                            </td>
+                                            <td class="mdp-color-input-cell">
+                                                <input type="color" name="curve_color_<?php echo $index; ?>" value="<?php echo esc_attr($slot['color']); ?>" class="mdp-curve-color-input">
+                                            </td>
+                                            <td class="mdp-transparency-cell">
+                                                <label class="mdp-transparency-label">
+                                                    <?php _e('Transparenz', 'elementor-forms-statistics'); ?>:
+                                                    <span class="mdp-transparency-value"><?php echo esc_html(round($slot['alpha'] * 100)); ?>%</span>
+                                                </label>
+                                                <input type="range" min="0" max="100" step="5" name="curve_alpha_<?php echo $index; ?>" value="<?php echo esc_attr(round($slot['alpha'] * 100)); ?>" class="mdp-transparency-slider">
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
-                        <?php endif; ?>
-                        <p class="description"><?php _e('Lege fest, welche Benutzerrollen die einzelnen Menüeinträge von Elementor Forms Statistics sehen.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
-                        <label><?php _e('Farben', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <div class="mdp-color-matrix">
-                            <table class="mdp-color-table">
-                                <tbody>
-                                <?php foreach ($curve_color_slots as $index => $slot) : ?>
-                                    <tr>
-                                        <td class="mdp-color-label">
-                                            <?php
-                                            if ($index === 0) {
-                                                echo esc_html__('Aktuelles Jahr', 'elementor-forms-statistics');
-                                            } else {
-                                                printf(esc_html__('%d Jahr', 'elementor-forms-statistics'), $index + 1);
-                                            }
-                                            ?>
-                                        </td>
-                                        <td class="mdp-color-input-cell">
-                                            <input type="color" name="curve_color_<?php echo $index; ?>" value="<?php echo esc_attr($slot['color']); ?>" class="mdp-curve-color-input">
-                                        </td>
-                                        <td class="mdp-transparency-cell">
-                                            <label class="mdp-transparency-label">
-                                                <?php _e('Transparenz', 'elementor-forms-statistics'); ?>:
-                                                <span class="mdp-transparency-value"><?php echo esc_html(round($slot['alpha'] * 100)); ?>%</span>
-                                            </label>
-                                            <input type="range" min="0" max="100" step="5" name="curve_alpha_<?php echo $index; ?>" value="<?php echo esc_attr(round($slot['alpha'] * 100)); ?>" class="mdp-transparency-slider">
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                                </tbody>
-                            </table>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
                         <label for="clean_on_uninstall"><?php _e('Verhalten Deinstallieren', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                <td>
-                    <label>
-                        <input type="checkbox" name="clean_on_uninstall" id="clean_on_uninstall" value="1" <?php checked($clean_on_uninstall, '1'); ?>>
-                        <span class="mdp-clean-action-text">⚠️ <?php _e('Beim Deinstallieren dieses Plugins alle Daten bereinigen.', 'elementor-forms-statistics'); ?></span>
-                    </label>
-                    <p class="description mdp-warning-text"><?php _e('Wenn diese Checkbox aktiviert ist, wird bei der Deinstallation alles bereinigt: Datenbank-Tabellen, archivierte Statistiken und die statischen Dateien im Upload-Ordner werden gelöscht. Elementor-Submissions bleiben unberührt.', 'elementor-forms-statistics'); ?></p>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    <label><?php _e('Elementor Submissions bereinigen', 'elementor-forms-statistics'); ?></label>
-                </th>
-                <td>
-                    <select name="submission_cleanup_interval">
-                        <?php
-                        $cleanup_options = array(
-                            'disabled' => __('Deaktiviert', 'elementor-forms-statistics'),
-                            '1h' => __('1 Stunde', 'elementor-forms-statistics'),
-                            '1d' => __('1 Tag', 'elementor-forms-statistics'),
-                            '1m' => __('1 Monat', 'elementor-forms-statistics'),
-                            '1y' => __('1 Jahr', 'elementor-forms-statistics'),
-                        );
-                        foreach ($cleanup_options as $key => $label) :
-                        ?>
-                            <option value="<?php echo esc_attr($key); ?>" <?php selected($cleanup_interval, $key); ?>><?php echo esc_html($label); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <p class="description mdp-cleanup-warning">⚠️ <?php _e('Nur wenn ein Intervall ausgewählt ist, werden alte Elementor Submissions im gewählten Rhythmus gelöscht, nachdem sie ins Archiv übernommen wurden.', 'elementor-forms-statistics'); ?></p>
-                </td>
-            </tr>
-        </table>
+                        <div class="mdp-form-field-control">
+                            <label class="mdp-checkbox-inline">
+                                <input type="checkbox" name="clean_on_uninstall" id="clean_on_uninstall" value="1" <?php checked($clean_on_uninstall, '1'); ?>>
+                                <span class="mdp-clean-action-text">⚠️ <?php _e('Beim Deinstallieren dieses Plugins alle Daten bereinigen.', 'elementor-forms-statistics'); ?></span>
+                            </label>
+                            <p class="description mdp-warning-text"><?php _e('Wenn diese Checkbox aktiviert ist, wird bei der Deinstallation alles bereinigt: Datenbank-Tabellen, archivierte Statistiken und die statischen Dateien im Upload-Ordner werden gelöscht. Elementor-Submissions bleiben unberührt.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
+                        <label><?php _e('Elementor Submissions bereinigen', 'elementor-forms-statistics'); ?></label>
+                        <div class="mdp-form-field-control">
+                            <select name="submission_cleanup_interval">
+                                <?php
+                                $cleanup_options = array(
+                                    'disabled' => __('Deaktiviert', 'elementor-forms-statistics'),
+                                    '1h' => __('1 Stunde', 'elementor-forms-statistics'),
+                                    '1d' => __('1 Tag', 'elementor-forms-statistics'),
+                                    '1m' => __('1 Monat', 'elementor-forms-statistics'),
+                                    '1y' => __('1 Jahr', 'elementor-forms-statistics'),
+                                );
+                                foreach ($cleanup_options as $key => $label) :
+                                ?>
+                                    <option value="<?php echo esc_attr($key); ?>" <?php selected($cleanup_interval, $key); ?>><?php echo esc_html($label); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <p class="description mdp-cleanup-warning">⚠️ <?php _e('Nur wenn ein Intervall ausgewählt ist, werden alte Elementor Submissions im gewählten Rhythmus gelöscht, nachdem sie ins Archiv übernommen wurden.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <?php submit_button(__('Speichern', 'elementor-forms-statistics')); ?>
         </form>
         <script>
@@ -4677,93 +4679,93 @@ function mdp_email_settings_page_callback() {
         <?php endif; ?>
         <form method="post">
             <?php wp_nonce_field('mdp_save_email_settings', 'mdp_email_settings_nonce'); ?>
-            <table class="form-table" role="presentation">
-                <tr>
-                    <th scope="row">
+            <div class="mdp-form-wrapper">
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
                         <label for="email_interval"><?php _e('Automatischer Versand', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <select name="email_interval" id="email_interval">
-                            <option value="disabled" <?php selected($email_interval, 'disabled'); ?>><?php _e('Deaktiviert', 'elementor-forms-statistics'); ?></option>
-                            <option value="daily" <?php selected($email_interval, 'daily'); ?>><?php _e('Täglich', 'elementor-forms-statistics'); ?></option>
-                            <option value="weekly" <?php selected($email_interval, 'weekly'); ?>><?php _e('Wöchentlich', 'elementor-forms-statistics'); ?></option>
-                            <option value="monthly" <?php selected($email_interval, 'monthly'); ?>><?php _e('Monatlich', 'elementor-forms-statistics'); ?></option>
-                        </select>
-                        <p class="description"><?php _e('Legt fest, wie oft die Statistik per E-Mail verschickt wird.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr class="mdp-schedule-field mdp-field-time"<?php echo $show_time_row ? '' : ' style="display:none;"'; ?>>
-                    <th scope="row">
+                        <div class="mdp-form-field-control">
+                            <select name="email_interval" id="email_interval">
+                                <option value="disabled" <?php selected($email_interval, 'disabled'); ?>><?php _e('Deaktiviert', 'elementor-forms-statistics'); ?></option>
+                                <option value="daily" <?php selected($email_interval, 'daily'); ?>><?php _e('Täglich', 'elementor-forms-statistics'); ?></option>
+                                <option value="weekly" <?php selected($email_interval, 'weekly'); ?>><?php _e('Wöchentlich', 'elementor-forms-statistics'); ?></option>
+                                <option value="monthly" <?php selected($email_interval, 'monthly'); ?>><?php _e('Monatlich', 'elementor-forms-statistics'); ?></option>
+                            </select>
+                            <p class="description"><?php _e('Legt fest, wie oft die Statistik per E-Mail verschickt wird.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section mdp-schedule-field mdp-field-time"<?php echo $show_time_row ? '' : ' style="display:none;"'; ?>>
+                    <div class="mdp-form-field">
                         <label for="email_send_time"><?php _e('Uhrzeit für den Versand', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <input type="time" name="email_send_time" id="email_send_time" value="<?php echo esc_attr($email_send_time); ?>">
-                        <p class="description"><?php _e('Die Statistik wird zur angegebenen Uhrzeit versendet.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr class="mdp-schedule-field mdp-field-weekly"<?php echo $show_weekly_row ? '' : ' style="display:none;"'; ?>>
-                    <th scope="row">
+                        <div class="mdp-form-field-control">
+                            <input type="time" name="email_send_time" id="email_send_time" value="<?php echo esc_attr($email_send_time); ?>">
+                            <p class="description"><?php _e('Die Statistik wird zur angegebenen Uhrzeit versendet.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section mdp-schedule-field mdp-field-weekly"<?php echo $show_weekly_row ? '' : ' style="display:none;"'; ?>>
+                    <div class="mdp-form-field">
                         <label for="email_weekday"><?php _e('Wochentag für den Versand', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <select name="email_weekday" id="email_weekday">
-                            <?php foreach ($weekday_choices as $weekday_slug => $weekday_label) : ?>
-                                <option value="<?php echo esc_attr($weekday_slug); ?>" <?php selected($email_weekday, $weekday_slug); ?>><?php echo esc_html($weekday_label); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <p class="description"><?php _e('Nur sichtbar bei wöchentlichem Versand.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr class="mdp-schedule-field mdp-field-monthly"<?php echo $show_monthly_row ? '' : ' style="display:none;"'; ?>>
-                    <th scope="row">
+                        <div class="mdp-form-field-control">
+                            <select name="email_weekday" id="email_weekday">
+                                <?php foreach ($weekday_choices as $weekday_slug => $weekday_label) : ?>
+                                    <option value="<?php echo esc_attr($weekday_slug); ?>" <?php selected($email_weekday, $weekday_slug); ?>><?php echo esc_html($weekday_label); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <p class="description"><?php _e('Nur sichtbar bei wöchentlichem Versand.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section mdp-schedule-field mdp-field-monthly"<?php echo $show_monthly_row ? '' : ' style="display:none;"'; ?>>
+                    <div class="mdp-form-field">
                         <label for="email_day_of_month"><?php _e('Tag im Monat', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <input type="number" min="1" max="31" name="email_day_of_month" id="email_day_of_month" value="<?php echo esc_attr($email_day_of_month); ?>">
-                        <p class="description"><?php _e('Bei unterschiedlichen Monatslängen wird automatisch der letzte verfügbare Tag verwendet.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
+                        <div class="mdp-form-field-control">
+                            <input type="number" min="1" max="31" name="email_day_of_month" id="email_day_of_month" value="<?php echo esc_attr($email_day_of_month); ?>">
+                            <p class="description"><?php _e('Bei unterschiedlichen Monatslängen wird automatisch der letzte verfügbare Tag verwendet.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
                         <label for="email_recipients"><?php _e('Empfänger der Statistik', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <textarea name="email_recipients" id="email_recipients" rows="4" class="large-text code"><?php echo esc_textarea($email_recipients_text); ?></textarea>
-                        <p class="description"><?php _e('Eine oder mehrere E-Mail-Adressen, getrennt durch Zeilenumbrüche oder Kommas.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
+                        <div class="mdp-form-field-control">
+                            <textarea name="email_recipients" id="email_recipients" rows="4" class="large-text code"><?php echo esc_textarea($email_recipients_text); ?></textarea>
+                            <p class="description"><?php _e('Eine oder mehrere E-Mail-Adressen, getrennt durch Zeilenumbrüche oder Kommas.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
                         <label for="email_subject"><?php _e('Betreffzeile', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <input type="text" name="email_subject" id="email_subject" value="<?php echo esc_attr($email_subject_template); ?>" class="regular-text">
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
+                        <div class="mdp-form-field-control">
+                            <input type="text" name="email_subject" id="email_subject" value="<?php echo esc_attr($email_subject_template); ?>" class="regular-text">
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
                         <label for="email_message"><?php _e('E-Mail Text', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <textarea name="email_message" id="email_message" rows="6" class="large-text code"><?php echo esc_textarea($email_message); ?></textarea>
-                        <p class="description"><?php _e('Der komplette Text für den E-Mail-Body.', 'elementor-forms-statistics'); ?></p>
-                        <p class="description"><?php printf(
-                            __('%s wird durch den Link zur Statistik ersetzt. Fehlt der Platzhalter, hängt das System den Link am Ende an.', 'elementor-forms-statistics'),
-                            '<code>' . esc_html(mdp_get_stats_link_placeholder()) . '</code>'
-                        ); ?></p>
-                        <p class="description"><?php _e('%s = Website URL', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">
+                        <div class="mdp-form-field-control">
+                            <textarea name="email_message" id="email_message" rows="6" class="large-text code"><?php echo esc_textarea($email_message); ?></textarea>
+                            <p class="description"><?php _e('Der komplette Text für den E-Mail-Body.', 'elementor-forms-statistics'); ?></p>
+                            <p class="description"><?php printf(
+                                __('%s wird durch den Link zur Statistik ersetzt. Fehlt der Platzhalter, hängt das System den Link am Ende an.', 'elementor-forms-statistics'),
+                                '<code>' . esc_html(mdp_get_stats_link_placeholder()) . '</code>'
+                            ); ?></p>
+                            <p class="description"><?php _e('%s = Website URL', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdp-form-section">
+                    <div class="mdp-form-field">
                         <label for="export_link_label"><?php _e('Text Link', 'elementor-forms-statistics'); ?></label>
-                    </th>
-                    <td>
-                        <input type="text" name="export_link_label" id="export_link_label" value="<?php echo esc_attr($link_label); ?>" class="regular-text">
-                        <p class="description"><?php _e('Dieser Text ersetzt „Passwortfreien Statistik-Zugang“ im Link, falls du ihn anders benennen möchtest.', 'elementor-forms-statistics'); ?></p>
-                    </td>
-                </tr>
-            </table>
+                        <div class="mdp-form-field-control">
+                            <input type="text" name="export_link_label" id="export_link_label" value="<?php echo esc_attr($link_label); ?>" class="regular-text">
+                            <p class="description"><?php _e('Dieser Text ersetzt „Passwortfreien Statistik-Zugang“ im Link, falls du ihn anders benennen möchtest.', 'elementor-forms-statistics'); ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <?php submit_button(__('Speichern', 'elementor-forms-statistics')); ?>
         </form>
         <script>
