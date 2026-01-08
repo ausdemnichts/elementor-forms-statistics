@@ -4694,25 +4694,28 @@ function mdp_email_settings_page_callback() {
                         </div>
                     </div>
                 </div>
-                <div class="mdp-form-section mdp-schedule-field mdp-field-time"<?php echo $show_time_row ? '' : ' style="display:none;"'; ?>>
-                    <div class="mdp-form-field">
-                        <label for="email_send_time"><?php _e('Uhrzeit für den Versand', 'elementor-forms-statistics'); ?></label>
-                        <div class="mdp-form-field-control">
-                            <input type="time" name="email_send_time" id="email_send_time" value="<?php echo esc_attr($email_send_time); ?>">
-                            <p class="description"><?php _e('Die Statistik wird zur angegebenen Uhrzeit versendet.', 'elementor-forms-statistics'); ?></p>
+                <?php $show_schedule_row = $show_time_row || $show_weekly_row; ?>
+                <div class="mdp-form-section mdp-schedule-row"<?php echo $show_schedule_row ? '' : ' style="display:none;"'; ?>>
+                    <div class="mdp-form-column mdp-field-time"<?php echo $show_time_row ? '' : ' style="display:none;"'; ?>>
+                        <div class="mdp-form-field">
+                            <label for="email_send_time"><?php _e('Uhrzeit für den Versand', 'elementor-forms-statistics'); ?></label>
+                            <div class="mdp-form-field-control">
+                                <input type="time" name="email_send_time" id="email_send_time" value="<?php echo esc_attr($email_send_time); ?>">
+                                <p class="description"><?php _e('Die Statistik wird zur angegebenen Uhrzeit versendet.', 'elementor-forms-statistics'); ?></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mdp-form-section mdp-schedule-field mdp-field-weekly"<?php echo $show_weekly_row ? '' : ' style="display:none;"'; ?>>
-                    <div class="mdp-form-field">
-                        <label for="email_weekday"><?php _e('Wochentag für den Versand', 'elementor-forms-statistics'); ?></label>
-                        <div class="mdp-form-field-control">
-                            <select name="email_weekday" id="email_weekday">
-                                <?php foreach ($weekday_choices as $weekday_slug => $weekday_label) : ?>
-                                    <option value="<?php echo esc_attr($weekday_slug); ?>" <?php selected($email_weekday, $weekday_slug); ?>><?php echo esc_html($weekday_label); ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <p class="description"><?php _e('Nur sichtbar bei wöchentlichem Versand.', 'elementor-forms-statistics'); ?></p>
+                    <div class="mdp-form-column mdp-field-weekly"<?php echo $show_weekly_row ? '' : ' style="display:none;"'; ?>>
+                        <div class="mdp-form-field">
+                            <label for="email_weekday"><?php _e('Wochentag für den Versand', 'elementor-forms-statistics'); ?></label>
+                            <div class="mdp-form-field-control">
+                                <select name="email_weekday" id="email_weekday">
+                                    <?php foreach ($weekday_choices as $weekday_slug => $weekday_label) : ?>
+                                        <option value="<?php echo esc_attr($weekday_slug); ?>" <?php selected($email_weekday, $weekday_slug); ?>><?php echo esc_html($weekday_label); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <p class="description"><?php _e('Nur sichtbar bei wöchentlichem Versand.', 'elementor-forms-statistics'); ?></p>
+                            </div>
                         </div>
                     </div>
                 </div>

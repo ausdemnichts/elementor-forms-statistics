@@ -71,6 +71,18 @@ body.wp-admin .wrap.mdp-stats-root {
     margin-top: 6px;
 }
 
+.mdp-schedule-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.mdp-form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
 .mdp-table {
     font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
     font-size: 12px;
