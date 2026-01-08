@@ -1,5 +1,45 @@
 /* assets/css/style.css */
 
+.form-table {
+    border: 0;
+    width: 100%;
+}
+
+.form-table tr {
+    display: block;
+    margin-bottom: 32px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e8f1;
+}
+
+.form-table th, .form-table td {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.form-table th label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.form-table td > .description {
+    margin-top: 6px;
+}
+
+.form-table td table {
+    margin-top: 12px;
+}
+
+.form-table input[type=number],
+.form-table input[type=text],
+.form-table select,
+.form-table textarea {
+    width: 100%;
+    max-width: 480px;
+}
+
 body.wp-admin .wrap.mdp-stats-root,
 body.wp-admin .wrap.mdp-stats-root h1,
 body.wp-admin .wrap.mdp-stats-root h2,
