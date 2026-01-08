@@ -14,8 +14,11 @@ body.wp-admin .wrap.mdp-stats-root label {
 }
 
 body.wp-admin .wrap.mdp-stats-root {
-    max-width: 1600px;
+    max-width: 1200px;
     width: 100%;
+    margin: 0 auto;
+    padding: 32px 5% 80px;
+    box-sizing: border-box;
 }
 
 .mdp-table {
@@ -23,8 +26,8 @@ body.wp-admin .wrap.mdp-stats-root {
     font-size: 12px;
     border-collapse: collapse;
     width: 1090px;
-    margin-top: 20px;
-	margin-bottom:50px;
+    max-width: min(1090px, 100%);
+    margin: 20px auto 50px;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -60,24 +63,23 @@ body.wp-admin .wrap.mdp-stats-root {
     font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
     font-size: 18px;
     font-weight: 600;
-    max-width: 1090px;
+    max-width: min(1090px, 100%);
     margin: 40px auto 10px;
     color: #1d2327;
-}
-
-body.wp-admin .mdp-year-heading {
-    margin-left: 0;
-    margin-right: 0;
+    text-align: center;
 }
 
 .mdp-chart {
-	width:1090px;
+	width: 100%;
+    max-width: min(1090px, 100%);
 	height: 500px;
+    margin: 0 auto;
+    display: block;
 }
 
 .mdp-chart img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
 }
 
@@ -101,7 +103,9 @@ body.wp-admin #e-form-submissions {
     text-align: center;
     letter-spacing: 0.05em;
     text-transform: none;
-    width: 1090px;
+    width: 100%;
+    max-width: min(1090px, 100%);
+    margin: 0 auto;
     display: block;
 }
 
@@ -109,8 +113,8 @@ body.wp-admin #e-form-submissions {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 10px;
-    max-width: 1090px;
-    margin: 15px 0;
+    max-width: min(1090px, 100%);
+    margin: 15px auto;
 }
 
 .checkbox-container label {
