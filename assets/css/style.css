@@ -26,6 +26,36 @@ body.wp-admin .wrap.mdp-stats-root {
     margin: 0;
 }
 
+.mdp-email-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.mdp-email-tab {
+    border: 1px solid #dcdcde;
+    border-radius: 6px;
+    padding: 8px 16px;
+    background: #f7f8fa;
+    color: #50575e;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mdp-email-tab.is-active {
+    background: #fff;
+    border-color: #1d2327;
+    color: #1d2327;
+}
+
+.mdp-email-tab-panel {
+    display: none;
+}
+
+.mdp-email-tab-panel.is-active {
+    display: block;
+}
+
 .mdp-form-section {
     border-bottom: 1px solid #e5e8f1;
     padding-bottom: 28px;

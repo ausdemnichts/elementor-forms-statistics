@@ -4677,100 +4677,125 @@ function mdp_email_settings_page_callback() {
         <?php elseif ($manual_status === 'error') : ?>
             <div class="notice notice-error"><p><?php _e('Die Statistik konnte nicht gesendet werden. Bitte Empfänger prüfen.', 'elementor-forms-statistics'); ?></p></div>
         <?php endif; ?>
+        <div class="mdp-email-tabs" role="tablist">
+            <button type="button" class="mdp-email-tab is-active" data-panel="planning"><?php _e('Planung', 'elementor-forms-statistics'); ?></button>
+            <button type="button" class="mdp-email-tab" data-panel="email"><?php _e('E-Mail', 'elementor-forms-statistics'); ?></button>
+            <button type="button" class="mdp-email-tab" data-panel="send"><?php _e('Senden & Download', 'elementor-forms-statistics'); ?></button>
+        </div>
         <form method="post">
             <?php wp_nonce_field('mdp_save_email_settings', 'mdp_email_settings_nonce'); ?>
             <div class="mdp-form-wrapper mdp-email-form-wrapper">
-                <div class="mdp-form-section">
-                    <div class="mdp-form-field">
-                        <label for="email_interval"><?php _e('Automatischer Versand', 'elementor-forms-statistics'); ?></label>
-                        <div class="mdp-form-field-control">
-                            <select name="email_interval" id="email_interval">
-                                <option value="disabled" <?php selected($email_interval, 'disabled'); ?>><?php _e('Deaktiviert', 'elementor-forms-statistics'); ?></option>
-                                <option value="daily" <?php selected($email_interval, 'daily'); ?>><?php _e('Täglich', 'elementor-forms-statistics'); ?></option>
-                                <option value="weekly" <?php selected($email_interval, 'weekly'); ?>><?php _e('Wöchentlich', 'elementor-forms-statistics'); ?></option>
-                                <option value="monthly" <?php selected($email_interval, 'monthly'); ?>><?php _e('Monatlich', 'elementor-forms-statistics'); ?></option>
-                            </select>
-                            <p class="description"><?php _e('Legt fest, wie oft die Statistik per E-Mail verschickt wird.', 'elementor-forms-statistics'); ?></p>
-                        </div>
-                    </div>
-                </div>
-                <?php $show_schedule_row = $show_time_row || $show_weekly_row; ?>
-                <div class="mdp-form-section mdp-schedule-row"<?php echo $show_schedule_row ? '' : ' style="display:none;"'; ?>>
-                    <div class="mdp-form-column mdp-field-time"<?php echo $show_time_row ? '' : ' style="display:none;"'; ?>>
-                        <div class="mdp-form-field">
-                            <label for="email_send_time"><?php _e('Uhrzeit für den Versand', 'elementor-forms-statistics'); ?></label>
+                <div class="mdp-email-tab-panels">
+                    <div class="mdp-email-tab-panel is-active" data-panel="planning">
+                        <div class="mdp-form-section">
+                            <label for="email_interval"><?php _e('Automatischer Versand', 'elementor-forms-statistics'); ?></label>
                             <div class="mdp-form-field-control">
-                                <input type="time" name="email_send_time" id="email_send_time" value="<?php echo esc_attr($email_send_time); ?>">
-                                <p class="description"><?php _e('Die Statistik wird zur angegebenen Uhrzeit versendet.', 'elementor-forms-statistics'); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mdp-form-column mdp-field-weekly"<?php echo $show_weekly_row ? '' : ' style="display:none;"'; ?>>
-                        <div class="mdp-form-field">
-                            <label for="email_weekday"><?php _e('Wochentag für den Versand', 'elementor-forms-statistics'); ?></label>
-                            <div class="mdp-form-field-control">
-                                <select name="email_weekday" id="email_weekday">
-                                    <?php foreach ($weekday_choices as $weekday_slug => $weekday_label) : ?>
-                                        <option value="<?php echo esc_attr($weekday_slug); ?>" <?php selected($email_weekday, $weekday_slug); ?>><?php echo esc_html($weekday_label); ?></option>
-                                    <?php endforeach; ?>
+                                <select name="email_interval" id="email_interval">
+                                    <option value="disabled" <?php selected($email_interval, 'disabled'); ?>><?php _e('Deaktiviert', 'elementor-forms-statistics'); ?></option>
+                                    <option value="daily" <?php selected($email_interval, 'daily'); ?>><?php _e('Täglich', 'elementor-forms-statistics'); ?></option>
+                                    <option value="weekly" <?php selected($email_interval, 'weekly'); ?>><?php _e('Wöchentlich', 'elementor-forms-statistics'); ?></option>
+                                    <option value="monthly" <?php selected($email_interval, 'monthly'); ?>><?php _e('Monatlich', 'elementor-forms-statistics'); ?></option>
                                 </select>
-                                <p class="description"><?php _e('Nur sichtbar bei wöchentlichem Versand.', 'elementor-forms-statistics'); ?></p>
+                                <p class="description"><?php _e('Legt fest, wie oft die Statistik per E-Mail verschickt wird.', 'elementor-forms-statistics'); ?></p>
+                            </div>
+                        </div>
+                        <div class="mdp-form-section mdp-schedule-row"<?php echo $show_time_row || $show_weekly_row ? '' : ' style="display:none;"'; ?>>
+                            <div class="mdp-form-column mdp-field-time"<?php echo $show_time_row ? '' : ' style="display:none;"'; ?>>
+                                <div class="mdp-form-field">
+                                    <label for="email_send_time"><?php _e('Uhrzeit für den Versand', 'elementor-forms-statistics'); ?></label>
+                                    <div class="mdp-form-field-control">
+                                        <input type="time" name="email_send_time" id="email_send_time" value="<?php echo esc_attr($email_send_time); ?>">
+                                        <p class="description"><?php _e('Die Statistik wird zur angegebenen Uhrzeit versendet.', 'elementor-forms-statistics'); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mdp-form-column mdp-field-weekly"<?php echo $show_weekly_row ? '' : ' style="display:none;"'; ?>>
+                                <div class="mdp-form-field">
+                                    <label for="email_weekday"><?php _e('Wochentag für den Versand', 'elementor-forms-statistics'); ?></label>
+                                    <div class="mdp-form-field-control">
+                                        <select name="email_weekday" id="email_weekday">
+                                            <?php foreach ($weekday_choices as $weekday_slug => $weekday_label) : ?>
+                                                <option value="<?php echo esc_attr($weekday_slug); ?>" <?php selected($email_weekday, $weekday_slug); ?>><?php echo esc_html($weekday_label); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <p class="description"><?php _e('Nur sichtbar bei wöchentlichem Versand.', 'elementor-forms-statistics'); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mdp-form-section mdp-field-monthly"<?php echo $show_monthly_row ? '' : ' style="display:none;"'; ?>>
+                            <div class="mdp-form-field">
+                                <label for="email_day_of_month"><?php _e('Tag im Monat', 'elementor-forms-statistics'); ?></label>
+                                <div class="mdp-form-field-control">
+                                    <input type="number" min="1" max="31" name="email_day_of_month" id="email_day_of_month" value="<?php echo esc_attr($email_day_of_month); ?>">
+                                    <p class="description"><?php _e('Bei unterschiedlichen Monatslängen wird automatisch der letzte verfügbare Tag verwendet.', 'elementor-forms-statistics'); ?></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="mdp-form-section mdp-schedule-field mdp-field-monthly"<?php echo $show_monthly_row ? '' : ' style="display:none;"'; ?>>
-                    <div class="mdp-form-field">
-                        <label for="email_day_of_month"><?php _e('Tag im Monat', 'elementor-forms-statistics'); ?></label>
-                        <div class="mdp-form-field-control">
-                            <input type="number" min="1" max="31" name="email_day_of_month" id="email_day_of_month" value="<?php echo esc_attr($email_day_of_month); ?>">
-                            <p class="description"><?php _e('Bei unterschiedlichen Monatslängen wird automatisch der letzte verfügbare Tag verwendet.', 'elementor-forms-statistics'); ?></p>
+                    <div class="mdp-email-tab-panel" data-panel="email">
+                        <div class="mdp-form-section">
+                            <label for="email_recipients"><?php _e('Empfänger der Statistik', 'elementor-forms-statistics'); ?></label>
+                            <div class="mdp-form-field-control">
+                                <textarea name="email_recipients" id="email_recipients" rows="4" class="large-text code"><?php echo esc_textarea($email_recipients_text); ?></textarea>
+                                <p class="description"><?php _e('Eine oder mehrere E-Mail-Adressen, getrennt durch Zeilenumbrüche oder Kommas.', 'elementor-forms-statistics'); ?></p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="mdp-form-section">
-                    <div class="mdp-form-field">
-                        <label for="email_recipients"><?php _e('Empfänger der Statistik', 'elementor-forms-statistics'); ?></label>
-                        <div class="mdp-form-field-control">
-                            <textarea name="email_recipients" id="email_recipients" rows="4" class="large-text code"><?php echo esc_textarea($email_recipients_text); ?></textarea>
-                            <p class="description"><?php _e('Eine oder mehrere E-Mail-Adressen, getrennt durch Zeilenumbrüche oder Kommas.', 'elementor-forms-statistics'); ?></p>
+                        <div class="mdp-form-section mdp-form-section--no-divider">
+                            <label for="email_subject"><?php _e('Betreffzeile', 'elementor-forms-statistics'); ?></label>
+                            <div class="mdp-form-field-control">
+                                <input type="text" name="email_subject" id="email_subject" value="<?php echo esc_attr($email_subject_template); ?>" class="regular-text">
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="mdp-form-section mdp-form-section--no-divider">
-                    <div class="mdp-form-field">
-                        <label for="email_subject"><?php _e('Betreffzeile', 'elementor-forms-statistics'); ?></label>
-                        <div class="mdp-form-field-control">
-                            <input type="text" name="email_subject" id="email_subject" value="<?php echo esc_attr($email_subject_template); ?>" class="regular-text">
+                        <div class="mdp-form-section mdp-form-section--no-divider">
+                            <label for="email_message"><?php _e('E-Mail Text', 'elementor-forms-statistics'); ?></label>
+                            <div class="mdp-form-field-control">
+                                <textarea name="email_message" id="email_message" rows="6" class="large-text code"><?php echo esc_textarea($email_message); ?></textarea>
+                                <p class="description"><?php _e('Der komplette Text für den E-Mail-Body.', 'elementor-forms-statistics'); ?></p>
+                                <p class="description"><?php printf(
+                                    __('%s wird durch den Link zur Statistik ersetzt. Fehlt der Platzhalter, hängt das System den Link am Ende an.', 'elementor-forms-statistics'),
+                                    '<code>' . esc_html(mdp_get_stats_link_placeholder()) . '</code>'
+                                ); ?></p>
+                                <p class="description"><?php _e('%s = Website URL', 'elementor-forms-statistics'); ?></p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="mdp-form-section mdp-form-section--no-divider">
-                    <div class="mdp-form-field">
-                        <label for="email_message"><?php _e('E-Mail Text', 'elementor-forms-statistics'); ?></label>
-                        <div class="mdp-form-field-control">
-                            <textarea name="email_message" id="email_message" rows="6" class="large-text code"><?php echo esc_textarea($email_message); ?></textarea>
-                            <p class="description"><?php _e('Der komplette Text für den E-Mail-Body.', 'elementor-forms-statistics'); ?></p>
-                            <p class="description"><?php printf(
-                                __('%s wird durch den Link zur Statistik ersetzt. Fehlt der Platzhalter, hängt das System den Link am Ende an.', 'elementor-forms-statistics'),
-                                '<code>' . esc_html(mdp_get_stats_link_placeholder()) . '</code>'
-                            ); ?></p>
-                            <p class="description"><?php _e('%s = Website URL', 'elementor-forms-statistics'); ?></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mdp-form-section mdp-form-section--no-divider">
-                    <div class="mdp-form-field">
-                        <label for="export_link_label"><?php _e('Text Link', 'elementor-forms-statistics'); ?></label>
-                        <div class="mdp-form-field-control">
-                            <input type="text" name="export_link_label" id="export_link_label" value="<?php echo esc_attr($link_label); ?>" class="regular-text">
-                            <p class="description"><?php _e('Dieser Text ersetzt „Passwortfreien Statistik-Zugang“ im Link, falls du ihn anders benennen möchtest.', 'elementor-forms-statistics'); ?></p>
+                        <div class="mdp-form-section mdp-form-section--no-divider">
+                            <label for="export_link_label"><?php _e('Text Link', 'elementor-forms-statistics'); ?></label>
+                            <div class="mdp-form-field-control">
+                                <input type="text" name="export_link_label" id="export_link_label" value="<?php echo esc_attr($link_label); ?>" class="regular-text">
+                                <p class="description"><?php _e('Dieser Text ersetzt „Passwortfreien Statistik-Zugang“ im Link, falls du ihn anders benennen möchtest.', 'elementor-forms-statistics'); ?></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <?php submit_button(__('Speichern', 'elementor-forms-statistics')); ?>
         </form>
+        <div class="mdp-email-tab-panel" data-panel="send">
+            <div class="mdp-form-wrapper mdp-email-form-wrapper">
+                <div class="mdp-form-section mdp-form-section--no-divider">
+                    <h3><?php _e('Statistik sofort versenden', 'elementor-forms-statistics'); ?></h3>
+                    <p><?php _e('Verschickt die aktuelle Statistik einmalig an die oben definierten Empfänger.', 'elementor-forms-statistics'); ?></p>
+                    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="mdp-send-now-form">
+                        <?php wp_nonce_field('mdp_send_stats_now', 'mdp_send_now_nonce'); ?>
+                        <input type="hidden" name="action" value="mdp_send_stats_now">
+                        <?php submit_button(__('Statistik jetzt senden', 'elementor-forms-statistics'), 'secondary', 'mdp_send_now'); ?>
+                    </form>
+                </div>
+                <div class="mdp-form-section mdp-form-section--no-divider">
+                    <h3><?php _e('Statistik als HTML exportieren', 'elementor-forms-statistics'); ?></h3>
+                    <?php if (mdp_user_can_access_menu('statistiken-emailversand')) : ?>
+                        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="mdp-export-form">
+                            <?php wp_nonce_field('mdp_export_html', 'mdp_export_nonce'); ?>
+                            <input type="hidden" name="action" value="mdp_export_stats_html">
+                            <?php submit_button(__('Als HTML exportieren', 'elementor-forms-statistics'), 'secondary'); ?>
+                        </form>
+                    <?php else : ?>
+                        <p><?php _e('Der HTML-Export ist für deine Benutzerrolle nicht freigeschaltet.', 'elementor-forms-statistics'); ?></p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
         <script>
         (function($){
             function mdpToggleScheduleFields() {
@@ -4779,30 +4804,32 @@ function mdp_email_settings_page_callback() {
                 $('.mdp-field-weekly').toggle(interval === 'weekly');
                 $('.mdp-field-monthly').toggle(interval === 'monthly');
             }
+            function mdpSwitchEmailTab(panel) {
+                var $tabs = $('.mdp-email-tab');
+                var $panels = $('.mdp-email-tab-panel');
+                $tabs.removeClass('is-active');
+                $panels.removeClass('is-active');
+                $tabs.filter('[data-panel="' + panel + '"]').addClass('is-active');
+                $panels.filter('[data-panel="' + panel + '"]').addClass('is-active');
+            }
+            $(document).on('click', '.mdp-email-tab', function() {
+                mdpSwitchEmailTab($(this).data('panel'));
+            });
+            $(document).ready(function() {
+                $('.mdp-email-tab').first().trigger('click');
+                $('.mdp-transparency-slider').each(function() {
+                    var $input = $(this);
+                    var $value = $input.closest('.mdp-transparency-cell').find('.mdp-transparency-value');
+                    if ($value.length) {
+                        $value.text($input.val() + '%');
+                    }
+                });
+                mdpToggleScheduleFields();
+            });
             $(document).on('change', '#email_interval', mdpToggleScheduleFields);
-            $(document).ready(mdpToggleScheduleFields);
+            $(document).on('input', '#email_interval', mdpToggleScheduleFields);
         })(jQuery);
         </script>
-        <hr>
-        <h2><?php _e('Statistik sofort versenden', 'elementor-forms-statistics'); ?></h2>
-        <p><?php _e('Verschickt die aktuelle Statistik einmalig an die oben definierten Empfänger.', 'elementor-forms-statistics'); ?></p>
-        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="mdp-send-now-form">
-            <?php wp_nonce_field('mdp_send_stats_now', 'mdp_send_now_nonce'); ?>
-            <input type="hidden" name="action" value="mdp_send_stats_now">
-            <?php submit_button(__('Statistik jetzt senden', 'elementor-forms-statistics'), 'secondary', 'mdp_send_now'); ?>
-        </form>
-        <hr>
-        <?php if (mdp_user_can_access_menu('statistiken-emailversand')) : ?>
-            <h2><?php _e('Statistik als HTML exportieren', 'elementor-forms-statistics'); ?></h2>
-            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="mdp-export-form">
-                <?php wp_nonce_field('mdp_export_html', 'mdp_export_nonce'); ?>
-                <input type="hidden" name="action" value="mdp_export_stats_html">
-                <?php submit_button(__('Als HTML exportieren', 'elementor-forms-statistics'), 'secondary'); ?>
-            </form>
-        <?php else : ?>
-            <h2><?php _e('Statistik Export', 'elementor-forms-statistics'); ?></h2>
-            <p><?php _e('Der HTML-Export ist für deine Benutzerrolle nicht freigeschaltet.', 'elementor-forms-statistics'); ?></p>
-        <?php endif; ?>
     </div>
     <?php
 }
