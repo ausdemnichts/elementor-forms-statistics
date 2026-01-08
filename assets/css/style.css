@@ -94,13 +94,19 @@ body.wp-admin .wrap.mdp-stats-root {
     gap: 0;
 }
 
+body.wp-admin .wrap.mdp-stats-root {
+    width: 1090px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .mdp-table {
     font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
     font-size: 12px;
     border-collapse: collapse;
     width: 1090px;
     max-width: min(1090px, 100%);
-    margin: 20px 0 50px;
+    margin: 20px 0 50px 0;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
