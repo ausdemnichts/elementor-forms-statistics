@@ -602,16 +602,6 @@ msgstr "Esikatselu"
 msgid "Export-Spalten & Vorschau"
 msgstr "Vientisarakkeet ja esikatselu"
 
-
-msgid "Conversions"
-msgstr "Konversiot"
-
-msgid "Google Ads Conversions"
-msgstr "Google Ads -konversiot"
-
-msgid "Conversion-Einstellungen gespeichert."
-msgstr "Konversioasetukset tallennettu."
-
 msgid "Consent-Tool"
 msgstr "Suostumustyökalu"
 
@@ -630,35 +620,11 @@ msgstr "Usercentrics-luokka"
 msgid "Complianz Kategorie"
 msgstr "Complianz-luokka"
 
-msgid "Conversion-Name"
-msgstr "Konversion nimi"
-
-msgid "Conversion-Wert"
-msgstr "Konversion arvo"
-
 msgid "Währung"
 msgstr "Valuutta"
 
-msgid "Conversions exportieren"
-msgstr "Vie konversiot"
-
-msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
-msgstr "Merkitse merkinnät konversioiksi, jotta ne sisältyvät Google Ads -vientiin."
-
-msgid "Conversion"
-msgstr "Konversio"
-
 msgid "Datum"
 msgstr "Päivämäärä"
-
-msgid "Conversion-Zeit"
-msgstr "Konversion aika"
-
-msgid "Bitte Conversion-Name angeben."
-msgstr "Anna konversion nimi."
-
-msgid "Keine markierten Conversions gefunden."
-msgstr "Merkittyjä konversioita ei löytynyt."
 
 msgid "Automatisch erkennen"
 msgstr "Tunnista automaattisesti"
@@ -683,9 +649,6 @@ msgstr "Nimikenttä"
 
 msgid "Keine Formularfelder gefunden."
 msgstr "Lomakekenttiä ei löytynyt."
-
-msgid "Conversion-Wert Feld"
-msgstr "Konversion arvokenttä"
 
 msgid "Manuell"
 msgstr "Manuaalinen"

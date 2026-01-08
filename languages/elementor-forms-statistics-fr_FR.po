@@ -602,16 +602,6 @@ msgstr "Aperçu"
 msgid "Export-Spalten & Vorschau"
 msgstr "Colonnes d’export & aperçu"
 
-
-msgid "Conversions"
-msgstr "Conversions"
-
-msgid "Google Ads Conversions"
-msgstr "Conversions Google Ads"
-
-msgid "Conversion-Einstellungen gespeichert."
-msgstr "Paramètres de conversion enregistrés."
-
 msgid "Consent-Tool"
 msgstr "Outil de consentement"
 
@@ -630,35 +620,11 @@ msgstr "Catégorie Usercentrics"
 msgid "Complianz Kategorie"
 msgstr "Catégorie Complianz"
 
-msgid "Conversion-Name"
-msgstr "Nom de conversion"
-
-msgid "Conversion-Wert"
-msgstr "Valeur de conversion"
-
 msgid "Währung"
 msgstr "Devise"
 
-msgid "Conversions exportieren"
-msgstr "Exporter les conversions"
-
-msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
-msgstr "Marquez les entrées comme conversions pour les inclure dans l’export Google Ads."
-
-msgid "Conversion"
-msgstr "Conversion"
-
 msgid "Datum"
 msgstr "Date"
-
-msgid "Conversion-Zeit"
-msgstr "Heure de conversion"
-
-msgid "Bitte Conversion-Name angeben."
-msgstr "Veuillez indiquer le nom de la conversion."
-
-msgid "Keine markierten Conversions gefunden."
-msgstr "Aucune conversion marquée trouvée."
 
 msgid "Automatisch erkennen"
 msgstr "Détection automatique"
@@ -683,9 +649,6 @@ msgstr "Champ nom"
 
 msgid "Keine Formularfelder gefunden."
 msgstr "Aucun champ de formulaire trouvé."
-
-msgid "Conversion-Wert Feld"
-msgstr "Champ de valeur de conversion"
 
 msgid "Manuell"
 msgstr "Manuel"

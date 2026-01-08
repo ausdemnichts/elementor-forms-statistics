@@ -602,16 +602,6 @@ msgstr "Podgląd"
 msgid "Export-Spalten & Vorschau"
 msgstr "Kolumny eksportu i podgląd"
 
-
-msgid "Conversions"
-msgstr "Konwersje"
-
-msgid "Google Ads Conversions"
-msgstr "Konwersje Google Ads"
-
-msgid "Conversion-Einstellungen gespeichert."
-msgstr "Ustawienia konwersji zapisane."
-
 msgid "Consent-Tool"
 msgstr "Narzędzie zgody"
 
@@ -630,35 +620,11 @@ msgstr "Kategoria Usercentrics"
 msgid "Complianz Kategorie"
 msgstr "Kategoria Complianz"
 
-msgid "Conversion-Name"
-msgstr "Nazwa konwersji"
-
-msgid "Conversion-Wert"
-msgstr "Wartość konwersji"
-
 msgid "Währung"
 msgstr "Waluta"
 
-msgid "Conversions exportieren"
-msgstr "Eksportuj konwersje"
-
-msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
-msgstr "Oznacz wpisy jako konwersje, aby uwzględnić je w eksporcie Google Ads."
-
-msgid "Conversion"
-msgstr "Konwersja"
-
 msgid "Datum"
 msgstr "Data"
-
-msgid "Conversion-Zeit"
-msgstr "Czas konwersji"
-
-msgid "Bitte Conversion-Name angeben."
-msgstr "Podaj nazwę konwersji."
-
-msgid "Keine markierten Conversions gefunden."
-msgstr "Nie znaleziono oznaczonych konwersji."
 
 msgid "Automatisch erkennen"
 msgstr "Wykryj automatycznie"
@@ -683,9 +649,6 @@ msgstr "Pole imienia"
 
 msgid "Keine Formularfelder gefunden."
 msgstr "Nie znaleziono pól formularza."
-
-msgid "Conversion-Wert Feld"
-msgstr "Pole wartości konwersji"
 
 msgid "Manuell"
 msgstr "Ręcznie"

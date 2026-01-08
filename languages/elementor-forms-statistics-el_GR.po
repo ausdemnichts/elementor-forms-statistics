@@ -602,16 +602,6 @@ msgstr "Προεπισκόπηση"
 msgid "Export-Spalten & Vorschau"
 msgstr "Στήλες εξαγωγής και προεπισκόπηση"
 
-
-msgid "Conversions"
-msgstr "Μετατροπές"
-
-msgid "Google Ads Conversions"
-msgstr "Μετατροπές Google Ads"
-
-msgid "Conversion-Einstellungen gespeichert."
-msgstr "Οι ρυθμίσεις μετατροπών αποθηκεύτηκαν."
-
 msgid "Consent-Tool"
 msgstr "Εργαλείο συγκατάθεσης"
 
@@ -630,35 +620,11 @@ msgstr "Κατηγορία Usercentrics"
 msgid "Complianz Kategorie"
 msgstr "Κατηγορία Complianz"
 
-msgid "Conversion-Name"
-msgstr "Όνομα μετατροπής"
-
-msgid "Conversion-Wert"
-msgstr "Τιμή μετατροπής"
-
 msgid "Währung"
 msgstr "Νόμισμα"
 
-msgid "Conversions exportieren"
-msgstr "Εξαγωγή μετατροπών"
-
-msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
-msgstr "Επισημάνετε τις καταχωρίσεις ως μετατροπές για να συμπεριληφθούν στην εξαγωγή Google Ads."
-
-msgid "Conversion"
-msgstr "Μετατροπή"
-
 msgid "Datum"
 msgstr "Ημερομηνία"
-
-msgid "Conversion-Zeit"
-msgstr "Ώρα μετατροπής"
-
-msgid "Bitte Conversion-Name angeben."
-msgstr "Εισαγάγετε όνομα μετατροπής."
-
-msgid "Keine markierten Conversions gefunden."
-msgstr "Δεν βρέθηκαν επισημασμένες μετατροπές."
 
 msgid "Automatisch erkennen"
 msgstr "Αυτόματη ανίχνευση"
@@ -683,9 +649,6 @@ msgstr "Πεδίο ονόματος"
 
 msgid "Keine Formularfelder gefunden."
 msgstr "Δεν βρέθηκαν πεδία φόρμας."
-
-msgid "Conversion-Wert Feld"
-msgstr "Πεδίο τιμής μετατροπής"
 
 msgid "Manuell"
 msgstr "Χειροκίνητα"

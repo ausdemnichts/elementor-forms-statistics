@@ -602,16 +602,6 @@ msgstr "Förhandsvisning"
 msgid "Export-Spalten & Vorschau"
 msgstr "Exportkolumner och förhandsvisning"
 
-
-msgid "Conversions"
-msgstr "Konverteringar"
-
-msgid "Google Ads Conversions"
-msgstr "Google Ads-konverteringar"
-
-msgid "Conversion-Einstellungen gespeichert."
-msgstr "Konverteringsinställningar sparade."
-
 msgid "Consent-Tool"
 msgstr "Samtyckesverktyg"
 
@@ -630,35 +620,11 @@ msgstr "Usercentrics-kategori"
 msgid "Complianz Kategorie"
 msgstr "Complianz-kategori"
 
-msgid "Conversion-Name"
-msgstr "Konverteringsnamn"
-
-msgid "Conversion-Wert"
-msgstr "Konverteringsvärde"
-
 msgid "Währung"
 msgstr "Valuta"
 
-msgid "Conversions exportieren"
-msgstr "Exportera konverteringar"
-
-msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
-msgstr "Markera poster som konverteringar för att inkludera dem i Google Ads-exporten."
-
-msgid "Conversion"
-msgstr "Konvertering"
-
 msgid "Datum"
 msgstr "Datum"
-
-msgid "Conversion-Zeit"
-msgstr "Konverteringstid"
-
-msgid "Bitte Conversion-Name angeben."
-msgstr "Ange konverteringsnamn."
-
-msgid "Keine markierten Conversions gefunden."
-msgstr "Inga markerade konverteringar hittades."
 
 msgid "Automatisch erkennen"
 msgstr "Identifiera automatiskt"
@@ -683,9 +649,6 @@ msgstr "Namnfält"
 
 msgid "Keine Formularfelder gefunden."
 msgstr "Inga formulärfält hittades."
-
-msgid "Conversion-Wert Feld"
-msgstr "Konverteringsvärdesfält"
 
 msgid "Manuell"
 msgstr "Manuell"

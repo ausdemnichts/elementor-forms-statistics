@@ -602,16 +602,6 @@ msgstr "Preview"
 msgid "Export-Spalten & Vorschau"
 msgstr "Export columns & preview"
 
-
-msgid "Conversions"
-msgstr "Conversions"
-
-msgid "Google Ads Conversions"
-msgstr "Google Ads Conversions"
-
-msgid "Conversion-Einstellungen gespeichert."
-msgstr "Conversion settings saved."
-
 msgid "Consent-Tool"
 msgstr "Consent tool"
 
@@ -630,35 +620,11 @@ msgstr "Usercentrics category"
 msgid "Complianz Kategorie"
 msgstr "Complianz category"
 
-msgid "Conversion-Name"
-msgstr "Conversion name"
-
-msgid "Conversion-Wert"
-msgstr "Conversion value"
-
 msgid "Währung"
 msgstr "Currency"
 
-msgid "Conversions exportieren"
-msgstr "Export conversions"
-
-msgid "Markiere Einträge als Conversion, um sie in den Google Ads Export aufzunehmen."
-msgstr "Mark entries as conversions to include them in the Google Ads export."
-
-msgid "Conversion"
-msgstr "Conversion"
-
 msgid "Datum"
 msgstr "Date"
-
-msgid "Conversion-Zeit"
-msgstr "Conversion time"
-
-msgid "Bitte Conversion-Name angeben."
-msgstr "Please provide a conversion name."
-
-msgid "Keine markierten Conversions gefunden."
-msgstr "No marked conversions found."
 
 msgid "Automatisch erkennen"
 msgstr "Auto-detect"
@@ -683,9 +649,6 @@ msgstr "Name field"
 
 msgid "Keine Formularfelder gefunden."
 msgstr "No form fields found."
-
-msgid "Conversion-Wert Feld"
-msgstr "Conversion value field"
 
 msgid "Manuell"
 msgstr "Manual"
