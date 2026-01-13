@@ -3,7 +3,7 @@ Contributors: Nikolaos Karapanagiotidis
 Tags: elementor, forms, statistics, charts, submissions
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 Requires PHP: 7.2
 Tested up to PHP: 8.4.10
 License: GPLv2 or later
@@ -32,6 +32,11 @@ Elementor Forms Statistics is a plugin that allows editors to view all submissio
 3. Enjoy
 
 == Changelog ==
+
+= 1.1.2 – 13 January 2026 =
+* Current (in-progress) month is shown as a dashed line in charts.
+* Export is now CSV-only (Excel option removed).
+* Elementor Pro dependency added.
 
 = 1.1.1 – 08 January 2026 =
 * Role settings per menu item (Statistics, Settings, Email delivery, Archive, Export, Submissions).

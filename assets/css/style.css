@@ -341,7 +341,7 @@ body.wp-admin .mdp-export-tab-panel.is-active {
     pointer-events: auto;
 }
 
-.mdp-export-col {
+.mdp-export-col, .mdp-email-tab-panel is-active {
     background: #fff;
     border: 1px solid #dcdcde;
     border-radius: 8px;

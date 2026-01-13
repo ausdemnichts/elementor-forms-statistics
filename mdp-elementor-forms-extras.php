@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Elementor Forms Statistics
-Requires Plugins: elementor/elementor.php
+Requires Plugins: elementor/elementor.php, elementor-pro/elementor-pro.php
 Plugin URI: https://www.medienproduktion.biz/elementor-forms-extras/
 Description: This plugin allows editors to view submissions received through Elementor forms. Additionally, a separate menu provides statistical analyses of the submissions, displayed as charts and tables.
-Version: 1.1.1
+Version: 1.1.2
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.2
@@ -13,6 +13,11 @@ Author URI: https://www.medienproduktion.biz
 Text Domain: elementor-forms-statistics
 
 === Changelog ===
+
+= Version 1.1.2 – 13. Januar 2026 =
+* Aktueller (laufender) Monat im Diagramm gestrichelt dargestellt.
+* Export ist jetzt nur noch CSV (Excel-Auswahl entfernt).
+* Abhängigkeit von Elementor Pro ergänzt.
 
 = Version 1.1.1 – 08. Januar 2026 =
 * Benutzerrollen für alle Menüeinträge (Statistik, Einstellungen, E-Mail Versand, Archiv, Export, Anfragen) einstellbar.
@@ -52,6 +57,35 @@ Text Domain: elementor-forms-statistics
 = Version 1.0.1 - 1. September 2024 =
 * Hinzugefügt: Grafik filter nach Formular
 */
+
+function mdp_efs_get_missing_dependencies() {
+    if (!function_exists('is_plugin_active')) {
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    }
+    $missing = array();
+    if (!is_plugin_active('elementor/elementor.php')) {
+        $missing[] = 'Elementor';
+    }
+    if (!is_plugin_active('elementor-pro/elementor-pro.php')) {
+        $missing[] = 'Elementor Pro';
+    }
+    return $missing;
+}
+
+function mdp_efs_missing_dependencies_notice() {
+    $missing = mdp_efs_get_missing_dependencies();
+    if (empty($missing)) {
+        return;
+    }
+    echo '<div class="notice notice-error"><p>' .
+        esc_html(sprintf(
+            __('Elementor Forms Statistics benötigt: %s. Bitte Plugin installieren/aktivieren.', 'elementor-forms-statistics'),
+            implode(', ', $missing)
+        )) .
+        '</p></div>';
+}
+
+add_action('admin_notices', 'mdp_efs_missing_dependencies_notice');
 
 if (!defined('MDP_ARCHIVE_TABLE_SCHEMA_VERSION')) {
     define('MDP_ARCHIVE_TABLE_SCHEMA_VERSION', 3);
@@ -719,9 +753,8 @@ function mdp_get_last_export_format($user_id) {
     if ($user_id <= 0) {
         return 'csv';
     }
-    $value = get_user_meta($user_id, 'mdp_efs_last_export_format', true);
-    $value = is_string($value) ? sanitize_text_field($value) : '';
-    return in_array($value, array('csv', 'excel'), true) ? $value : 'csv';
+    // CSV-only export: ignore persisted format values.
+    return 'csv';
 }
 
 function mdp_set_last_export_format($user_id, $format) {
@@ -729,11 +762,8 @@ function mdp_set_last_export_format($user_id, $format) {
     if ($user_id <= 0) {
         return;
     }
-    $format = is_string($format) ? sanitize_text_field($format) : '';
-    if (!in_array($format, array('csv', 'excel'), true)) {
-        $format = 'csv';
-    }
-    update_user_meta($user_id, 'mdp_efs_last_export_format', $format);
+    // Keep meta consistent even if older UI posted "excel".
+    update_user_meta($user_id, 'mdp_efs_last_export_format', 'csv');
 }
 
 function mdp_format_submission_created_at($created_at_gmt) {
@@ -1085,6 +1115,28 @@ function mdp_handle_archive_notice_dismiss() {
 add_action('admin_notices', 'mdp_archive_setup_notice');
 add_action('admin_init', 'mdp_handle_archive_notice_dismiss');
 add_action('admin_menu', 'custom_menu_item');
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'mdp_efs_plugin_action_links');
+add_filter('plugin_row_meta', 'mdp_efs_plugin_row_meta', 10, 2);
+
+function mdp_efs_plugin_action_links($links) {
+    if (mdp_user_can_access_menu('statistiken-einstellungen')) {
+        $settings_url = admin_url('admin.php?page=statistiken-einstellungen');
+        $links[] = '<a href="' . esc_url($settings_url) . '">' . esc_html__('Einstellungen', 'elementor-forms-statistics') . '</a>';
+    }
+    return $links;
+}
+
+function mdp_efs_plugin_row_meta($links, $file) {
+    if ($file !== plugin_basename(__FILE__)) {
+        return $links;
+    }
+    $links[] = '<span class="mdp-efs-deps">' .
+        esc_html__('Benötigt:', 'elementor-forms-statistics') .
+        ' ' .
+        esc_html__('Elementor, Elementor Pro', 'elementor-forms-statistics') .
+        '</span>';
+    return $links;
+}
 add_action('admin_post_mdp_export_stats_html', 'mdp_export_stats_html');
 add_action('admin_post_mdp_export_csv', 'mdp_export_csv');
 add_action('admin_post_mdp_save_export_fields', 'mdp_save_export_fields');
@@ -1166,10 +1218,8 @@ function mdp_export_csv() {
         wp_die(__('Ungültige Anfrage.', 'elementor-forms-statistics'));
     }
     $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
-    $format = isset($_POST['export_format']) ? sanitize_text_field(wp_unslash($_POST['export_format'])) : 'csv';
-    if (!in_array($format, array('csv', 'excel'), true)) {
-        $format = 'csv';
-    }
+    // Export format locked to CSV (no Excel variant).
+    $format = 'csv';
     mdp_set_last_export_format(get_current_user_id(), $format);
     if ($form_id === '') {
         wp_die(__('Kein Formular ausgewählt.', 'elementor-forms-statistics'));
@@ -1190,9 +1240,9 @@ function mdp_export_csv() {
         $headers[] = isset($field['label']) && $field['label'] !== '' ? $field['label'] : $field['key'];
     }
 
-    $extension = $format === 'excel' ? 'xls' : 'csv';
+    $extension = 'csv';
     $filename = 'elementor-form-' . sanitize_file_name($form_id) . '-' . gmdate('Y-m-d') . '.' . $extension;
-    header('Content-Type: ' . ($format === 'excel' ? 'application/vnd.ms-excel' : 'text/csv') . '; charset=utf-8');
+    header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="' . $filename . '"');
     header('Pragma: no-cache');
     header('Expires: 0');
@@ -1200,9 +1250,6 @@ function mdp_export_csv() {
     $out = fopen('php://output', 'w');
     if ($out === false) {
         wp_die(__('CSV-Ausgabe fehlgeschlagen.', 'elementor-forms-statistics'));
-    }
-    if ($format === 'excel') {
-        fwrite($out, "\xEF\xBB\xBF");
     }
     fputcsv($out, $headers, ';');
 
@@ -2028,7 +2075,10 @@ function custom_menu_callback($return_output = false, $render_options = array())
                 if (parseInt(dataset.label, 10) === currentYear) {
                     dataset.segment = dataset.segment || {};
                     dataset.segment.borderDash = function(ctx) {
-                        return ctx.p1DataIndex === currentMonthIndex ? [6, 4] : undefined;
+                        if (ctx.p0DataIndex === currentMonthIndex || ctx.p1DataIndex === currentMonthIndex) {
+                            return [6, 4];
+                        }
+                        return undefined;
                     };
                 }
             });
@@ -2297,14 +2347,16 @@ function mdp_generate_chart_image_base64($chart_datasets, $current_year, $curren
         imagefilledpolygon($image, $polygon, count($polygon) / 2, $fill_color);
 
         $prev = null;
-        $dash_threshold = $chart_left + $month_spacing * $current_month;
+        $dash_start = $chart_left + $month_spacing * max($current_month - 2, 0);
+        $dash_end = $chart_left + $month_spacing * min($current_month, $months - 1);
         foreach ($spline_points as $pt) {
             if ($prev) {
                 $x1 = (int) round($prev['x']);
                 $y1 = (int) round($prev['y']);
                 $x2 = (int) round($pt['x']);
                 $y2 = (int) round($pt['y']);
-                $use_dash = isset($dataset['label']) && (string) $dataset['label'] === (string) $current_year && $prev['x'] >= $dash_threshold;
+                $use_dash = isset($dataset['label']) && (string) $dataset['label'] === (string) $current_year
+                    && (($x1 >= $dash_start && $x1 <= $dash_end) || ($x2 >= $dash_start && $x2 <= $dash_end));
                 if ($use_dash) {
                     imagedashedline($image, $x1, $y1, $x2, $y2, $line_color);
                 } else {
@@ -4361,7 +4413,6 @@ function mdp_export_page_callback() {
     if ($selected_form_id !== '' && !isset($forms_indexed[$selected_form_id]) && !empty($form_ids)) {
         $selected_form_id = $form_ids[0];
     }
-    $selected_format = mdp_get_last_export_format(get_current_user_id());
     $saved_notice = !empty($_GET['mdp_export_saved']);
     $script_path = plugin_dir_path(__FILE__) . 'assets/js/export.js';
     $script_version = file_exists($script_path) ? (string) filemtime($script_path) : '1.0.0';
@@ -4438,12 +4489,10 @@ function mdp_export_page_callback() {
                         <?php wp_nonce_field('mdp_export_csv', 'mdp_export_csv_nonce'); ?>
                         <input type="hidden" name="action" value="mdp_export_csv">
                         <input type="hidden" name="form_id" id="mdp_export_form_id_csv" value="<?php echo esc_attr($selected_form_id); ?>">
-                        <label for="mdp_export_format"><?php _e('Format', 'elementor-forms-statistics'); ?></label>
-                        <select name="export_format" id="mdp_export_format">
-                            <option value="csv" <?php selected($selected_format, 'csv'); ?>><?php _e('CSV', 'elementor-forms-statistics'); ?></option>
-                            <option value="excel" <?php selected($selected_format, 'excel'); ?>><?php _e('Excel', 'elementor-forms-statistics'); ?></option>
-                        </select>
-                        <?php submit_button(__('Exportieren', 'elementor-forms-statistics'), 'primary'); ?>
+                        <?php
+                        // Single export action (CSV only).
+                        submit_button(__('Exportieren', 'elementor-forms-statistics'), 'primary');
+                        ?>
                     </form>
                 </div>
             </div>

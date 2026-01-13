@@ -424,15 +424,6 @@
         });
     });
 
-    $(document).on('change', '#mdp_export_format', function() {
-        var format = $(this).val();
-        $.post(config.ajaxUrl, {
-            action: 'mdp_save_export_last_format',
-            nonce: config.nonce,
-            format: format
-        });
-    });
-
     $(document).on('click', '#mdp_export_add_field', function() {
         var rawName = $('#mdp_export_new_field').val();
         var name = rawName ? rawName.trim() : '';
