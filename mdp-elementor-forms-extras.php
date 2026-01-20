@@ -4,7 +4,7 @@ Plugin Name: Elementor Forms Statistics
 Requires Plugins: elementor/elementor.php, elementor-pro/elementor-pro.php
 Plugin URI: https://www.medienproduktion.biz/elementor-forms-extras/
 Description: This plugin allows editors to view submissions received through Elementor forms. Additionally, a separate menu provides statistical analyses of the submissions, displayed as charts and tables.
-Version: 1.1.2
+Version: 1.1.3
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.2
@@ -13,6 +13,9 @@ Author URI: https://www.medienproduktion.biz
 Text Domain: elementor-forms-statistics
 
 === Changelog ===
+
+= Version 1.1.3 – 20. Januar 2026 =
+* Korrektur der Grafikdarstellung.
 
 = Version 1.1.2 – 13. Januar 2026 =
 * Aktueller (laufender) Monat im Diagramm gestrichelt dargestellt.
@@ -1881,7 +1884,11 @@ function custom_menu_callback($return_output = false, $render_options = array())
         $data_points = array();
         foreach ($month_labels as $month_index => $label) {
             $value = isset($year_totals[$year][$month_index]) ? (int) $year_totals[$year][$month_index] : 0;
-            $data_points[] = $value;
+            if ((int) $year === (int) $current_year && $month_index > $current_month) {
+                $data_points[] = null;
+            } else {
+                $data_points[] = $value;
+            }
         }
         $chart_datasets[] = array(
             'label' => (string) $year,
@@ -2070,18 +2077,45 @@ function custom_menu_callback($return_output = false, $render_options = array())
             var chartData = <?php echo $datasets_json; ?>;
             var currentYear = <?php echo (int) $current_year; ?>;
             var currentMonthIndex = <?php echo (int) $current_month - 1; ?>;
+            var currentYearDataset = null;
+            var currentMonthValue = null;
 
             chartData.forEach(function(dataset) {
                 if (parseInt(dataset.label, 10) === currentYear) {
+                    currentYearDataset = dataset;
+                    if (Array.isArray(dataset.data)) {
+                        currentMonthValue = dataset.data[currentMonthIndex];
+                    }
                     dataset.segment = dataset.segment || {};
                     dataset.segment.borderDash = function(ctx) {
-                        if (ctx.p0DataIndex === currentMonthIndex || ctx.p1DataIndex === currentMonthIndex) {
+                        var segmentEndIndex = typeof ctx.p1DataIndex === 'number'
+                            ? ctx.p1DataIndex
+                            : (ctx.p1 && typeof ctx.p1.index === 'number' ? ctx.p1.index : null);
+                        if (currentMonthIndex > 0 && segmentEndIndex === currentMonthIndex) {
                             return [6, 4];
                         }
                         return undefined;
                     };
                 }
             });
+            if (currentYearDataset && currentMonthValue !== null && typeof currentMonthValue !== 'undefined') {
+                var markerData = new Array(12).fill(null);
+                markerData[currentMonthIndex] = currentMonthValue;
+                chartData.push({
+                    label: '',
+                    data: markerData,
+                    borderColor: currentYearDataset.borderColor || '#4b5563',
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: currentYearDataset.borderColor || '#4b5563',
+                    pointRadius: 5,
+                    pointHoverRadius: 6,
+                    pointBorderWidth: 2,
+                    showLine: false,
+                    fill: false,
+                    mdpHiddenLegend: true,
+                    mdpHiddenTooltip: true
+                });
+            }
 
             var labels = [];
             for (var month = 1; month <= 12; month++) {
@@ -2097,6 +2131,10 @@ function custom_menu_callback($return_output = false, $render_options = array())
                 responsive: true,
                 maintainAspectRatio: false,
                 tooltips: {
+                    filter: function(tooltipItem, data) {
+                        var dataset = data && data.datasets ? data.datasets[tooltipItem.datasetIndex] : null;
+                        return !dataset || !dataset.mdpHiddenTooltip;
+                    },
                     callbacks: {
                         title: function() {
                             return '<?php echo esc_js(__('Anzahl Anfragen', 'elementor-forms-statistics')); ?>';
@@ -2110,6 +2148,25 @@ function custom_menu_callback($return_output = false, $render_options = array())
                     y: {
                         ticks: {
                             stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            filter: function(legendItem, data) {
+                                var dataset = data && data.datasets ? data.datasets[legendItem.datasetIndex] : null;
+                                return !dataset || !dataset.mdpHiddenLegend;
+                            }
+                        }
+                    },
+                    tooltip: {
+                        filter: function(tooltipItem) {
+                            var datasets = tooltipItem && tooltipItem.chart && tooltipItem.chart.data
+                                ? tooltipItem.chart.data.datasets
+                                : null;
+                            var dataset = datasets ? datasets[tooltipItem.datasetIndex] : null;
+                            return !dataset || !dataset.mdpHiddenTooltip;
                         }
                     }
                 }
@@ -2245,6 +2302,9 @@ function mdp_generate_chart_image_base64($chart_datasets, $current_year, $curren
             continue;
         }
         foreach ($dataset['data'] as $value) {
+            if ($value === null) {
+                continue;
+            }
             if ($value > $max_value) {
                 $max_value = $value;
             }
@@ -2265,6 +2325,7 @@ function mdp_generate_chart_image_base64($chart_datasets, $current_year, $curren
     $axis_color = imagecolorallocate($image, 170, 178, 192);
     $text_color = imagecolorallocate($image, 29, 35, 39);
     $legend_text_color = imagecolorallocate($image, 50, 57, 65);
+    $point_fill = imagecolorallocate($image, 255, 255, 255);
     imagefilledrectangle($image, 0, 0, $width - 1, $height - 1, $background);
     imagefilledrectangle($image, $padding, $padding, $width - $padding, $height - $padding, $card_fill);
     imagerectangle($image, $padding, $padding, $width - $padding, $height - $padding, $card_border);
@@ -2316,7 +2377,11 @@ function mdp_generate_chart_image_base64($chart_datasets, $current_year, $curren
         }
 
         $points = array();
+        $current_point = null;
         foreach ($dataset['data'] as $index => $value) {
+            if ($value === null) {
+                continue;
+            }
             $x = $chart_left + $month_spacing * $index;
             $value = max(0, (float) $value);
             $ratio = $value / $max_value;
@@ -2326,6 +2391,9 @@ function mdp_generate_chart_image_base64($chart_datasets, $current_year, $curren
                 'y' => $y,
                 'month_index' => $index,
             );
+            if ((string) $dataset['label'] === (string) $current_year && ($index + 1) === (int) $current_month) {
+                $current_point = array('x' => $x, 'y' => $y);
+            }
         }
 
         if (count($points) < 2) {
@@ -2347,15 +2415,17 @@ function mdp_generate_chart_image_base64($chart_datasets, $current_year, $curren
         imagefilledpolygon($image, $polygon, count($polygon) / 2, $fill_color);
 
         $prev = null;
+        $should_dash_current = $current_month > 1 && $current_month <= $months;
         $dash_start = $chart_left + $month_spacing * max($current_month - 2, 0);
-        $dash_end = $chart_left + $month_spacing * min($current_month, $months - 1);
+        $dash_end = $chart_left + $month_spacing * max($current_month - 1, 0);
         foreach ($spline_points as $pt) {
             if ($prev) {
                 $x1 = (int) round($prev['x']);
                 $y1 = (int) round($prev['y']);
                 $x2 = (int) round($pt['x']);
                 $y2 = (int) round($pt['y']);
-                $use_dash = isset($dataset['label']) && (string) $dataset['label'] === (string) $current_year
+                $use_dash = $should_dash_current
+                    && isset($dataset['label']) && (string) $dataset['label'] === (string) $current_year
                     && (($x1 >= $dash_start && $x1 <= $dash_end) || ($x2 >= $dash_start && $x2 <= $dash_end));
                 if ($use_dash) {
                     imagedashedline($image, $x1, $y1, $x2, $y2, $line_color);
@@ -2364,6 +2434,25 @@ function mdp_generate_chart_image_base64($chart_datasets, $current_year, $curren
                 }
             }
             $prev = $pt;
+        }
+        if ($current_point) {
+            $point_size = 10;
+            imagefilledellipse(
+                $image,
+                (int) round($current_point['x']),
+                (int) round($current_point['y']),
+                $point_size,
+                $point_size,
+                $point_fill
+            );
+            imageellipse(
+                $image,
+                (int) round($current_point['x']),
+                (int) round($current_point['y']),
+                $point_size,
+                $point_size,
+                $line_color
+            );
         }
     }
 
